@@ -33,14 +33,16 @@ const loginModal = document.getElementById("login-modal");
 if (loginBtn && loginModal) {
   loginBtn.addEventListener("click", () => {
     loginModal.style.display = "flex";
+    document.body.style.overflow = "hidden";
   });
 
   loginModal.addEventListener("click", (e) => {
     if (
-      e.target.classList.contains("modal") ||
+      e.target === loginModal ||
       e.target.classList.contains("close-modal")
     ) {
       loginModal.style.display = "none";
+      document.body.style.overflow = "";
     }
   });
 }
@@ -55,14 +57,16 @@ const cartModal = document.getElementById("cart-modal");
 if (cartBtn && cartModal) {
   cartBtn.addEventListener("click", () => {
     cartModal.style.display = "flex";
+    document.body.style.overflow = "hidden";
   });
 
   cartModal.addEventListener("click", (e) => {
     if (
-      e.target.classList.contains("modal") ||
+      e.target === cartModal ||
       e.target.classList.contains("close-modal")
     ) {
       cartModal.style.display = "none";
+      document.body.style.overflow = "";
     }
   });
 }
