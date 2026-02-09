@@ -344,6 +344,7 @@ body {
   background: transparent;
   padding: 0;
   flex-direction: column;
+  gap: 0;
 }
 
   
