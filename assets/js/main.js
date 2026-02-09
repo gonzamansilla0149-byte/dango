@@ -48,7 +48,8 @@ if (loginBtn && loginModal) {
    CARRITO (ESTADO GLOBAL)
 ================================ */
 
-let cart = [];
+// ⬇️ AHORA ES PERSISTENTE
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 const cartBtn = document.getElementById("btn-cart");
 const cartModal = document.getElementById("cart-modal");
@@ -97,6 +98,9 @@ document.querySelectorAll(".product-card button").forEach((btn) => {
 ================================ */
 
 function updateCartCount() {
+  // ⬇️ GUARDAMOS CADA CAMBIO
+  localStorage.setItem("cart", JSON.stringify(cart));
+
   if (cartCount) {
     cartCount.textContent = `Carrito (${cart.length})`;
   }
@@ -179,3 +183,10 @@ document.querySelectorAll(".auto-slider").forEach((slider) => {
     });
   }, 3000);
 });
+
+/* ===============================
+   INIT
+================================ */
+
+// ⬇️ RESTAURA CONTADOR AL CARGAR
+updateCartCount();
