@@ -54,6 +54,12 @@ body {
   background: #0077ff;
 }
 
+/* LINKS DESKTOP */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
 .main-nav a {
   color: white;
   text-decoration: none;
@@ -338,6 +344,11 @@ body {
     flex-direction: column;
     padding: 0;
   }
+  
+  /* OCULTAR LINKS DESKTOP EN MOBILE */
+.nav-links {
+  display: none;
+}
 
   .btn-categories {
     background: white;
