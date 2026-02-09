@@ -177,3 +177,85 @@ body {
   display: flex;
   gap: 40px;
 }
+
+/* ================= HOME ================= */
+
+.home section {
+  padding: 40px 24px;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(120deg, #111, #333);
+  color: white;
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+}
+
+.hero-content {
+  max-width: 600px;
+}
+
+.hero-content h1 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.hero-content p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.hero-btn {
+  display: inline-block;
+  background: #0077ff;
+  color: white;
+  padding: 12px 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* CATEGORÍAS HOME */
+.home-categories h2 {
+  margin-bottom: 20px;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.category-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  color: #111;
+  background: white;
+}
+
+.category-card:hover {
+  border-color: #0077ff;
+}
+
+/* DESTACADOS HOME */
+.home-featured h2 {
+  margin-bottom: 20px;
+}
+
+/* BLOQUES POR CATEGORÍA */
+.home-category-block .block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.block-header a {
+  text-decoration: none;
+  font-size: 14px;
+  color: #0077ff;
+}
+
