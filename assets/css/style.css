@@ -219,3 +219,30 @@ body {
   right: 10px;
   cursor: pointer;
 }
+
+.btn-categories {
+  background: white;
+  color: #0077ff;
+  border: none;
+  font-weight: bold;
+  padding: 10px 14px;
+  width: 100%;
+  text-align: left;
+}
+
+.categories-dropdown {
+  display: none;
+  flex-direction: column;
+  background: #0077ff;
+}
+
+.categories-dropdown a {
+  padding: 12px 16px;
+  color: white;
+  text-decoration: none;
+  border-top: 1px solid rgba(255,255,255,.2);
+}
+
+.categories-dropdown.show {
+  display: flex;
+}
