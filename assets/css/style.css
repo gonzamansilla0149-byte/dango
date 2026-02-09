@@ -339,11 +339,13 @@ body {
     font-size: 13px;
   }
 
-  /* 4) NAV → BOTÓN CATEGORÍAS */
-  .main-nav {
-    flex-direction: column;
-    padding: 0;
-  }
+/* 4) NAV MOBILE: ocultar barra azul */
+.main-nav {
+  background: transparent;
+  padding: 0;
+  flex-direction: column;
+}
+
   
   /* OCULTAR LINKS DESKTOP EN MOBILE */
 .nav-links {
