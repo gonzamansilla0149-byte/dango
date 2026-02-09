@@ -4,20 +4,13 @@
   padding: 0;
 }
 
-/* EVITAR SCROLL HORIZONTAL */
-html, body {
-  width: 100%;
-  overflow-x: hidden;
-}
-
 body {
   font-family: Arial, sans-serif;
   background: #fff;
   color: #111;
 }
 
-/* ================= HEADER ================= */
-
+/* HEADER */
 .site-header {
   background: #111;
   color: white;
@@ -26,168 +19,253 @@ body {
 .header-top {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
+  gap: 20px;
+  padding: 16px 24px;
 }
 
 .logo {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
   color: white;
   text-decoration: none;
-  white-space: nowrap;
 }
 
-/* BUSCADOR */
+.logo:hover {
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+
 .search-bar input {
   padding: 8px;
-  width: 100%;
-  max-width: 160px;
-  font-size: 14px;
-}
-
-/* ACCIONES */
-.header-actions {
-  display: flex;
-  gap: 6px;
+  width: 300px;
 }
 
 .header-actions button {
-  padding: 8px 10px;
-  font-size: 13px;
+  margin-left: 8px;
+  padding: 8px 12px;
 }
 
-/* ================= NAV ================= */
-
+/* NAV */
 .main-nav {
+  display: flex;
+  gap: 20px;
+  padding: 10px 24px;
   background: #0077ff;
-  padding: 10px 16px;
 }
 
-/* DESPUÉS será botón categorías */
 .main-nav a {
-  display: inline-block;
   color: white;
   text-decoration: none;
   font-weight: bold;
+}
+
+/* BREADCRUMB */
+.breadcrumb {
+  padding: 12px 24px;
+  background: #f2f2f2;
   font-size: 14px;
 }
 
-/* ================= HERO ================= */
-
-.hero {
-  background: linear-gradient(120deg, #111, #333);
-  color: white;
-  min-height: 260px;
+/* LAYOUT */
+.shop-layout {
   display: flex;
-  align-items: center;
-  padding: 24px 16px;
+  gap: 30px;
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-.hero-content h1 {
-  font-size: 26px;
+/* SIDEBAR */
+.sidebar {
+  width: 260px;
+}
+
+.filter-block {
+  margin-bottom: 24px;
+}
+
+.filter-block h4 {
   margin-bottom: 10px;
 }
 
-.hero-content p {
-  font-size: 15px;
-  margin-bottom: 16px;
+.filter-block label {
+  display: block;
+  margin-bottom: 6px;
 }
 
-.hero-btn {
+/* CONTENT */
+.shop-content {
+  flex: 1;
+}
+
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.results-count {
+  font-size: 14px;
+  color: #666;
+}
+
+/* GRID */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-image {
+  height: 180px;
+  background: #eee;
+  margin-bottom: 10px;
+}
+
+.product-card h3 {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.brand {
+  font-size: 13px;
+  color: #777;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.product-card button {
+  margin-top: auto;
+  padding: 10px;
   background: #0077ff;
   color: white;
-  padding: 10px 16px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+/* PAGINATION */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 30px 0;
+}
+
+.pagination button {
+  padding: 6px 10px;
+}
+
+.pagination .active {
+  background: #0077ff;
+  color: white;
+}
+
+/* FOOTER */
+.site-footer {
+  background: #111;
+  color: white;
+  padding: 40px 24px;
+  margin-top: 40px;
+}
+
+.footer-columns {
+  display: flex;
+  gap: 40px;
 }
 
 /* ================= HOME ================= */
 
 .home section {
-  padding: 24px 16px;
+  padding: 40px 24px;
 }
 
-/* ❌ QUITAMOS TITULO "CATEGORÍAS PRINCIPALES" */
-.home-categories h2 {
-  display: none;
+/* HERO */
+.hero {
+  background: linear-gradient(120deg, #111, #333);
+  color: white;
+  min-height: 360px;
+  display: flex;
+  align-items: center;
 }
 
-/* ================= SLIDERS HORIZONTALES ================= */
+.hero-content {
+  max-width: 600px;
+}
 
-.home-featured h2,
-.home-category-block h2 {
-  margin-bottom: 12px;
+.hero-content h1 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.hero-content p {
   font-size: 18px;
+  margin-bottom: 20px;
 }
 
-/* CONTENEDOR SLIDER */
-.products-grid {
-  display: flex;
-  gap: 14px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding-bottom: 10px;
-}
-
-/* TARJETA */
-.product-card {
-  min-width: 220px;
-  max-width: 220px;
-  border: 1px solid #ddd;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  scroll-snap-align: start;
-  background: white;
-}
-
-.product-image {
-  height: 160px;
-  background: #eee;
-  margin-bottom: 8px;
-}
-
-.product-card h3 {
-  font-size: 14px;
-}
-
-.brand {
-  font-size: 12px;
-  color: #777;
-}
-
-.price {
-  font-size: 16px;
-  font-weight: bold;
-  margin: 8px 0;
-}
-
-.product-card button {
-  margin-top: auto;
-  padding: 8px;
+.hero-btn {
+  display: inline-block;
   background: #0077ff;
   color: white;
-  border: none;
+  padding: 12px 20px;
+  text-decoration: none;
+  font-weight: bold;
 }
 
-/* ================= FOOTER ================= */
-
-.site-footer {
-  background: #111;
-  color: white;
-  padding: 30px 16px;
-  margin-top: 30px;
+/* CATEGORÍAS HOME */
+.home-categories h2 {
+  margin-bottom: 20px;
 }
 
-.footer-columns {
-  display: flex;
-  flex-direction: column;
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 20px;
 }
 
-/* ================= MODAL ================= */
+.category-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  color: #111;
+  background: white;
+}
+
+.category-card:hover {
+  border-color: #0077ff;
+}
+
+/* DESTACADOS HOME */
+.home-featured h2 {
+  margin-bottom: 20px;
+}
+
+/* BLOQUES POR CATEGORÍA */
+.home-category-block .block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.block-header a {
+  text-decoration: none;
+  font-size: 14px;
+  color: #0077ff;
+}
 
 .modal {
   position: fixed;
@@ -201,9 +279,8 @@ body {
 
 .modal-content {
   background: white;
-  padding: 20px;
-  width: 90%;
-  max-width: 300px;
+  padding: 24px;
+  width: 300px;
   position: relative;
 }
 
@@ -220,29 +297,105 @@ body {
   cursor: pointer;
 }
 
-.btn-categories {
-  background: white;
-  color: #0077ff;
-  border: none;
-  font-weight: bold;
-  padding: 10px 14px;
-  width: 100%;
-  text-align: left;
-}
+/* ===============================
+   MOBILE FIXES
+================================ */
+@media (max-width: 768px) {
 
-.categories-dropdown {
-  display: none;
-  flex-direction: column;
-  background: #0077ff;
-}
+  /* 1) NO SCROLL LATERAL */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
 
-.categories-dropdown a {
-  padding: 12px 16px;
-  color: white;
-  text-decoration: none;
-  border-top: 1px solid rgba(255,255,255,.2);
-}
+  /* 2) HEADER COMPACTO */
+  .header-top {
+    gap: 10px;
+    padding: 12px 14px;
+  }
 
-.categories-dropdown.show {
-  display: flex;
+  /* 3) BUSCADOR MÁS CHICO */
+  .search-bar input {
+    width: 140px;
+    padding: 6px;
+    font-size: 14px;
+  }
+
+  .header-actions button {
+    padding: 6px 8px;
+    font-size: 13px;
+  }
+
+  /* 4) NAV → BOTÓN CATEGORÍAS */
+  .main-nav {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .btn-categories {
+    background: white;
+    color: #0077ff;
+    border: none;
+    font-weight: bold;
+    padding: 12px 16px;
+    width: 100%;
+    text-align: left;
+  }
+
+  .categories-dropdown {
+    display: none;
+    flex-direction: column;
+    background: #0077ff;
+  }
+
+  .categories-dropdown a {
+    padding: 12px 16px;
+    color: white;
+    text-decoration: none;
+    border-top: 1px solid rgba(255,255,255,.2);
+  }
+
+  .categories-dropdown.show {
+    display: flex;
+  }
+
+  /* 5) HERO MÁS CHICO */
+  .hero {
+    min-height: 240px;
+    padding: 24px 16px;
+  }
+
+  .hero-content h1 {
+    font-size: 26px;
+  }
+
+  .hero-content p {
+    font-size: 15px;
+  }
+
+  /* 6) OCULTAR TEXTO QUE SOBRA */
+  .home-categories h2 {
+    display: none;
+  }
+
+  /* 7) SLIDERS HORIZONTALES EN HOME */
+  .products-grid {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 10px;
+  }
+
+  .product-card {
+    min-width: 220px;
+    max-width: 220px;
+    scroll-snap-align: start;
+  }
+
+  /* 8) FOOTER EN COLUMNA */
+  .footer-columns {
+    flex-direction: column;
+    gap: 20px;
+  }
 }
