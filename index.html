@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Dango | Inicio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -25,12 +25,18 @@
   </div>
 
 <nav class="main-nav">
+  <button class="btn-categories" id="btn-categories">
+  ☰ Categorías
+</button>
+
+<div class="categories-dropdown" id="categories-dropdown">
   <a href="index.html">Inicio</a>
   <a href="categoria.html?cat=celulares">Celulares</a>
   <a href="categoria.html?cat=computacion">Computación</a>
   <a href="categoria.html?cat=herramientas">Herramientas</a>
   <a href="categoria.html?cat=accesorios">Accesorios</a>
   <a href="categoria.html?cat=ofertas">Ofertas</a>
+  </div>
 </nav>
 
 
@@ -84,7 +90,7 @@
   <section class="home-featured">
     <h2>Productos destacados</h2>
 
-    <div class="products-grid">
+    <div class="products-grid auto-slider">
       <article class="product-card">
         <div class="product-image"></div>
         <h3>Celular Samsung A14</h3>
@@ -115,7 +121,7 @@
       <a href="categoria.html">Ver todas</a>
     </div>
 
-    <div class="products-grid">
+    <div class="products-grid auto-slider">
       <article class="product-card">
         <div class="product-image"></div>
         <h3>Amoladora Angular</h3>
