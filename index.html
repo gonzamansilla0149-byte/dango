@@ -19,18 +19,20 @@
     </div>
 
     <div class="header-actions">
-      <button>Mi cuenta</button>
-      <button class="cart-btn">Carrito (0)</button>
+      <button id="btn-login">Mi cuenta</button>
+      <button id="btn-cart" class="cart-btn">Carrito (0)</button>
     </div>
   </div>
 
 <nav class="main-nav">
+  <a href="index.html">Inicio</a>
   <a href="categoria.html?cat=celulares">Celulares</a>
   <a href="categoria.html?cat=computacion">Computación</a>
   <a href="categoria.html?cat=herramientas">Herramientas</a>
   <a href="categoria.html?cat=accesorios">Accesorios</a>
   <a href="categoria.html?cat=ofertas">Ofertas</a>
 </nav>
+
 
 </header>
 
@@ -150,6 +152,26 @@
     </div>
   </div>
 </footer>
+
+<div class="modal" id="login-modal">
+  <div class="modal-content">
+    <h3>Iniciar sesión</h3>
+    <input type="email" placeholder="Email">
+    <input type="password" placeholder="Contraseña">
+    <button>Ingresar</button>
+    <span class="close-modal">✕</span>
+  </div>
+</div>
+
+<div class="modal" id="cart-modal">
+  <div class="modal-content">
+    <h3>Carrito</h3>
+    <p>Tu carrito está vacío</p>
+    <button>Cerrar</button>
+    <span class="close-modal">✕</span>
+  </div>
+</div>
+
 
 </body>
 </html>
