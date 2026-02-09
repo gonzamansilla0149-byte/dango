@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Dango | Tienda</title>
+  <title>Dango | Inicio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -25,111 +25,103 @@
   </div>
 
   <nav class="main-nav">
-    <a href="#">Suplementos</a>
-    <a href="#">Proteínas</a>
-    <a href="#">Creatina</a>
-    <a href="#">Accesorios</a>
-    <a href="#">Ofertas</a>
+    <a href="categoria.html">Celulares</a>
+    <a href="categoria.html">Computación</a>
+    <a href="categoria.html">Herramientas</a>
+    <a href="categoria.html">Accesorios</a>
+    <a href="categoria.html">Ofertas</a>
   </nav>
 </header>
 
-<!-- ================= BREADCRUMB ================= -->
-<div class="breadcrumb">
-  Inicio / Suplementos / Creatina
-</div>
+<!-- ================= MAIN / HOME ================= -->
+<main class="home">
 
-<!-- ================= MAIN ================= -->
-<main class="shop-layout">
-
-  <!-- ========== SIDEBAR ========== -->
-  <aside class="sidebar">
-
-    <div class="filter-block">
-      <h4>Categorías</h4>
-      <label><input type="checkbox"> Creatina</label>
-      <label><input type="checkbox"> Pre entreno</label>
-      <label><input type="checkbox"> Proteína</label>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Tecnología y Herramientas</h1>
+      <p>Todo en celulares, computación y herramientas</p>
+      <a href="categoria.html" class="hero-btn">Ver productos</a>
     </div>
+  </section>
 
-    <div class="filter-block">
-      <h4>Marcas</h4>
-      <label><input type="checkbox"> Star Nutrition</label>
-      <label><input type="checkbox"> ENA</label>
-      <label><input type="checkbox"> Universal</label>
-      <label><input type="checkbox"> Gold</label>
+  <!-- CATEGORÍAS -->
+  <section class="home-categories">
+    <h2>Categorías principales</h2>
+
+    <div class="categories-grid">
+      <a href="categoria.html" class="category-card">
+        <div class="cat-img"></div>
+        <span>Celulares</span>
+      </a>
+
+      <a href="categoria.html" class="category-card">
+        <div class="cat-img"></div>
+        <span>Computación</span>
+      </a>
+
+      <a href="categoria.html" class="category-card">
+        <div class="cat-img"></div>
+        <span>Herramientas</span>
+      </a>
+
+      <a href="categoria.html" class="category-card">
+        <div class="cat-img"></div>
+        <span>Accesorios</span>
+      </a>
     </div>
+  </section>
 
-    <div class="filter-block">
-      <h4>Precio</h4>
-      <label><input type="checkbox"> Hasta $10.000</label>
-      <label><input type="checkbox"> $10.000 - $20.000</label>
-      <label><input type="checkbox"> + $20.000</label>
-    </div>
+  <!-- DESTACADOS -->
+  <section class="home-featured">
+    <h2>Productos destacados</h2>
 
-  </aside>
-
-  <!-- ========== CONTENT ========== -->
-  <section class="shop-content">
-
-    <!-- HEADER DE CATEGORÍA -->
-    <div class="category-header">
-      <div>
-        <h1>Creatina</h1>
-        <span class="results-count">487 productos</span>
-      </div>
-
-      <div class="sort">
-        <label>Ordenar por</label>
-        <select>
-          <option>Relevancia</option>
-          <option>Menor precio</option>
-          <option>Mayor precio</option>
-          <option>Más vendidos</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- GRID DE PRODUCTOS -->
     <div class="products-grid">
-
-      <!-- PRODUCT CARD -->
       <article class="product-card">
         <div class="product-image"></div>
-        <h3>Creatina Monohidratada 300g</h3>
-        <p class="brand">Star Nutrition</p>
-        <p class="price">$15.000</p>
-        <button>Agregar al carrito</button>
+        <h3>Celular Samsung A14</h3>
+        <p class="price">$199.999</p>
+        <button>Ver producto</button>
       </article>
 
       <article class="product-card">
         <div class="product-image"></div>
-        <h3>Creatina Micronizada 500g</h3>
-        <p class="brand">ENA</p>
-        <p class="price">$18.500</p>
-        <button>Agregar al carrito</button>
+        <h3>Taladro Inalámbrico</h3>
+        <p class="price">$89.500</p>
+        <button>Ver producto</button>
       </article>
 
       <article class="product-card">
         <div class="product-image"></div>
-        <h3>Creatina Premium 1kg</h3>
-        <p class="brand">Universal</p>
-        <p class="price">$29.900</p>
-        <button>Agregar al carrito</button>
+        <h3>Auriculares Bluetooth</h3>
+        <p class="price">$25.000</p>
+        <button>Ver producto</button>
       </article>
+    </div>
+  </section>
 
-      <!-- duplicá estas cards para probar scroll real -->
-
+  <!-- BLOQUE POR CATEGORÍA -->
+  <section class="home-category-block">
+    <div class="block-header">
+      <h2>Herramientas</h2>
+      <a href="categoria.html">Ver todas</a>
     </div>
 
-    <!-- PAGINACIÓN -->
-    <div class="pagination">
-      <button>‹</button>
-      <button class="active">1</button>
-      <button>2</button>
-      <button>3</button>
-      <button>›</button>
-    </div>
+    <div class="products-grid">
+      <article class="product-card">
+        <div class="product-image"></div>
+        <h3>Amoladora Angular</h3>
+        <p class="price">$74.000</p>
+        <button>Ver</button>
+      </article>
 
+      <article class="product-card">
+        <div class="product-image"></div>
+        <h3>Taladro Percutor</h3>
+        <p class="price">$92.000</p>
+        <button>Ver</button>
+      </article>
+    </div>
   </section>
 
 </main>
@@ -139,7 +131,7 @@
   <div class="footer-columns">
     <div>
       <h4>Dango</h4>
-      <p>Suplementos deportivos</p>
+      <p>Tecnología y herramientas</p>
     </div>
     <div>
       <h4>Ayuda</h4>
