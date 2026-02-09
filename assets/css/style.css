@@ -26,7 +26,15 @@ body {
 .logo {
   font-size: 22px;
   font-weight: bold;
+  color: white;
+  text-decoration: none;
 }
+
+.logo:hover {
+  text-decoration: none;
+  opacity: 0.9;
+}
+
 
 .search-bar input {
   padding: 8px;
