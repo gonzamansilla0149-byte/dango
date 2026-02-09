@@ -397,6 +397,11 @@ body {
     display: none;
   }
 
+  /* CATEGORÍAS HOME EN COLUMNA (MOBILE) */
+.categories-grid {
+  grid-template-columns: 1fr;
+}
+
   /* 7) SLIDERS HORIZONTALES EN HOME */
   .products-grid {
     display: flex;
