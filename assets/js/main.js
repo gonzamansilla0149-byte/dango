@@ -37,10 +37,7 @@ if (loginBtn && loginModal) {
   });
 
   loginModal.addEventListener("click", (e) => {
-    if (
-      e.target === loginModal ||
-      e.target.classList.contains("close-modal")
-    ) {
+    if (e.target === loginModal || e.target.classList.contains("close-modal")) {
       loginModal.style.display = "none";
       document.body.style.overflow = "";
     }
@@ -48,25 +45,100 @@ if (loginBtn && loginModal) {
 }
 
 /* ===============================
-   MODAL CARRITO
+   CARRITO (ESTADO GLOBAL)
 ================================ */
+
+let cart = [];
 
 const cartBtn = document.getElementById("btn-cart");
 const cartModal = document.getElementById("cart-modal");
+const cartCount = document.querySelector(".cart-btn");
+
+/* ===============================
+   ABRIR / CERRAR MODAL CARRITO
+================================ */
 
 if (cartBtn && cartModal) {
   cartBtn.addEventListener("click", () => {
+    renderCart();
     cartModal.style.display = "flex";
     document.body.style.overflow = "hidden";
   });
 
   cartModal.addEventListener("click", (e) => {
-    if (
-      e.target === cartModal ||
-      e.target.classList.contains("close-modal")
-    ) {
+    if (e.target === cartModal || e.target.classList.contains("close-modal")) {
       cartModal.style.display = "none";
       document.body.style.overflow = "";
     }
+  });
+}
+
+/* ===============================
+   AGREGAR AL CARRITO
+================================ */
+
+// Busca todos los botones "Agregar al carrito"
+document.querySelectorAll(".product-card button").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const card = btn.closest(".product-card");
+
+    const product = {
+      name: card.querySelector("h3")?.textContent || "Producto",
+      price: card.querySelector(".price")?.textContent || "$0"
+    };
+
+    cart.push(product);
+    updateCartCount();
+  });
+});
+
+/* ===============================
+   ACTUALIZAR CONTADOR
+================================ */
+
+function updateCartCount() {
+  if (cartCount) {
+    cartCount.textContent = `Carrito (${cart.length})`;
+  }
+}
+
+/* ===============================
+   RENDER CARRITO EN MODAL
+================================ */
+
+function renderCart() {
+  const content = cartModal.querySelector(".modal-content");
+
+  if (!content) return;
+
+  let html = `<h3>Carrito</h3>`;
+
+  if (cart.length === 0) {
+    html += `<p>Tu carrito está vacío</p>`;
+  } else {
+    html += `<ul>`;
+    cart.forEach((item, index) => {
+      html += `
+        <li>
+          ${item.name} - ${item.price}
+          <button data-index="${index}">✕</button>
+        </li>
+      `;
+    });
+    html += `</ul>`;
+  }
+
+  html += `<span class="close-modal">✕</span>`;
+
+  content.innerHTML = html;
+
+  // Botones eliminar
+  content.querySelectorAll("button[data-index]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const index = btn.getAttribute("data-index");
+      cart.splice(index, 1);
+      updateCartCount();
+      renderCart();
+    });
   });
 }
