@@ -1,81 +1,158 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Dango – Catálogo</title>
-  <link rel="stylesheet" href="./assets/css/style.css">
+  <meta charset="UTF-8">
+  <title>Dango | Tienda</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
-    <div class="header-inner">
-      <h1 class="logo">Dango</h1>
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <div class="header-top">
+    <div class="logo">DANGO</div>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar productos">
     </div>
-  </header>
 
-  <!-- BREADCRUMB -->
-  <div class="breadcrumb">
-    <span>Inicio</span> › <span>Suplementos</span> › <strong>Creatina</strong>
+    <div class="header-actions">
+      <button>Mi cuenta</button>
+      <button class="cart-btn">Carrito (0)</button>
+    </div>
   </div>
 
-  <!-- CONTENIDO -->
-  <main class="container">
+  <nav class="main-nav">
+    <a href="#">Suplementos</a>
+    <a href="#">Proteínas</a>
+    <a href="#">Creatina</a>
+    <a href="#">Accesorios</a>
+    <a href="#">Ofertas</a>
+  </nav>
+</header>
 
-    <!-- FILTROS -->
-    <aside class="filters">
-      <h3>Filtros</h3>
+<!-- ================= BREADCRUMB ================= -->
+<div class="breadcrumb">
+  Inicio / Suplementos / Creatina
+</div>
 
-      <div class="filter-group">
-        <h4>Tipo</h4>
-        <label><input type="checkbox"> Creatina</label>
-        <label><input type="checkbox"> Pre entreno</label>
+<!-- ================= MAIN ================= -->
+<main class="shop-layout">
+
+  <!-- ========== SIDEBAR ========== -->
+  <aside class="sidebar">
+
+    <div class="filter-block">
+      <h4>Categorías</h4>
+      <label><input type="checkbox"> Creatina</label>
+      <label><input type="checkbox"> Pre entreno</label>
+      <label><input type="checkbox"> Proteína</label>
+    </div>
+
+    <div class="filter-block">
+      <h4>Marcas</h4>
+      <label><input type="checkbox"> Star Nutrition</label>
+      <label><input type="checkbox"> ENA</label>
+      <label><input type="checkbox"> Universal</label>
+      <label><input type="checkbox"> Gold</label>
+    </div>
+
+    <div class="filter-block">
+      <h4>Precio</h4>
+      <label><input type="checkbox"> Hasta $10.000</label>
+      <label><input type="checkbox"> $10.000 - $20.000</label>
+      <label><input type="checkbox"> + $20.000</label>
+    </div>
+
+  </aside>
+
+  <!-- ========== CONTENT ========== -->
+  <section class="shop-content">
+
+    <!-- HEADER DE CATEGORÍA -->
+    <div class="category-header">
+      <div>
+        <h1>Creatina</h1>
+        <span class="results-count">487 productos</span>
       </div>
 
-      <div class="filter-group">
-        <h4>Marca</h4>
-        <label><input type="checkbox"> Marca A</label>
-        <label><input type="checkbox"> Marca B</label>
+      <div class="sort">
+        <label>Ordenar por</label>
+        <select>
+          <option>Relevancia</option>
+          <option>Menor precio</option>
+          <option>Mayor precio</option>
+          <option>Más vendidos</option>
+        </select>
       </div>
-    </aside>
+    </div>
 
-    <!-- PRODUCTOS -->
-    <section class="products">
+    <!-- GRID DE PRODUCTOS -->
+    <div class="products-grid">
 
-      <div class="product-card">
+      <!-- PRODUCT CARD -->
+      <article class="product-card">
         <div class="product-image"></div>
-        <h5>Creatina Monohidratada</h5>
+        <h3>Creatina Monohidratada 300g</h3>
+        <p class="brand">Star Nutrition</p>
         <p class="price">$15.000</p>
-        <button>Agregar</button>
-      </div>
+        <button>Agregar al carrito</button>
+      </article>
 
-      <div class="product-card">
+      <article class="product-card">
         <div class="product-image"></div>
-        <h5>Creatina Micronizada</h5>
-        <p class="price">$18.000</p>
-        <button>Agregar</button>
-      </div>
+        <h3>Creatina Micronizada 500g</h3>
+        <p class="brand">ENA</p>
+        <p class="price">$18.500</p>
+        <button>Agregar al carrito</button>
+      </article>
 
-      <div class="product-card">
+      <article class="product-card">
         <div class="product-image"></div>
-        <h5>Creatina Premium</h5>
-        <p class="price">$21.000</p>
-        <button>Agregar</button>
-      </div>
+        <h3>Creatina Premium 1kg</h3>
+        <p class="brand">Universal</p>
+        <p class="price">$29.900</p>
+        <button>Agregar al carrito</button>
+      </article>
 
-    </section>
+      <!-- duplicá estas cards para probar scroll real -->
 
-  </main>
+    </div>
 
-  <!-- PAGINACIÓN -->
-  <div class="pagination">
-    <button>‹</button>
-    <button class="active">1</button>
-    <button>2</button>
-    <button>3</button>
-    <button>›</button>
+    <!-- PAGINACIÓN -->
+    <div class="pagination">
+      <button>‹</button>
+      <button class="active">1</button>
+      <button>2</button>
+      <button>3</button>
+      <button>›</button>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="footer-columns">
+    <div>
+      <h4>Dango</h4>
+      <p>Suplementos deportivos</p>
+    </div>
+    <div>
+      <h4>Ayuda</h4>
+      <a href="#">Contacto</a><br>
+      <a href="#">Envíos</a>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <a href="#">Términos</a><br>
+      <a href="#">Privacidad</a>
+    </div>
   </div>
+</footer>
 
 </body>
 </html>
-
