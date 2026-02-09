@@ -297,6 +297,13 @@ body {
   cursor: pointer;
 }
 
+/* OCULTAR ELEMENTOS MOBILE EN DESKTOP */
+.btn-categories,
+.categories-dropdown {
+  display: none;
+}
+
+
 /* ===============================
    MOBILE FIXES
 ================================ */
