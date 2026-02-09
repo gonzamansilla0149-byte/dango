@@ -4,13 +4,20 @@
   padding: 0;
 }
 
+/* EVITAR SCROLL HORIZONTAL */
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   font-family: Arial, sans-serif;
   background: #fff;
   color: #111;
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
+
 .site-header {
   background: #111;
   color: white;
@@ -19,253 +26,168 @@ body {
 .header-top {
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 16px 24px;
+  gap: 10px;
+  padding: 12px 16px;
 }
 
 .logo {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
   color: white;
   text-decoration: none;
+  white-space: nowrap;
 }
 
-.logo:hover {
-  text-decoration: none;
-  opacity: 0.9;
-}
-
-
+/* BUSCADOR */
 .search-bar input {
   padding: 8px;
-  width: 300px;
+  width: 100%;
+  max-width: 160px;
+  font-size: 14px;
+}
+
+/* ACCIONES */
+.header-actions {
+  display: flex;
+  gap: 6px;
 }
 
 .header-actions button {
-  margin-left: 8px;
-  padding: 8px 12px;
+  padding: 8px 10px;
+  font-size: 13px;
 }
 
-/* NAV */
+/* ================= NAV ================= */
+
 .main-nav {
-  display: flex;
-  gap: 20px;
-  padding: 10px 24px;
   background: #0077ff;
+  padding: 10px 16px;
 }
 
+/* DESPUÉS será botón categorías */
 .main-nav a {
+  display: inline-block;
   color: white;
   text-decoration: none;
   font-weight: bold;
-}
-
-/* BREADCRUMB */
-.breadcrumb {
-  padding: 12px 24px;
-  background: #f2f2f2;
   font-size: 14px;
 }
 
-/* LAYOUT */
-.shop-layout {
+/* ================= HERO ================= */
+
+.hero {
+  background: linear-gradient(120deg, #111, #333);
+  color: white;
+  min-height: 260px;
   display: flex;
-  gap: 30px;
-  padding: 24px;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-/* SIDEBAR */
-.sidebar {
-  width: 260px;
-}
-
-.filter-block {
-  margin-bottom: 24px;
-}
-
-.filter-block h4 {
-  margin-bottom: 10px;
-}
-
-.filter-block label {
-  display: block;
-  margin-bottom: 6px;
-}
-
-/* CONTENT */
-.shop-content {
-  flex: 1;
-}
-
-.category-header {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  padding: 24px 16px;
 }
 
-.results-count {
-  font-size: 14px;
-  color: #666;
-}
-
-/* GRID */
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 24px;
-}
-
-.product-card {
-  border: 1px solid #ddd;
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-}
-
-.product-image {
-  height: 180px;
-  background: #eee;
+.hero-content h1 {
+  font-size: 26px;
   margin-bottom: 10px;
 }
 
-.product-card h3 {
+.hero-content p {
   font-size: 15px;
-  margin-bottom: 4px;
+  margin-bottom: 16px;
 }
 
-.brand {
-  font-size: 13px;
-  color: #777;
-}
-
-.price {
-  font-size: 18px;
+.hero-btn {
+  background: #0077ff;
+  color: white;
+  padding: 10px 16px;
+  text-decoration: none;
   font-weight: bold;
-  margin: 10px 0;
-}
-
-.product-card button {
-  margin-top: auto;
-  padding: 10px;
-  background: #0077ff;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-/* PAGINATION */
-.pagination {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin: 30px 0;
-}
-
-.pagination button {
-  padding: 6px 10px;
-}
-
-.pagination .active {
-  background: #0077ff;
-  color: white;
-}
-
-/* FOOTER */
-.site-footer {
-  background: #111;
-  color: white;
-  padding: 40px 24px;
-  margin-top: 40px;
-}
-
-.footer-columns {
-  display: flex;
-  gap: 40px;
+  font-size: 14px;
 }
 
 /* ================= HOME ================= */
 
 .home section {
-  padding: 40px 24px;
+  padding: 24px 16px;
 }
 
-/* HERO */
-.hero {
-  background: linear-gradient(120deg, #111, #333);
-  color: white;
-  min-height: 360px;
-  display: flex;
-  align-items: center;
-}
-
-.hero-content {
-  max-width: 600px;
-}
-
-.hero-content h1 {
-  font-size: 42px;
-  margin-bottom: 10px;
-}
-
-.hero-content p {
-  font-size: 18px;
-  margin-bottom: 20px;
-}
-
-.hero-btn {
-  display: inline-block;
-  background: #0077ff;
-  color: white;
-  padding: 12px 20px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-/* CATEGORÍAS HOME */
+/* ❌ QUITAMOS TITULO "CATEGORÍAS PRINCIPALES" */
 .home-categories h2 {
-  margin-bottom: 20px;
+  display: none;
 }
 
-.categories-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
+/* ================= SLIDERS HORIZONTALES ================= */
+
+.home-featured h2,
+.home-category-block h2 {
+  margin-bottom: 12px;
+  font-size: 18px;
 }
 
-.category-card {
+/* CONTENEDOR SLIDER */
+.products-grid {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 10px;
+}
+
+/* TARJETA */
+.product-card {
+  min-width: 220px;
+  max-width: 220px;
   border: 1px solid #ddd;
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  color: #111;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  scroll-snap-align: start;
   background: white;
 }
 
-.category-card:hover {
-  border-color: #0077ff;
+.product-image {
+  height: 160px;
+  background: #eee;
+  margin-bottom: 8px;
 }
 
-/* DESTACADOS HOME */
-.home-featured h2 {
-  margin-bottom: 20px;
-}
-
-/* BLOQUES POR CATEGORÍA */
-.home-category-block .block-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.block-header a {
-  text-decoration: none;
+.product-card h3 {
   font-size: 14px;
-  color: #0077ff;
 }
+
+.brand {
+  font-size: 12px;
+  color: #777;
+}
+
+.price {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 8px 0;
+}
+
+.product-card button {
+  margin-top: auto;
+  padding: 8px;
+  background: #0077ff;
+  color: white;
+  border: none;
+}
+
+/* ================= FOOTER ================= */
+
+.site-footer {
+  background: #111;
+  color: white;
+  padding: 30px 16px;
+  margin-top: 30px;
+}
+
+.footer-columns {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ================= MODAL ================= */
 
 .modal {
   position: fixed;
@@ -279,8 +201,9 @@ body {
 
 .modal-content {
   background: white;
-  padding: 24px;
-  width: 300px;
+  padding: 20px;
+  width: 90%;
+  max-width: 300px;
   position: relative;
 }
 
@@ -296,4 +219,3 @@ body {
   right: 10px;
   cursor: pointer;
 }
-
