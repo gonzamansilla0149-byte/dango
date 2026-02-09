@@ -77,10 +77,10 @@ if (cartBtn && cartModal) {
    AGREGAR AL CARRITO
 ================================ */
 
-// Busca todos los botones "Agregar al carrito"
 document.querySelectorAll(".product-card button").forEach((btn) => {
   btn.addEventListener("click", () => {
     const card = btn.closest(".product-card");
+    if (!card) return;
 
     const product = {
       name: card.querySelector("h3")?.textContent || "Producto",
@@ -107,8 +107,9 @@ function updateCartCount() {
 ================================ */
 
 function renderCart() {
-  const content = cartModal.querySelector(".modal-content");
+  if (!cartModal) return;
 
+  const content = cartModal.querySelector(".modal-content");
   if (!content) return;
 
   let html = `<h3>Carrito</h3>`;
@@ -132,7 +133,6 @@ function renderCart() {
 
   content.innerHTML = html;
 
-  // Botones eliminar
   content.querySelectorAll("button[data-index]").forEach((btn) => {
     btn.addEventListener("click", () => {
       const index = btn.getAttribute("data-index");
@@ -142,3 +142,40 @@ function renderCart() {
     });
   });
 }
+
+/* ===============================
+   MENÚ CATEGORÍAS MOBILE
+================================ */
+
+const btnCategories = document.getElementById("btn-categories");
+const categoriesDropdown = document.getElementById("categories-dropdown");
+
+if (btnCategories && categoriesDropdown) {
+  btnCategories.addEventListener("click", () => {
+    categoriesDropdown.classList.toggle("show");
+  });
+}
+
+/* ===============================
+   SLIDERS AUTOMÁTICOS HOME
+================================ */
+
+document.querySelectorAll(".auto-slider").forEach((slider) => {
+  let scrollAmount = 0;
+  const step = 240;
+
+  setInterval(() => {
+    if (slider.scrollWidth <= slider.clientWidth) return;
+
+    scrollAmount += step;
+
+    if (scrollAmount >= slider.scrollWidth - slider.clientWidth) {
+      scrollAmount = 0;
+    }
+
+    slider.scrollTo({
+      left: scrollAmount,
+      behavior: "smooth"
+    });
+  }, 3000);
+});
