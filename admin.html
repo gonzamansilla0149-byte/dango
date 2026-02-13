@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Dango Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<div class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2>DANGO</h2>
+    <nav>
+      <button data-view="products" class="active">Productos</button>
+      <button data-view="create">Crear producto</button>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="content">
+
+    <!-- LISTA PRODUCTOS -->
+    <section id="products-view">
+      <h1>Productos</h1>
+      <div id="products-table"></div>
+    </section>
+
+    <!-- CREAR PRODUCTO -->
+    <section id="create-view" class="hidden">
+      <h1>Nuevo producto</h1>
+
+      <form id="product-form">
+        <input name="name" placeholder="Nombre" required>
+        <input name="brand" placeholder="Marca" required>
+        <input name="category" placeholder="Categoría" required>
+        <input name="price" type="number" placeholder="Precio" required>
+        <input name="stock" type="number" placeholder="Stock" required>
+        <textarea name="description" placeholder="Descripción"></textarea>
+        <input name="image" placeholder="URL imagen">
+
+        <button type="submit">Guardar</button>
+      </form>
+    </section>
+
+  </main>
+
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>
