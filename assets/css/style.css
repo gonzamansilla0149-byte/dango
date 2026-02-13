@@ -484,3 +484,20 @@ body {
   padding: 40px 0;
 }
 
+/* ===============================
+   FIX PAGINACIÓN CATEGORÍA
+================================ */
+
+.shop-content .products-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+  overflow-x: hidden !important;
+}
+
+@media (max-width: 768px) {
+  .shop-content .products-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
+    overflow-x: hidden !important;
+  }
+}
