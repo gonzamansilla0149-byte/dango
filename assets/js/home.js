@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const featuredContainer = document.getElementById("featured-products");
   const herramientasContainer = document.getElementById("home-herramientas");
+  const heroSection = document.querySelector(".hero");
 
   if (typeof products === "undefined") return;
 
@@ -34,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ===============================
-  // TOP GLOBAL
+  // TOP GLOBAL (5 productos)
   // ===============================
 
   if (featuredContainer) {
@@ -43,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ===============================
-  // TOP HERRAMIENTAS
+  // TOP HERRAMIENTAS (5 productos)
   // ===============================
 
   if (herramientasContainer) {
@@ -55,6 +56,47 @@ document.addEventListener("DOMContentLoaded", () => {
     const topHerramientas = getTopBySales(herramientas, 5);
 
     renderProducts(herramientasContainer, topHerramientas);
+  }
+
+  // ===============================
+  // HERO DINÁMICO (IMÁGENES ALEATORIAS)
+  // ===============================
+
+  if (heroSection) {
+
+    const herramientas = products.filter(
+      p => p.category.toLowerCase() === "herramientas"
+    );
+
+    function getRandomImage() {
+      if (herramientas.length === 0) return null;
+
+      const randomProduct =
+        herramientas[Math.floor(Math.random() * herramientas.length)];
+
+      return randomProduct.images[0];
+    }
+
+    function changeHeroBackground() {
+
+      const image = getRandomImage();
+      if (!image) return;
+
+      heroSection.style.backgroundImage = `
+        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+        url('${image}')
+      `;
+
+      heroSection.style.backgroundSize = "cover";
+      heroSection.style.backgroundPosition = "center";
+      heroSection.style.backgroundRepeat = "no-repeat";
+    }
+
+    // Primera carga
+    changeHeroBackground();
+
+    // Cambia cada 5 segundos
+    setInterval(changeHeroBackground, 5000);
   }
 
 });
