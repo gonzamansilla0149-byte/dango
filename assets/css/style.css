@@ -198,18 +198,34 @@ body {
   padding: 40px 24px;
 }
 
-/* HERO */
 .hero {
-  background: linear-gradient(120deg, #111, #333);
-  color: white;
+  position: relative;
   min-height: 360px;
   display: flex;
   align-items: center;
+  color: white;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  transition: background-image 0.8s ease-in-out;
 }
 
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.3));
+}
+
+
 .hero-content {
+  position: relative;
+  z-index: 2;
   max-width: 600px;
 }
+
 
 .hero-content h1 {
   font-size: 42px;
