@@ -1,21 +1,68 @@
-const featuredContainer = document.getElementById("featured-products");
-const herramientasContainer = document.getElementById("home-herramientas");
+document.addEventListener("DOMContentLoaded", () => {
 
-if (featuredContainer) {
-  const featuredProducts = products.filter(p => p.featured);
+  const featuredContainer = document.getElementById("featured-products");
+  const herramientasContainer = document.getElementById("home-herramientas");
 
-  featuredProducts.forEach(product => {
-    featuredContainer.innerHTML += createProductCard(product);
-  });
-}
+  if (typeof products === "undefined") return;
 
-if (herramientasContainer) {
-  const herramientas = products.filter(p => p.category === "herramientas");
+  // ===============================
+  // UTILIDADES
+  // ===============================
 
-  herramientas.forEach(product => {
-    herramientasContainer.innerHTML += createProductCard(product);
-  });
-}
+  function shuffle(array) {
+    return [...array].sort(() => 0.5 - Math.random());
+  }
+
+  function getTopBySales(list, limit = 5) {
+
+    const withSales = list.filter(p => p.sales && p.sales > 0);
+
+    if (withSales.length === 0) {
+      return shuffle(list).slice(0, limit);
+    }
+
+    return withSales
+      .sort((a, b) => b.sales - a.sales)
+      .slice(0, limit);
+  }
+
+  function renderProducts(container, list) {
+    container.innerHTML = "";
+    list.forEach(product => {
+      container.innerHTML += createProductCard(product);
+    });
+  }
+
+  // ===============================
+  // TOP GLOBAL
+  // ===============================
+
+  if (featuredContainer) {
+    const topGlobal = getTopBySales(products, 5);
+    renderProducts(featuredContainer, topGlobal);
+  }
+
+  // ===============================
+  // TOP HERRAMIENTAS
+  // ===============================
+
+  if (herramientasContainer) {
+
+    const herramientas = products.filter(
+      p => p.category.toLowerCase() === "herramientas"
+    );
+
+    const topHerramientas = getTopBySales(herramientas, 5);
+
+    renderProducts(herramientasContainer, topHerramientas);
+  }
+
+});
+
+
+// ===============================
+// CREAR CARD
+// ===============================
 
 function createProductCard(product) {
   return `
@@ -31,4 +78,3 @@ function createProductCard(product) {
     </article>
   `;
 }
-
