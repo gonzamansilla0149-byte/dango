@@ -28,7 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  const filteredProducts = products.filter(p => p.category === category);
+  const filteredProducts = products.filter(p =>
+  p.category.toLowerCase() === category.toLowerCase()
+);
+
 
   console.log("Productos filtrados:", filteredProducts.length);
 
