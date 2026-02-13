@@ -1,36 +1,61 @@
+// ============================
+// STORAGE
+// ============================
+
 let products = JSON.parse(localStorage.getItem("admin_products")) || [];
 
 const tableContainer = document.getElementById("products-table");
 const form = document.getElementById("product-form");
+const toggleBtn = document.getElementById("toggle-form");
+const formContainer = document.getElementById("product-form-container");
+
 
 // ============================
-// CAMBIO DE VISTA
+// CAMBIO DE VISTA (SIDEBAR)
 // ============================
 
-document.querySelectorAll(".sidebar button").forEach(btn => {
+const buttons = document.querySelectorAll(".sidebar button");
+const sections = document.querySelectorAll(".content section");
+
+buttons.forEach(btn => {
   btn.addEventListener("click", () => {
 
-    document.querySelectorAll(".sidebar button")
-      .forEach(b => b.classList.remove("active"));
-
+    // activar botón
+    buttons.forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
 
+    // ocultar todas las secciones
+    sections.forEach(sec => sec.classList.add("hidden"));
+
+    // mostrar la sección correcta
     const view = btn.dataset.view;
+    const target = document.getElementById(view + "-view");
 
-    document.getElementById("products-view")
-      .classList.toggle("hidden", view !== "products");
-
-    document.getElementById("create-view")
-      .classList.toggle("hidden", view !== "create");
-
+    if (target) {
+      target.classList.remove("hidden");
+    }
   });
 });
+
+
+// ============================
+// MOSTRAR / OCULTAR FORM
+// ============================
+
+if (toggleBtn) {
+  toggleBtn.addEventListener("click", () => {
+    formContainer.classList.toggle("hidden");
+  });
+}
+
 
 // ============================
 // RENDER TABLA
 // ============================
 
 function renderProducts() {
+
+  if (!tableContainer) return;
 
   if (products.length === 0) {
     tableContainer.innerHTML = "<p>No hay productos</p>";
@@ -70,39 +95,42 @@ function renderProducts() {
   tableContainer.innerHTML = html;
 }
 
+
 // ============================
 // CREAR PRODUCTO
 // ============================
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
+if (form) {
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-  const data = new FormData(form);
+    const data = new FormData(form);
 
-  const product = {
-    id: Date.now(),
-    name: data.get("name"),
-    brand: data.get("brand"),
-    category: data.get("category"),
-    price: Number(data.get("price")),
-    stock: Number(data.get("stock")),
-    description: data.get("description"),
-    images: [data.get("image")]
-  };
+    const product = {
+      id: Date.now(),
+      name: data.get("name"),
+      brand: data.get("brand"),
+      category: data.get("category"),
+      price: Number(data.get("price")),
+      stock: Number(data.get("stock")),
+      description: data.get("description"),
+      images: [data.get("image")]
+    };
 
-  products.push(product);
+    products.push(product);
 
-  localStorage.setItem("admin_products", JSON.stringify(products));
+    localStorage.setItem("admin_products", JSON.stringify(products));
 
-  form.reset();
+    form.reset();
+    formContainer.classList.add("hidden");
 
-  alert("Producto creado");
+    renderProducts();
+  });
+}
 
-  renderProducts();
-});
 
 // ============================
-// ELIMINAR
+// ELIMINAR PRODUCTO
 // ============================
 
 function deleteProduct(index) {
@@ -110,5 +138,10 @@ function deleteProduct(index) {
   localStorage.setItem("admin_products", JSON.stringify(products));
   renderProducts();
 }
+
+
+// ============================
+// INIT
+// ============================
 
 renderProducts();
