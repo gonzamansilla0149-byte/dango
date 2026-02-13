@@ -31,11 +31,64 @@
       <p>Resumen general del negocio.</p>
     </section>
 
-    <!-- PEDIDOS -->
-    <section id="pedidos-view" class="hidden">
-      <h1>Pedidos</h1>
-      <p>Lista de pedidos.</p>
-    </section>
+<!-- PEDIDOS -->
+<section id="pedidos-view" class="hidden">
+
+  <h1>Pedidos</h1>
+
+  <!-- ===== FILTROS / REPORTE SUPERIOR ===== -->
+  <div class="card" style="margin-bottom:20px">
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px">
+      <input type="date" id="reportFrom">
+      <input type="date" id="reportTo">
+      <button id="btnLoadReport">Ver reporte</button>
+    </div>
+
+    <div style="display:flex;gap:20px;flex-wrap:wrap">
+      <div><strong id="rTotal">Total:</strong></div>
+      <div><strong id="rPicadas">Picadas:</strong></div>
+      <div><strong id="rEnvios">Envíos:</strong></div>
+    </div>
+
+  </div>
+
+  <!-- ===== TABLA DE PEDIDOS ===== -->
+  <div class="card">
+    <div class="table-wrap">
+      <table>
+        <thead>
+
+          <!-- DESKTOP -->
+          <tr class="desktop-only">
+            <th>Fecha</th>
+            <th>Modelo</th>
+            <th>Tamaño</th>
+            <th>Monto</th>
+            <th>Cliente</th>
+            <th>Zona</th>
+            <th>Dirección</th>
+            <th>Contacto</th>
+          </tr>
+
+          <!-- MOBILE -->
+          <tr class="mobile-only">
+            <th>Cliente</th>
+            <th>Fecha</th>
+            <th>Modelo</th>
+            <th>Monto</th>
+          </tr>
+
+        </thead>
+        <tbody id="orders-body">
+          <!-- JS renderiza acá -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
+
 
     <!-- REPORTE -->
     <section id="reporte-view" class="hidden">
