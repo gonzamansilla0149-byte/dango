@@ -14,41 +14,74 @@
   <aside class="sidebar">
     <h2>DANGO</h2>
     <nav>
-      <button data-view="products" class="active">Productos</button>
-      <button data-view="create">Crear producto</button>
+      <button data-view="inicio" class="active">Inicio</button>
+      <button data-view="pedidos">Pedidos</button>
+      <button data-view="reporte">Reporte</button>
+      <button data-view="productos">Productos</button>
+      <button data-view="categorias">Categorías</button>
     </nav>
   </aside>
 
   <!-- MAIN -->
   <main class="content">
 
-    <!-- LISTA PRODUCTOS -->
-    <section id="products-view">
-      <h1>Productos</h1>
-      <div id="products-table"></div>
+    <!-- INICIO -->
+    <section id="inicio-view">
+      <h1>Inicio</h1>
+      <p>Resumen general del negocio.</p>
     </section>
 
-    <!-- CREAR PRODUCTO -->
-    <section id="create-view" class="hidden">
-      <h1>Nuevo producto</h1>
+    <!-- PEDIDOS -->
+    <section id="pedidos-view" class="hidden">
+      <h1>Pedidos</h1>
+      <p>Lista de pedidos.</p>
+    </section>
 
-      <form id="product-form">
-        <input name="name" placeholder="Nombre" required>
-        <input name="brand" placeholder="Marca" required>
-        <input name="category" placeholder="Categoría" required>
-        <input name="price" type="number" placeholder="Precio" required>
-        <input name="stock" type="number" placeholder="Stock" required>
-        <textarea name="description" placeholder="Descripción"></textarea>
-        <input name="image" placeholder="URL imagen">
+    <!-- REPORTE -->
+    <section id="reporte-view" class="hidden">
+      <h1>Reporte</h1>
+      <p>Estadísticas y métricas.</p>
+    </section>
 
-        <button type="submit">Guardar</button>
-      </form>
+    <!-- PRODUCTOS (LISTA + CREAR TODO JUNTO) -->
+    <section id="productos-view" class="hidden">
+
+      <div class="section-header">
+        <h1>Productos</h1>
+        <button id="toggle-form">+ Nuevo producto</button>
+      </div>
+
+      <!-- TABLA -->
+      <div id="products-table"></div>
+
+      <!-- FORMULARIO DENTRO DE PRODUCTOS -->
+      <div id="product-form-container" class="hidden">
+        <h2>Nuevo producto</h2>
+
+        <form id="product-form">
+          <input name="name" placeholder="Nombre" required>
+          <input name="brand" placeholder="Marca" required>
+          <input name="category" placeholder="Categoría" required>
+          <input name="price" type="number" placeholder="Precio" required>
+          <input name="stock" type="number" placeholder="Stock" required>
+          <textarea name="description" placeholder="Descripción"></textarea>
+          <input name="image" placeholder="URL imagen">
+          <button type="submit">Guardar</button>
+        </form>
+      </div>
+
+    </section>
+
+    <!-- CATEGORÍAS -->
+    <section id="categorias-view" class="hidden">
+      <h1>Categorías</h1>
+      <p>Gestión de categorías.</p>
     </section>
 
   </main>
 
 </div>
 
-<script src="admin.js"></script>
+<script src="assets/js/admin.js"></script>
 </body>
 </html>
