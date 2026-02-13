@@ -9,9 +9,52 @@
 
 <body>
 
-<!-- HEADER (igual a los otros archivos) -->
 <header class="site-header">
-  <!-- puedes copiar exactamente el mismo header -->
+  <div class="header-top">
+    <a href="index.html" class="logo">DANGO</a>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar productos">
+    </div>
+
+    <div class="header-actions">
+      <button id="btn-login">Mi cuenta</button>
+      <button id="btn-cart" class="cart-btn">Carrito (0)</button>
+    </div>
+  </div>
+
+<nav class="main-nav">
+
+  <!-- LINKS DESKTOP -->
+  <div class="nav-links">
+    <a href="index.html">Inicio</a>
+    <a href="categoria.html?cat=celulares">Celulares</a>
+    <a href="categoria.html?cat=computacion">Computación</a>
+    <a href="categoria.html?cat=herramientas">Herramientas</a>
+    <a href="categoria.html?cat=accesorios">Accesorios</a>
+    <a href="categoria.html?cat=ofertas">Ofertas</a>
+  </div>
+
+  <!-- BOTÓN MOBILE -->
+  <button class="btn-categories" id="btn-categories">
+    ☰ Categorías
+  </button>
+
+  <!-- DROPDOWN MOBILE -->
+  <div class="categories-dropdown" id="categories-dropdown">
+    <a href="index.html">Inicio</a>
+    <a href="categoria.html?cat=celulares">Celulares</a>
+    <a href="categoria.html?cat=computacion">Computación</a>
+    <a href="categoria.html?cat=herramientas">Herramientas</a>
+    <a href="categoria.html?cat=accesorios">Accesorios</a>
+    <a href="categoria.html?cat=ofertas">Ofertas</a>
+  </div>
+
+</nav>
+
+
+
+
 </header>
 
 <!-- BREADCRUMB -->
