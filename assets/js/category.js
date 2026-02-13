@@ -8,10 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const category = params.get("cat");
 
   const container = document.getElementById("category-products");
-
-  console.log("URL:", window.location.href);
-  console.log("Categoría detectada:", category);
-  console.log("Productos disponibles:", typeof products !== "undefined" ? products.length : "products NO definido");
+  const paginationContainer = document.getElementById("pagination");
 
   if (!container) {
     console.log("No existe el contenedor #category-products");
@@ -29,22 +26,86 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const filteredProducts = products.filter(p =>
-  p.category.toLowerCase() === category.toLowerCase()
-);
-
-
-  console.log("Productos filtrados:", filteredProducts.length);
+    p.category.toLowerCase() === category.toLowerCase()
+  );
 
   if (filteredProducts.length === 0) {
     container.innerHTML = "<p>No hay productos en esta categoría.</p>";
     return;
   }
 
-  container.innerHTML = "";
+  const PRODUCTS_PER_PAGE = 30;
+  let currentPage = 1;
+  const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
 
-  filteredProducts.forEach(product => {
-    container.innerHTML += createProductCard(product);
-  });
+  function renderProducts(page) {
+
+    container.innerHTML = "";
+
+    const start = (page - 1) * PRODUCTS_PER_PAGE;
+    const end = start + PRODUCTS_PER_PAGE;
+
+    const productsToShow = filteredProducts.slice(start, end);
+
+    productsToShow.forEach(product => {
+      container.innerHTML += createProductCard(product);
+    });
+
+  }
+
+  function renderPagination() {
+
+    if (!paginationContainer) return;
+
+    paginationContainer.innerHTML = "";
+
+    if (totalPages <= 1) return;
+
+    // Prev
+    if (currentPage > 1) {
+      paginationContainer.innerHTML += `
+        <button data-page="${currentPage - 1}">‹</button>
+      `;
+    }
+
+    for (let i = 1; i <= totalPages; i++) {
+      paginationContainer.innerHTML += `
+        <button data-page="${i}" 
+                class="${i === currentPage ? "active" : ""}">
+          ${i}
+        </button>
+      `;
+    }
+
+    // Next
+    if (currentPage < totalPages) {
+      paginationContainer.innerHTML += `
+        <button data-page="${currentPage + 1}">›</button>
+      `;
+    }
+
+  }
+
+  if (paginationContainer) {
+    paginationContainer.addEventListener("click", (e) => {
+
+      if (!e.target.dataset.page) return;
+
+      currentPage = parseInt(e.target.dataset.page);
+
+      renderProducts(currentPage);
+      renderPagination();
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    });
+  }
+
+  renderProducts(currentPage);
+  renderPagination();
 
 });
 
