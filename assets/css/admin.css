@@ -1,55 +1,101 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Dango Admin</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="admin.css">
-</head>
-<body>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-<div class="admin-layout">
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #111;
+}
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <h2>DANGO</h2>
-    <nav>
-      <button data-view="products" class="active">Productos</button>
-      <button data-view="create">Crear producto</button>
-    </nav>
-  </aside>
+/* LAYOUT */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+}
 
-  <!-- MAIN -->
-  <main class="content">
+/* SIDEBAR */
+.sidebar {
+  width: 240px;
+  background: #111;
+  color: white;
+  padding: 20px;
+}
 
-    <!-- LISTA PRODUCTOS -->
-    <section id="products-view">
-      <h1>Productos</h1>
-      <div id="products-table"></div>
-    </section>
+.sidebar h2 {
+  margin-bottom: 30px;
+}
 
-    <!-- CREAR PRODUCTO -->
-    <section id="create-view" class="hidden">
-      <h1>Nuevo producto</h1>
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-      <form id="product-form">
-        <input name="name" placeholder="Nombre" required>
-        <input name="brand" placeholder="Marca" required>
-        <input name="category" placeholder="Categoría" required>
-        <input name="price" type="number" placeholder="Precio" required>
-        <input name="stock" type="number" placeholder="Stock" required>
-        <textarea name="description" placeholder="Descripción"></textarea>
-        <input name="image" placeholder="URL imagen">
+.sidebar button {
+  background: transparent;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-        <button type="submit">Guardar</button>
-      </form>
-    </section>
+.sidebar button.active,
+.sidebar button:hover {
+  background: #0077ff;
+}
 
-  </main>
+/* MAIN CONTENT */
+.content {
+  flex: 1;
+  padding: 40px;
+}
 
-</div>
+.content h1 {
+  margin-bottom: 20px;
+}
 
-<script src="admin.js"></script>
-</body>
-</html>
+/* TABLE */
+#products-table {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 20px;
+}
 
+/* FORM */
+form {
+  background: white;
+  padding: 20px;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 500px;
+}
+
+form input,
+form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+form button {
+  padding: 12px;
+  background: #0077ff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+form button:hover {
+  opacity: 0.9;
+}
+
+.hidden {
+  display: none;
+}
