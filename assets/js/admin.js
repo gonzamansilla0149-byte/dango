@@ -1,13 +1,18 @@
 // ============================
-// STORAGE
+// STORAGE PRODUCTOS
 // ============================
 
 let products = JSON.parse(localStorage.getItem("admin_products")) || [];
+let orders = JSON.parse(localStorage.getItem("admin_orders")) || [];
 
 const tableContainer = document.getElementById("products-table");
 const form = document.getElementById("product-form");
 const toggleBtn = document.getElementById("toggle-form");
 const formContainer = document.getElementById("product-form-container");
+
+// PEDIDOS
+const ordersBody = document.getElementById("orders-body");
+const btnLoadReport = document.getElementById("btnLoadReport");
 
 
 // ============================
@@ -20,14 +25,11 @@ const sections = document.querySelectorAll(".content section");
 buttons.forEach(btn => {
   btn.addEventListener("click", () => {
 
-    // activar botón
     buttons.forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
 
-    // ocultar todas las secciones
     sections.forEach(sec => sec.classList.add("hidden"));
 
-    // mostrar la sección correcta
     const view = btn.dataset.view;
     const target = document.getElementById(view + "-view");
 
@@ -39,7 +41,7 @@ buttons.forEach(btn => {
 
 
 // ============================
-// MOSTRAR / OCULTAR FORM
+// MOSTRAR / OCULTAR FORM PRODUCTO
 // ============================
 
 if (toggleBtn) {
@@ -50,7 +52,7 @@ if (toggleBtn) {
 
 
 // ============================
-// RENDER TABLA
+// RENDER PRODUCTOS
 // ============================
 
 function renderProducts() {
@@ -91,7 +93,6 @@ function renderProducts() {
   });
 
   html += "</tbody></table>";
-
   tableContainer.innerHTML = html;
 }
 
@@ -118,7 +119,6 @@ if (form) {
     };
 
     products.push(product);
-
     localStorage.setItem("admin_products", JSON.stringify(products));
 
     form.reset();
@@ -141,7 +141,113 @@ function deleteProduct(index) {
 
 
 // ============================
+// PEDIDOS - RENDER TABLA
+// ============================
+
+function renderOrders(filteredOrders = orders) {
+
+  if (!ordersBody) return;
+
+  if (filteredOrders.length === 0) {
+    ordersBody.innerHTML = `
+      <tr>
+        <td colspan="8">No hay pedidos</td>
+      </tr>
+    `;
+    return;
+  }
+
+  let html = "";
+
+  filteredOrders.forEach(o => {
+
+    // DESKTOP
+    html += `
+      <tr class="desktop-only">
+        <td>${formatDate(o.date)}</td>
+        <td>${o.model}</td>
+        <td>${o.size}</td>
+        <td>$${o.amount.toLocaleString()}</td>
+        <td>${o.name}</td>
+        <td>${o.zone}</td>
+        <td>${o.address}</td>
+        <td>${o.whatsapp}</td>
+      </tr>
+    `;
+
+    // MOBILE
+    html += `
+      <tr class="mobile-only">
+        <td>${o.name}</td>
+        <td>${formatDate(o.date)}</td>
+        <td>${o.model}</td>
+        <td>$${o.amount.toLocaleString()}</td>
+      </tr>
+    `;
+  });
+
+  ordersBody.innerHTML = html;
+}
+
+
+// ============================
+// FILTRO + TOTALES
+// ============================
+
+if (btnLoadReport) {
+  btnLoadReport.addEventListener("click", () => {
+
+    const from = document.getElementById("reportFrom").value;
+    const to = document.getElementById("reportTo").value;
+
+    if (!from || !to) {
+      alert("Seleccioná un rango de fechas");
+      return;
+    }
+
+    const filtered = orders.filter(o => {
+      const d = o.date;
+      return d >= from && d <= to;
+    });
+
+    // TOTALES
+    let total = 0;
+    let totalEnvios = 0;
+    let totalPicadas = 0;
+
+    filtered.forEach(o => {
+      total += o.amount;
+      totalEnvios += o.envio || 0;
+      totalPicadas += o.amount - (o.envio || 0);
+    });
+
+    document.getElementById("rTotal").innerText =
+      "Total: $" + total.toLocaleString();
+
+    document.getElementById("rPicadas").innerText =
+      "Picadas: $" + totalPicadas.toLocaleString();
+
+    document.getElementById("rEnvios").innerText =
+      "Envíos: $" + totalEnvios.toLocaleString();
+
+    renderOrders(filtered);
+  });
+}
+
+
+// ============================
+// HELPERS
+// ============================
+
+function formatDate(dateString) {
+  const d = new Date(dateString);
+  return d.toLocaleDateString("es-AR");
+}
+
+
+// ============================
 // INIT
 // ============================
 
 renderProducts();
+renderOrders();
