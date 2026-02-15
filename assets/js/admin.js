@@ -58,19 +58,16 @@ if (toggleBtn) {
 }
 
 
-// ============================
-// CARGAR PRODUCTOS DESDE DB
-// ============================
-
-async function loadProducts() {
+async function loadProducts(search = "") {
   try {
-    const res = await fetch(`${API_URL}/api/products`);
+    const res = await fetch(`${API_URL}/api/products?search=${encodeURIComponent(search)}`);
     products = await res.json();
     renderProducts();
   } catch (error) {
     console.error("Error cargando productos:", error);
   }
 }
+
 
 
 // ============================
@@ -277,6 +274,12 @@ function formatDate(dateString) {
   return d.toLocaleDateString("es-AR");
 }
 
+if (searchInput) {
+  searchInput.addEventListener("input", (e) => {
+    const value = e.target.value.trim();
+    loadProducts(value);
+  });
+}
 
 // ============================
 // INIT
