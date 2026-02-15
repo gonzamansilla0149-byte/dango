@@ -53,6 +53,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
+  container.addEventListener("click", (e) => {
+  const card = e.target.closest(".product-card");
+  if (!card) return;
+
+  const id = card.dataset.id;
+  window.location.href = `producto.html?id=${id}`;
+});
+
+
   function renderPagination() {
 
     if (!paginationContainer) return;
@@ -121,15 +130,17 @@ function createProductCard(product) {
     : "https://picsum.photos/600/600";
 
   return `
-    <article class="product-card" data-id="${product.id}">
-      <div class="product-image"
-           style="background-image:url('${image}');
-                  background-size:cover;
-                  background-position:center;">
-      </div>
-      <h3>${product.name}</h3>
-      <p class="brand">${product.brand}</p>
-      <p class="price">$${product.price.toLocaleString()}</p>
+    <article class="product-card">
+      <a href="producto.html?id=${product.id}" class="product-link">
+        <div class="product-image"
+             style="background-image:url('${image}');
+                    background-size:cover;
+                    background-position:center;">
+        </div>
+        <h3>${product.name}</h3>
+        <p class="brand">${product.brand}</p>
+        <p class="price">$${product.price.toLocaleString()}</p>
+      </a>
       <button>Agregar al carrito</button>
     </article>
   `;
