@@ -13,6 +13,7 @@ let orders = JSON.parse(localStorage.getItem("admin_orders")) || [];
 
 const tableContainer = document.getElementById("products-table");
 const form = document.getElementById("product-form");
+const searchInput = document.getElementById("product-search");
 const toggleBtn = document.getElementById("toggle-form");
 const formContainer = document.getElementById("product-form-container");
 
