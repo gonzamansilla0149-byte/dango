@@ -1,3 +1,8 @@
 name = "dango-api"
 main = "src/index.js"
 compatibility_date = "2024-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "dangoproductos"
+database_id = "66e3e549-0984-4e63-8500-636a1bbe61f8"
