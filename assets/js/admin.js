@@ -302,6 +302,86 @@ if (searchInput) {
     }
   });
 }
+async function openProductAdmin(id) {
+
+  sections.forEach(sec => sec.classList.add("hidden"));
+  document.getElementById("product-admin-view").classList.remove("hidden");
+
+  try {
+
+    const res = await fetch(`${API_URL}/api/products/${id}`);
+    const product = await res.json();
+
+    document.getElementById("admin-edit-name").value = product.name || "";
+    document.getElementById("admin-edit-brand").value = product.brand || "";
+    document.getElementById("admin-edit-price").value = product.price || 0;
+    document.getElementById("admin-edit-description").value = product.description || "";
+    document.getElementById("admin-edit-image").value = product.image_url || "";
+    document.getElementById("admin-edit-stock").value = product.stock || 0;
+
+    if (product.image_url) {
+      const mainImage = document.getElementById("admin-main-image");
+      mainImage.style.backgroundImage = `url(${product.image_url})`;
+      mainImage.style.backgroundSize = "cover";
+      mainImage.style.backgroundPosition = "center";
+    }
+
+    document.getElementById("admin-save-product").dataset.id = id;
+
+  } catch (error) {
+    console.error("Error cargando producto:", error);
+  }
+}
+const adminSaveBtn = document.getElementById("admin-save-product");
+const adminBackBtn = document.getElementById("admin-back-products");
+
+if (adminSaveBtn) {
+
+  adminSaveBtn.addEventListener("click", async () => {
+
+    const id = adminSaveBtn.dataset.id;
+
+    const updated = {
+      name: document.getElementById("admin-edit-name").value,
+      brand: document.getElementById("admin-edit-brand").value,
+      price: Number(document.getElementById("admin-edit-price").value),
+      description: document.getElementById("admin-edit-description").value,
+      image_url: document.getElementById("admin-edit-image").value,
+      stock: Number(document.getElementById("admin-edit-stock").value)
+    };
+
+    try {
+
+      await fetch(`${API_URL}/api/products/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updated)
+      });
+
+      alert("Producto actualizado");
+
+      loadProducts();
+
+      document.getElementById("product-admin-view").classList.add("hidden");
+      document.getElementById("productos-view").classList.remove("hidden");
+
+    } catch (error) {
+      console.error("Error actualizando producto:", error);
+    }
+
+  });
+}
+
+if (adminBackBtn) {
+
+  adminBackBtn.addEventListener("click", () => {
+
+    document.getElementById("product-admin-view").classList.add("hidden");
+    document.getElementById("productos-view").classList.remove("hidden");
+
+  });
+}
+
 
 // ============================
 // INIT
