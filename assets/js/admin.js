@@ -42,9 +42,11 @@ buttons.forEach(btn => {
 
     if (target) {
       target.classList.remove("hidden");
+      localStorage.setItem("admin_view", view); // 🔥 guardamos vista
     }
   });
 });
+
 
 
 // ============================
@@ -304,8 +306,13 @@ if (searchInput) {
 }
 async function openProductAdmin(id) {
 
+  
   sections.forEach(sec => sec.classList.add("hidden"));
   document.getElementById("product-admin-view").classList.remove("hidden");
+
+    // 🔥 Guardamos estado actual
+  localStorage.setItem("admin_view", "product-admin");
+  localStorage.setItem("admin_product_id", id);
 
   try {
 
@@ -385,6 +392,37 @@ if (adminBackBtn) {
 
   });
 }
+
+const savedView = localStorage.getItem("admin_view");
+
+if (savedView) {
+
+  sections.forEach(sec => sec.classList.add("hidden"));
+
+  // 🔥 Si estábamos editando un producto
+  if (savedView === "product-admin") {
+
+    const savedProductId = localStorage.getItem("admin_product_id");
+
+    if (savedProductId) {
+      openProductAdmin(savedProductId);
+    }
+
+  } else {
+
+    const target = document.getElementById(savedView + "-view");
+    const btn = document.querySelector(`.sidebar button[data-view="${savedView}"]`);
+
+    if (target) target.classList.remove("hidden");
+
+    if (btn) {
+      buttons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    }
+
+  }
+}
+
 
 
 // ============================
