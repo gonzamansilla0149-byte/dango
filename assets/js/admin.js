@@ -343,11 +343,13 @@ if (adminSaveBtn) {
 
     const id = adminSaveBtn.dataset.id;
 
-    const updated = {
-      name: document.getElementById("admin-edit-name").value,
-      brand: document.getElementById("admin-edit-brand").value,
-      price: Number(document.getElementById("admin-edit-price").value),
-      description: document.getElementById("admin-edit-description").value,
+const updated = {
+  name: document.querySelector(".product-title").innerText,
+  brand: document.querySelector(".product-brand").innerText,
+  price: Number(
+    document.querySelector(".price").innerText.replace(/[^0-9]/g, "")
+  ),
+  description: document.querySelector(".product-description").innerText,
       image_url: document.getElementById("admin-edit-image").value,
       stock: Number(document.getElementById("admin-edit-stock").value)
     };
