@@ -100,7 +100,7 @@ function renderProducts() {
     html += `
       <tr>
         <td>
-  <a href="admin-product.html?id=${p.id}">
+<a href="admin-productos.html?id=${p.id}">
     ${p.name}
   </a>
 </td>
