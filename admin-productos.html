@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Dango | Producto</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="header-top">
+    <a href="index.html" class="logo">DANGO</a>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar productos">
+    </div>
+
+    <div class="header-actions">
+      <button id="btn-login">Mi cuenta</button>
+      <button id="btn-cart" class="cart-btn">Carrito (0)</button>
+    </div>
+  </div>
+
+<nav class="main-nav">
+
+  <!-- LINKS DESKTOP -->
+  <div class="nav-links">
+    <a href="index.html">Inicio</a>
+    <a href="categoria.html?cat=celulares">Celulares</a>
+    <a href="categoria.html?cat=computacion">Computación</a>
+    <a href="categoria.html?cat=herramientas">Herramientas</a>
+    <a href="categoria.html?cat=accesorios">Accesorios</a>
+    <a href="categoria.html?cat=ofertas">Ofertas</a>
+  </div>
+
+  <!-- BOTÓN MOBILE -->
+  <button class="btn-categories" id="btn-categories">
+    ☰ Categorías
+  </button>
+
+  <!-- DROPDOWN MOBILE -->
+  <div class="categories-dropdown" id="categories-dropdown">
+    <a href="index.html">Inicio</a>
+    <a href="categoria.html?cat=celulares">Celulares</a>
+    <a href="categoria.html?cat=computacion">Computación</a>
+    <a href="categoria.html?cat=herramientas">Herramientas</a>
+    <a href="categoria.html?cat=accesorios">Accesorios</a>
+    <a href="categoria.html?cat=ofertas">Ofertas</a>
+  </div>
+
+</nav>
+
+
+
+
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="index.html">Inicio</a> / 
+  <a href="categoria.html?cat=herramientas">Herramientas</a> / 
+  <span class="breadcrumb-product"></span>
+</div>
+
+<!-- MAIN -->
+<main class="product-page">
+
+  <div class="product-container">
+
+    <!-- GALERÍA -->
+    <div class="product-gallery">
+      <div class="main-image"></div>
+
+      <div class="thumbnail-list">
+        <div class="thumb"></div>
+        <div class="thumb"></div>
+        <div class="thumb"></div>
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="product-info">
+
+      <span class="product-brand"></span>
+<input id="edit-name">
+<input id="edit-brand">
+<input id="edit-price" type="number">
+<textarea id="edit-description"></textarea>
+<input id="edit-image">
+<input id="edit-stock" type="number">
+
+<button id="save-product">Guardar cambios</button>
+
+
+      <div class="quantity-selector">
+        <button>-</button>
+        <input type="number" value="1" min="1">
+        <button>+</button>
+      </div>
+
+      <button class="add-to-cart-btn">
+        Agregar al carrito
+      </button>
+
+      <div class="extra-info">
+        <p>✔ Envíos a todo el país</p>
+        <p>✔ Garantía oficial</p>
+        <p>✔ Compra segura</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</main>
+
+<!-- PRODUCTOS RELACIONADOS -->
+<section class="related-products">
+  <h2>Productos relacionados</h2>
+
+  <div class="products-grid">
+    <article class="product-card">
+      <div class="product-image"></div>
+      <h3>Amoladora 850W</h3>
+      <p class="price">$72.500</p>
+      <button>Ver producto</button>
+    </article>
+  </div>
+</section>
+
+<!-- FOOTER (igual que los otros) -->
+<footer class="site-footer">
+  <!-- copiar footer -->
+</footer>
+
+<script src="assets/js/products.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/product.js"></script>
+
+
+</body>
+</html>
