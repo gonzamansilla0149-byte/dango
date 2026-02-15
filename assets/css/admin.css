@@ -327,23 +327,33 @@ form button:hover {
 
 
 
-/* MOBILE */
-@media (max-width: 768px) {
-  .product-container {
-    grid-template-columns: 1fr;
-  }
-}
-
 /* =========================
-   FIX PRODUCT VIEW EN ADMIN
+   PRODUCT VIEW FULL WIDTH
 ========================= */
 
-.admin-layout .product-page {
-  margin: 40px auto;
-  max-width: 1200px;
+#product-admin-view {
+  padding: 40px 0;
 }
 
-.admin-layout .content {
-  padding: 0;
+#product-admin-view .product-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#product-admin-view .product-container {
+  background: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid #eaeaea;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+#product-admin-view .product-gallery .main-image {
+  height: 480px;
+  border-radius: 10px;
+  background: #f2f2f2;
+  border: 1px solid #eaeaea;
 }
 
