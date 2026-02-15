@@ -312,10 +312,12 @@ async function openProductAdmin(id) {
     const res = await fetch(`${API_URL}/api/products/${id}`);
     const product = await res.json();
 
-    document.getElementById("admin-edit-name").value = product.name || "";
-    document.getElementById("admin-edit-brand").value = product.brand || "";
-    document.getElementById("admin-edit-price").value = product.price || 0;
-    document.getElementById("admin-edit-description").value = product.description || "";
+    document.querySelector(".product-title").innerText = product.name || "";
+document.querySelector(".product-brand").innerText = product.brand || "";
+document.querySelector(".price").innerText =
+  "$" + Number(product.price || 0).toLocaleString();
+document.querySelector(".product-description").innerText =
+  product.description || "";
     document.getElementById("admin-edit-image").value = product.image_url || "";
     document.getElementById("admin-edit-stock").value = product.stock || 0;
 
