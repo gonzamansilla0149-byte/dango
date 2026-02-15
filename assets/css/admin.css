@@ -278,48 +278,53 @@ form button:hover {
     font-size: 13px;
   }
 }
-/* MODO EDICIÓN */
+/* ===============================
+   ADMIN PRODUCT INPUTS – FRONTEND STYLE
+================================ */
 
-[contenteditable="true"] {
-  border-bottom: 2px dashed transparent;
-  transition: 0.2s ease;
-}
-
-[contenteditable="true"]:hover {
-  border-color: #0077ff;
-  background: #f9fbff;
-}
-
-[contenteditable="true"]:focus {
-  outline: none;
-  border-color: #0077ff;
-  background: #eef5ff;
-}
-
-/* BOTONES ADMIN */
-
-#admin-save-product {
-  margin-top: 20px;
-  padding: 12px;
-  width: 100%;
-  background: #0077ff;
-  color: white;
+/* Título */
+.product-info input[type="text"] {
+  font-size: 28px;
+  font-weight: 600;
   border: none;
-  border-radius: 8px;
+  background: transparent;
+  width: 100%;
+  padding: 0;
+  color: #111;
+}
+
+/* Precio */
+.product-info input[type="number"] {
+  font-size: 32px;
   font-weight: bold;
-  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  padding: 0;
+  color: #111;
 }
 
-#admin-back-products {
-  margin-top: 12px;
-  padding: 10px;
-  width: 100%;
-  background: #111;
-  color: white;
+/* Descripción */
+.product-info textarea {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
+  background: transparent;
+  resize: none;
+  width: 100%;
+  padding: 0;
 }
+
+/* Focus visible solo cuando editas */
+.product-info input:focus,
+.product-info textarea:focus {
+  outline: none;
+  border-bottom: 2px solid #0077ff;
+  background: #f9fbff;
+  padding-bottom: 4px;
+}
+
 
 
 /* MOBILE */
