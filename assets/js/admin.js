@@ -100,7 +100,7 @@ function renderProducts() {
     html += `
       <tr>
         <td>
-<a href="admin-productos.html?id=${p.id}">
+<a href="#" onclick="openProductAdmin(${p.id})">
     ${p.name}
   </a>
 </td>
