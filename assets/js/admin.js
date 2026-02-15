@@ -1,8 +1,14 @@
 // ============================
-// STORAGE PRODUCTOS
+// CONFIG API
 // ============================
 
-let products = JSON.parse(localStorage.getItem("admin_products")) || [];
+const API_URL = "https://TUWORKER.workers.dev";
+
+// ============================
+// DATA
+// ============================
+
+let products = [];
 let orders = JSON.parse(localStorage.getItem("admin_orders")) || [];
 
 const tableContainer = document.getElementById("products-table");
@@ -52,6 +58,21 @@ if (toggleBtn) {
 
 
 // ============================
+// CARGAR PRODUCTOS DESDE DB
+// ============================
+
+async function loadProducts() {
+  try {
+    const res = await fetch(`${API_URL}/api/products`);
+    products = await res.json();
+    renderProducts();
+  } catch (error) {
+    console.error("Error cargando productos:", error);
+  }
+}
+
+
+// ============================
 // RENDER PRODUCTOS
 // ============================
 
@@ -77,14 +98,14 @@ function renderProducts() {
       <tbody>
   `;
 
-  products.forEach((p, index) => {
+  products.forEach((p) => {
     html += `
       <tr>
         <td>${p.name}</td>
-        <td>$${p.price}</td>
+        <td>$${Number(p.price).toLocaleString()}</td>
         <td>${p.stock}</td>
         <td>
-          <button onclick="deleteProduct(${index})">
+          <button onclick="deleteProduct(${p.id})">
             Eliminar
           </button>
         </td>
@@ -98,45 +119,59 @@ function renderProducts() {
 
 
 // ============================
-// CREAR PRODUCTO
+// CREAR PRODUCTO (POST)
 // ============================
 
 if (form) {
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const data = new FormData(form);
 
     const product = {
-      id: Date.now(),
       name: data.get("name"),
       brand: data.get("brand"),
       category: data.get("category"),
       price: Number(data.get("price")),
       stock: Number(data.get("stock")),
       description: data.get("description"),
-      images: [data.get("image")]
+      image_url: data.get("image")
     };
 
-    products.push(product);
-    localStorage.setItem("admin_products", JSON.stringify(products));
+    try {
+      await fetch(`${API_URL}/api/products`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(product)
+      });
 
-    form.reset();
-    formContainer.classList.add("hidden");
+      form.reset();
+      formContainer.classList.add("hidden");
 
-    renderProducts();
+      loadProducts();
+
+    } catch (error) {
+      console.error("Error creando producto:", error);
+    }
   });
 }
 
 
 // ============================
-// ELIMINAR PRODUCTO
+// ELIMINAR PRODUCTO (requiere endpoint DELETE)
 // ============================
 
-function deleteProduct(index) {
-  products.splice(index, 1);
-  localStorage.setItem("admin_products", JSON.stringify(products));
-  renderProducts();
+async function deleteProduct(id) {
+  try {
+    await fetch(`${API_URL}/api/products/${id}`, {
+      method: "DELETE"
+    });
+
+    loadProducts();
+
+  } catch (error) {
+    console.error("Error eliminando producto:", error);
+  }
 }
 
 
@@ -161,7 +196,6 @@ function renderOrders(filteredOrders = orders) {
 
   filteredOrders.forEach(o => {
 
-    // DESKTOP
     html += `
       <tr class="desktop-only">
         <td>${formatDate(o.date)}</td>
@@ -175,7 +209,6 @@ function renderOrders(filteredOrders = orders) {
       </tr>
     `;
 
-    // MOBILE
     html += `
       <tr class="mobile-only">
         <td>${o.name}</td>
@@ -210,7 +243,6 @@ if (btnLoadReport) {
       return d >= from && d <= to;
     });
 
-    // TOTALES
     let total = 0;
     let totalEnvios = 0;
     let totalPicadas = 0;
@@ -249,5 +281,5 @@ function formatDate(dateString) {
 // INIT
 // ============================
 
-renderProducts();
+loadProducts();
 renderOrders();
