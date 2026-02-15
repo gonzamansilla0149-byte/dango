@@ -56,6 +56,28 @@ if (request.method === "GET" && url.pathname === "/api/products") {
 }
 
       // =========================
+// GET PRODUCTO POR ID
+// =========================
+if (request.method === "GET" && url.pathname.startsWith("/api/products/")) {
+
+  const id = url.pathname.split("/").pop();
+
+  const product = await env.DB.prepare(`
+    SELECT * FROM products
+    WHERE id = ? AND active = 1
+  `)
+  .bind(id)
+  .first();
+
+  return new Response(JSON.stringify(product || {}), {
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders
+    }
+  });
+}
+
+      // =========================
       // CREAR PRODUCTO
       // =========================
       if (request.method === "POST" && url.pathname === "/api/products") {
