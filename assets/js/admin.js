@@ -99,7 +99,11 @@ function renderProducts() {
   products.forEach((p) => {
     html += `
       <tr>
-        <td>${p.name}</td>
+        <td>
+  <a href="admin-product.html?id=${p.id}">
+    ${p.name}
+  </a>
+</td>
         <td>$${Number(p.price).toLocaleString()}</td>
         <td>${p.stock}</td>
         <td>
