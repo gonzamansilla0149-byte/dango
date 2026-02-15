@@ -333,3 +333,17 @@ form button:hover {
     grid-template-columns: 1fr;
   }
 }
+
+/* =========================
+   FIX PRODUCT VIEW EN ADMIN
+========================= */
+
+.admin-layout .product-page {
+  margin: 40px auto;
+  max-width: 1200px;
+}
+
+.admin-layout .content {
+  padding: 0;
+}
+
