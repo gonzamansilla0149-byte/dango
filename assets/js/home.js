@@ -107,16 +107,23 @@ document.addEventListener("DOMContentLoaded", () => {
 // ===============================
 
 function createProductCard(product) {
+
+  const image = product.images && product.images.length > 0
+    ? product.images[0]
+    : "https://picsum.photos/600/600";
+
   return `
     <article class="product-card">
-      <div class="product-image" 
-           style="background-image:url('${product.images[0]}');
-                  background-size:cover;
-                  background-position:center;">
-      </div>
-      <h3>${product.name}</h3>
-      <p class="price">$${product.price.toLocaleString()}</p>
-      <a href="producto.html?id=${product.id}">Ver producto</a>
+      <a href="producto.html?id=${product.id}" class="product-link">
+        <div class="product-image" 
+             style="background-image:url('${image}');
+                    background-size:cover;
+                    background-position:center;">
+        </div>
+        <h3>${product.name}</h3>
+        <p class="price">$${product.price.toLocaleString()}</p>
+      </a>
     </article>
   `;
 }
+
