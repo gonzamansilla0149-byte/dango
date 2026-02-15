@@ -17,22 +17,43 @@ export default {
 
     try {
 
-      // =========================
-      // GET PRODUCTOS
-      // =========================
-      if (request.method === "GET" && url.pathname === "/api/products") {
+if (request.method === "GET" && url.pathname === "/api/products") {
 
-        const { results } = await env.DB
-          .prepare("SELECT * FROM products WHERE active = 1 ORDER BY id DESC")
-          .all();
+  const search = url.searchParams.get("search");
 
-        return new Response(JSON.stringify(results), {
-          headers: {
-            "Content-Type": "application/json",
-            ...corsHeaders
-          }
-        });
-      }
+  let query = `
+    SELECT * FROM products 
+    WHERE active = 1
+  `;
+
+  if (search) {
+    query += `
+      AND (
+        name LIKE ? OR
+        brand LIKE ? OR
+        category LIKE ?
+      )
+    `;
+  }
+
+  query += " ORDER BY id DESC";
+
+  let stmt = env.DB.prepare(query);
+
+  if (search) {
+    const term = `%${search}%`;
+    stmt = stmt.bind(term, term, term);
+  }
+
+  const { results } = await stmt.all();
+
+  return new Response(JSON.stringify(results), {
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders
+    }
+  });
+}
 
       // =========================
       // CREAR PRODUCTO
