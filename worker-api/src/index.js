@@ -110,6 +110,38 @@ if (request.method === "GET" && url.pathname.startsWith("/api/products/")) {
       }
 
       // =========================
+// ACTUALIZAR PRODUCTO
+// =========================
+if (request.method === "PUT" && url.pathname.startsWith("/api/products/")) {
+
+  const id = url.pathname.split("/").pop();
+  const data = await request.json();
+
+  await env.DB.prepare(`
+    UPDATE products
+    SET name = ?, brand = ?, price = ?, description = ?, image_url = ?, stock = ?
+    WHERE id = ?
+  `)
+  .bind(
+    data.name,
+    data.brand,
+    data.price,
+    data.description,
+    data.image_url,
+    data.stock,
+    id
+  )
+  .run();
+
+  return new Response(JSON.stringify({ success: true }), {
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders
+    }
+  });
+}
+
+      // =========================
       // ELIMINAR PRODUCTO
       // =========================
       if (request.method === "DELETE" && url.pathname.startsWith("/api/products/")) {
