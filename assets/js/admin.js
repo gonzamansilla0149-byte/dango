@@ -274,10 +274,28 @@ function formatDate(dateString) {
   return d.toLocaleDateString("es-AR");
 }
 
+let searchTimeout;
+
 if (searchInput) {
+
+  // Predictivo con debounce
   searchInput.addEventListener("input", (e) => {
+    clearTimeout(searchTimeout);
+
     const value = e.target.value.trim();
-    loadProducts(value);
+
+    searchTimeout = setTimeout(() => {
+      loadProducts(value);
+    }, 300); // espera 300ms
+  });
+
+  // Enter ejecuta búsqueda inmediata
+  searchInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      clearTimeout(searchTimeout);
+      loadProducts(searchInput.value.trim());
+    }
   });
 }
 
