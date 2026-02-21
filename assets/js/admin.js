@@ -432,22 +432,18 @@ if (savedView) {
 
 const menuToggle = document.getElementById("menu-toggle");
 const sidebar = document.querySelector(".sidebar");
+const overlay = document.getElementById("sidebar-overlay");
 
 if (menuToggle && sidebar) {
 
   menuToggle.addEventListener("click", () => {
     sidebar.classList.toggle("open");
+    overlay.classList.toggle("active");
   });
 
-  // Cerrar sidebar al tocar fuera
-  document.addEventListener("click", (e) => {
-    if (
-      sidebar.classList.contains("open") &&
-      !sidebar.contains(e.target) &&
-      !menuToggle.contains(e.target)
-    ) {
-      sidebar.classList.remove("open");
-    }
+  overlay.addEventListener("click", () => {
+    sidebar.classList.remove("open");
+    overlay.classList.remove("active");
   });
 
 }
