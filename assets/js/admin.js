@@ -444,10 +444,6 @@ if (savedView) {
 // SIDEBAR MOBILE TOGGLE
 // ============================
 
-const menuToggle = document.getElementById("menu-toggle");
-const sidebar = document.querySelector(".sidebar");
-const overlay = document.getElementById("sidebar-overlay");
-
 if (menuToggle && sidebar) {
 
   menuToggle.addEventListener("click", () => {
