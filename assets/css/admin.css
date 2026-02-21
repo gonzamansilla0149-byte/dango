@@ -405,4 +405,66 @@ form button:hover {
   margin-top: 10px;
 }
 
+@media (max-width: 768px) {
 
+  /* Botón hamburguesa */
+  .menu-toggle {
+    display: block;
+  }
+
+  /* Sidebar oculta */
+  .sidebar {
+    transform: translateX(-100%);
+    width: 240px;
+    z-index: 1000;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  /* Contenido ocupa todo */
+  .content {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  /* Header más compacto */
+  .content h1 {
+    font-size: 20px;
+  }
+
+  /* Tablas scroll horizontal */
+  #products-table {
+    padding: 10px;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+
+  /* PRODUCT ADMIN VIEW MOBILE */
+  #product-admin-view .product-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 20px;
+  }
+
+  #product-admin-view .product-gallery .main-image {
+    height: 280px;
+  }
+
+  /* Botones admin apilados */
+  .admin-buttons {
+    flex-direction: column;
+  }
+
+  .admin-buttons button {
+    width: 100%;
+  }
+
+}
