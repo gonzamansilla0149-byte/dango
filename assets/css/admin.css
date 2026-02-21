@@ -485,3 +485,9 @@ form button:hover {
   display: block;
 }
 
+  <div class="mobile-header">
+    <button class="menu-toggle" id="menu-toggle">☰</button>
+    <span class="mobile-title">DANGO Admin</span>
+  </div>
+
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
