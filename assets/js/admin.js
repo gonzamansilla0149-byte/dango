@@ -44,7 +44,9 @@ buttons.forEach(btn => {
       target.classList.remove("hidden");
       localStorage.setItem("admin_view", view);
       if (window.innerWidth <= 768 && sidebar) {
-  sidebar.classList.remove("open");
+      sidebar.classList.remove("open");
+      overlay.classList.remove("active");
+}
 }// 🔥 guardamos vista
     }
   });
