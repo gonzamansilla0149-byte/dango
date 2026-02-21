@@ -42,7 +42,10 @@ buttons.forEach(btn => {
 
     if (target) {
       target.classList.remove("hidden");
-      localStorage.setItem("admin_view", view); // 🔥 guardamos vista
+      localStorage.setItem("admin_view", view);
+      if (window.innerWidth <= 768 && sidebar) {
+  sidebar.classList.remove("open");
+}// 🔥 guardamos vista
     }
   });
 });
@@ -423,6 +426,31 @@ if (savedView) {
   }
 }
 
+// ============================
+// SIDEBAR MOBILE TOGGLE
+// ============================
+
+const menuToggle = document.getElementById("menu-toggle");
+const sidebar = document.querySelector(".sidebar");
+
+if (menuToggle && sidebar) {
+
+  menuToggle.addEventListener("click", () => {
+    sidebar.classList.toggle("open");
+  });
+
+  // Cerrar sidebar al tocar fuera
+  document.addEventListener("click", (e) => {
+    if (
+      sidebar.classList.contains("open") &&
+      !sidebar.contains(e.target) &&
+      !menuToggle.contains(e.target)
+    ) {
+      sidebar.classList.remove("open");
+    }
+  });
+
+}
 
 
 // ============================
