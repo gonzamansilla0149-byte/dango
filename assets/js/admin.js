@@ -51,7 +51,6 @@ buttons.forEach(btn => {
       overlay.classList.remove("active");
 }
 }// 🔥 guardamos vista
-    }
   });
 });
 
