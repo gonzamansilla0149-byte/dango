@@ -468,3 +468,16 @@ form button:hover {
   }
 
 }
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  z-index: 900;
+}
+
+.sidebar-overlay.active {
+  display: block;
+}
+
