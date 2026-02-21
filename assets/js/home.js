@@ -1,102 +1,111 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
 
   const featuredContainer = document.getElementById("featured-products");
   const herramientasContainer = document.getElementById("home-herramientas");
   const heroSection = document.querySelector(".hero");
 
-  if (typeof products === "undefined") return;
+  try {
 
-  // ===============================
-  // UTILIDADES
-  // ===============================
-
-  function shuffle(array) {
-    return [...array].sort(() => 0.5 - Math.random());
-  }
-
-  function getTopBySales(list, limit = 5) {
-
-    const withSales = list.filter(p => p.sales && p.sales > 0);
-
-    if (withSales.length === 0) {
-      return shuffle(list).slice(0, limit);
-    }
-
-    return withSales
-      .sort((a, b) => b.sales - a.sales)
-      .slice(0, limit);
-  }
-
-  function renderProducts(container, list) {
-    container.innerHTML = "";
-    list.forEach(product => {
-      container.innerHTML += createProductCard(product);
-    });
-  }
-
-  // ===============================
-  // TOP GLOBAL (5 productos)
-  // ===============================
-
-  if (featuredContainer) {
-    const topGlobal = getTopBySales(products, 5);
-    renderProducts(featuredContainer, topGlobal);
-  }
-
-  // ===============================
-  // TOP HERRAMIENTAS (5 productos)
-  // ===============================
-
-  if (herramientasContainer) {
-
-    const herramientas = products.filter(
-      p => p.category.toLowerCase() === "herramientas"
+    const response = await fetch(
+      "https://dango.gonzamansilla0149.workers.dev/api/products"
     );
 
-    const topHerramientas = getTopBySales(herramientas, 5);
+    const products = await response.json();
 
-    renderProducts(herramientasContainer, topHerramientas);
-  }
+    if (!products || products.length === 0) return;
 
-  // ===============================
-  // HERO DINÁMICO (IMÁGENES ALEATORIAS)
-  // ===============================
+    // ===============================
+    // UTILIDADES
+    // ===============================
 
-  if (heroSection) {
-
-    const herramientas = products.filter(
-      p => p.category.toLowerCase() === "herramientas"
-    );
-
-    function getRandomImage() {
-      if (herramientas.length === 0) return null;
-
-      const randomProduct =
-        herramientas[Math.floor(Math.random() * herramientas.length)];
-
-      return randomProduct.images[0];
+    function shuffle(array) {
+      return [...array].sort(() => 0.5 - Math.random());
     }
 
-    function changeHeroBackground() {
+    function getTopBySales(list, limit = 5) {
 
-      const image = getRandomImage();
-      if (!image) return;
+      const withSales = list.filter(p => p.sales && p.sales > 0);
 
-      heroSection.style.backgroundImage = `
-        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-        url('${image}')
-      `;
+      if (withSales.length === 0) {
+        return shuffle(list).slice(0, limit);
+      }
 
-      heroSection.style.backgroundSize = "cover";
-      heroSection.style.backgroundPosition = "center";
-      heroSection.style.backgroundRepeat = "no-repeat";
+      return withSales
+        .sort((a, b) => b.sales - a.sales)
+        .slice(0, limit);
     }
 
-    // Primera carga
-    changeHeroBackground();
+    function renderProducts(container, list) {
+      container.innerHTML = "";
+      list.forEach(product => {
+        container.innerHTML += createProductCard(product);
+      });
+    }
 
-    // Cambia cada 5 segundos
-    setInterval(changeHeroBackground, 5000);
+    // ===============================
+    // TOP GLOBAL
+    // ===============================
+
+    if (featuredContainer) {
+      const topGlobal = getTopBySales(products, 5);
+      renderProducts(featuredContainer, topGlobal);
+    }
+
+    // ===============================
+    // TOP HERRAMIENTAS
+    // ===============================
+
+    if (herramientasContainer) {
+
+      const herramientas = products.filter(
+        p => p.category.toLowerCase() === "herramientas"
+      );
+
+      const topHerramientas = getTopBySales(herramientas, 5);
+
+      renderProducts(herramientasContainer, topHerramientas);
+    }
+
+    // ===============================
+    // HERO DINÁMICO
+    // ===============================
+
+    if (heroSection) {
+
+      const herramientas = products.filter(
+        p => p.category.toLowerCase() === "herramientas"
+      );
+
+      function getRandomImage() {
+        if (herramientas.length === 0) return null;
+
+        const randomProduct =
+          herramientas[Math.floor(Math.random() * herramientas.length)];
+
+        return randomProduct.image_url;
+      }
+
+      function changeHeroBackground() {
+
+        const image = getRandomImage();
+        if (!image) return;
+
+        heroSection.style.backgroundImage = `
+          linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+          url('${image}')
+        `;
+
+        heroSection.style.backgroundSize = "cover";
+        heroSection.style.backgroundPosition = "center";
+        heroSection.style.backgroundRepeat = "no-repeat";
+      }
+
+      changeHeroBackground();
+      setInterval(changeHeroBackground, 5000);
+    }
+
+  } catch (err) {
+    console.error("Error cargando home:", err);
   }
 
 });
@@ -108,22 +117,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function createProductCard(product) {
 
-  const image = product.images && product.images.length > 0
-    ? product.images[0]
-    : "https://picsum.photos/600/600";
+  const image = product.image_url || "";
 
   return `
     <article class="product-card">
       <a href="producto.html?id=${product.id}" class="product-link">
         <div class="product-image" 
-             style="background-image:url('${image}');
-                    background-size:cover;
-                    background-position:center;">
+             style="
+               background-image:url('${image}');
+               background-size:cover;
+               background-position:center;
+               background-repeat:no-repeat;
+             ">
         </div>
         <h3>${product.name}</h3>
-        <p class="price">$${product.price.toLocaleString()}</p>
+        <p class="price">$${Number(product.price).toLocaleString()}</p>
       </a>
     </article>
   `;
 }
-
