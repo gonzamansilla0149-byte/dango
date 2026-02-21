@@ -14,6 +14,9 @@ let orders = JSON.parse(localStorage.getItem("admin_orders")) || [];
 const tableContainer = document.getElementById("products-table");
 const form = document.getElementById("product-form");
 const searchInput = document.getElementById("product-search");
+const sidebar = document.querySelector(".sidebar");
+const overlay = document.getElementById("sidebar-overlay");
+const menuToggle = document.getElementById("menu-toggle");
 const toggleBtn = document.getElementById("toggle-form");
 const formContainer = document.getElementById("product-form-container");
 
@@ -64,19 +67,22 @@ if (toggleBtn) {
   });
 }
 
-// ============================
-// SIDEBAR MOBILE
-// ============================
-
-const menuToggle = document.getElementById("menu-toggle");
-const sidebar = document.querySelector(".sidebar");
 
 if (menuToggle && sidebar) {
+
   menuToggle.addEventListener("click", () => {
     sidebar.classList.toggle("open");
+    if (overlay) overlay.classList.toggle("active");
   });
-}
 
+  if (overlay) {
+    overlay.addEventListener("click", () => {
+      sidebar.classList.remove("open");
+      overlay.classList.remove("active");
+    });
+  }
+
+}
 async function loadProducts(search = "") {
   try {
     const res = await fetch(`${API_URL}/api/products?search=${encodeURIComponent(search)}`);
