@@ -7,30 +7,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
   const category = params.get("cat");
 
-  // ===============================
-// CAMBIAR TÍTULO Y BREADCRUMB
-// ===============================
-
-const categoryNames = {
-  celulares: "Celulares",
-  computacion: "Computación",
-  herramientas: "Herramientas",
-  accesorios: "Accesorios",
-  ofertas: "Ofertas"
-};
-
-const categoryName = categoryNames[category] || "Categoría";
-
-const titleElement = document.getElementById("category-title");
-const breadcrumbElement = document.getElementById("breadcrumb");
-
-if (titleElement) {
-  titleElement.textContent = categoryName;
-}
-
-if (breadcrumbElement) {
-  breadcrumbElement.textContent = `Inicio / Categoría / ${categoryName}`;
-}
   const container = document.getElementById("category-products");
   const paginationContainer = document.getElementById("pagination");
 
@@ -40,6 +16,33 @@ if (breadcrumbElement) {
     container.innerHTML = "<p>No se especificó categoría.</p>";
     return;
   }
+
+  // ===============================
+  // CAMBIAR TÍTULO Y BREADCRUMB
+  // ===============================
+
+  const categoryNames = {
+    celulares: "Celulares",
+    computacion: "Computación",
+    herramientas: "Herramientas",
+    accesorios: "Accesorios",
+    ofertas: "Ofertas"
+  };
+
+  const categoryName = categoryNames[category] || "Categoría";
+
+  const titleElement = document.getElementById("category-title");
+  const breadcrumbElement = document.getElementById("breadcrumb");
+
+  if (titleElement) {
+    titleElement.textContent = categoryName;
+  }
+
+  if (breadcrumbElement) {
+    breadcrumbElement.textContent = `Inicio / Categoría / ${categoryName}`;
+  }
+
+  document.title = `Dango | ${categoryName}`;
 
   try {
 
@@ -53,6 +56,12 @@ if (breadcrumbElement) {
     if (filteredProducts.length === 0) {
       container.innerHTML = "<p>No hay productos en esta categoría.</p>";
       return;
+    }
+
+    // 🔹 Actualizar contador dinámico
+    const resultsCount = document.getElementById("results-count");
+    if (resultsCount) {
+      resultsCount.textContent = `${filteredProducts.length} productos`;
     }
 
     const PRODUCTS_PER_PAGE = 30;
@@ -69,7 +78,7 @@ if (breadcrumbElement) {
       const productsToShow = filteredProducts.slice(start, end);
 
       productsToShow.forEach(product => {
-      container.innerHTML += createProductCard(product);
+        container.innerHTML += createProductCard(product);
       });
     }
 
@@ -117,11 +126,13 @@ if (breadcrumbElement) {
     container.innerHTML = "<p>Error cargando productos.</p>";
   }
 
-   document.querySelectorAll(".filter-toggle").forEach(btn => {
+  // Toggle filtros
+  document.querySelectorAll(".filter-toggle").forEach(btn => {
     btn.addEventListener("click", () => {
       btn.parentElement.classList.toggle("active");
     });
-  }); 
+  });
+
 });
 
 // ===============================
