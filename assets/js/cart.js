@@ -127,10 +127,31 @@ function removeFromCart(id) {
 document.addEventListener("DOMContentLoaded", () => {
 
   updateCartCount();
-  renderCartPage();
 
-  // Botón ir a checkout (desde carrito.html)
+  const cartBtn = document.getElementById("btn-cart");
+  const drawer = document.getElementById("cart-drawer");
+  const closeBtn = document.getElementById("close-cart");
   const checkoutBtn = document.getElementById("btn-checkout");
+
+  // ABRIR DRAWER
+  if (cartBtn && drawer) {
+    cartBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      drawer.classList.add("active");
+      renderCartPage();
+      document.body.style.overflow = "hidden"; // bloquea scroll
+    });
+  }
+
+  // CERRAR DRAWER
+  if (closeBtn && drawer) {
+    closeBtn.addEventListener("click", () => {
+      drawer.classList.remove("active");
+      document.body.style.overflow = "auto";
+    });
+  }
+
+  // IR A CHECKOUT
   if (checkoutBtn) {
     checkoutBtn.addEventListener("click", () => {
       window.location.href = "checkout.html";
