@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
 
     // 🔥 CAMBIÁ ESTA URL POR TU ENDPOINT REAL
-    const response = await fetch("https://dangotools.com/api/products");
+    const response = await fetch("https://dango.gonzamansilla0149.workers.dev/api/products");
 
     if (!response.ok) {
       throw new Error("Error al obtener productos");
