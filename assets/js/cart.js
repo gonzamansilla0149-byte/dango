@@ -103,7 +103,8 @@ function increaseQty(id) {
   let cart = getCart();
   const item = cart.find(p => p.id === id);
   if (item) item.quantity++;
-  
+
+  saveCart(cart);   // ← FALTA ESTO
   renderCartPage();
 }
 
