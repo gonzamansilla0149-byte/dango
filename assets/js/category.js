@@ -7,15 +7,56 @@ document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
   const category = params.get("cat");
 
-  const container = document.getElementById("category-products");
-  const paginationContainer = document.getElementById("pagination");
+const container = document.getElementById("category-products");
+const paginationContainer = document.getElementById("pagination");
 
-  if (!container) return;
+if (!container) return;
 
-  if (!category) {
-    container.innerHTML = "<p>No se especificó categoría.</p>";
-    return;
-  }
+
+// ===============================
+// GENERAR LISTA DE CATEGORÍAS
+// ===============================
+
+const categoryContainer = document.getElementById("category-filter");
+
+const categoriesList = [
+  { key: "ofertas", name: "Ofertas" },
+  { key: "celulares", name: "Celulares" },
+  { key: "computacion", name: "Computación" },
+  { key: "herramientas", name: "Herramientas" },
+  { key: "accesorios", name: "Accesorios" }
+];
+
+if (categoryContainer) {
+
+  categoryContainer.innerHTML = "";
+
+  categoriesList.forEach(cat => {
+
+    const isActive = category === cat.key ? "active" : "";
+
+    categoryContainer.innerHTML += `
+      <button class="filter-item ${isActive}" 
+              data-category="${cat.key}">
+        ${cat.name}
+      </button>
+    `;
+  });
+
+  categoryContainer.addEventListener("click", (e) => {
+    if (!e.target.dataset.category) return;
+
+    const selectedCat = e.target.dataset.category;
+    window.location.href = `categoria.html?cat=${selectedCat}`;
+  });
+}
+
+
+// ⚠️ RECIÉN ACÁ validamos category
+if (!category) {
+  container.innerHTML = "<p>Selecciona una categoría.</p>";
+  return;
+}
 
   // ===============================
   // TÍTULO Y BREADCRUMB
