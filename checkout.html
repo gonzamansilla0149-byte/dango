@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Dango | Checkout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-top">
+    <a href="index.html" class="logo">DANGO</a>
+    <div class="header-actions">
+      <a href="carrito.html" class="cart-btn">Volver al carrito</a>
+    </div>
+  </div>
+</header>
+
+<main class="checkout-page">
+
+  <div class="checkout-container">
+
+    <h1>Finalizar compra</h1>
+
+    <!-- ================= RESUMEN ================= -->
+    <div class="checkout-summary">
+      <h2>Resumen del pedido</h2>
+      <div id="checkout-items"></div>
+      <div class="checkout-total">
+        Total: <span id="checkout-total">$0</span>
+      </div>
+    </div>
+
+    <!-- ================= DATOS CLIENTE ================= -->
+    <form id="checkout-form" class="checkout-form">
+
+      <h2>Datos de contacto</h2>
+
+      <input type="text" name="name" placeholder="Nombre completo" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="phone" placeholder="Teléfono" required>
+
+      <h2>Dirección de envío</h2>
+
+      <input type="text" name="address" placeholder="Dirección" required>
+      <input type="text" name="city" placeholder="Ciudad" required>
+      <input type="text" name="postal" placeholder="Código postal" required>
+
+      <button type="submit" class="confirm-btn">
+        Confirmar pedido
+      </button>
+
+    </form>
+
+  </div>
+
+</main>
+
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/checkout.js"></script>
+
+</body>
+</html>
