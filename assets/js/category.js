@@ -7,6 +7,30 @@ document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
   const category = params.get("cat");
 
+  // ===============================
+// CAMBIAR TÍTULO Y BREADCRUMB
+// ===============================
+
+const categoryNames = {
+  celulares: "Celulares",
+  computacion: "Computación",
+  herramientas: "Herramientas",
+  accesorios: "Accesorios",
+  ofertas: "Ofertas"
+};
+
+const categoryName = categoryNames[category] || "Categoría";
+
+const titleElement = document.getElementById("category-title");
+const breadcrumbElement = document.getElementById("breadcrumb");
+
+if (titleElement) {
+  titleElement.textContent = categoryName;
+}
+
+if (breadcrumbElement) {
+  breadcrumbElement.textContent = `Inicio / Categoría / ${categoryName}`;
+}
   const container = document.getElementById("category-products");
   const paginationContainer = document.getElementById("pagination");
 
