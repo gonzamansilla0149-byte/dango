@@ -870,3 +870,8 @@ body {
   background: #0077ff;
   color: white;
 }
+
+.filter-item.active {
+  background: #111;
+  color: white;
+}
