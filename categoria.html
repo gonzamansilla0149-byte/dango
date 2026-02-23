@@ -43,32 +43,48 @@
 <main class="shop-layout">
 
   <!-- ========== SIDEBAR ========== -->
-  <aside class="sidebar">
+<aside class="sidebar">
 
-    <div class="filter-block">
-      <h4>Categorías</h4>
-      <label><input type="checkbox"> Herramientas eléctricas</label>
-      <label><input type="checkbox"> Manuales</label>
-      <label><input type="checkbox"> Accesorios</label>
+  <!-- CATEGORÍAS -->
+  <div class="filter-group">
+    <button class="filter-toggle">
+      Categorías <span>▾</span>
+    </button>
+
+    <div class="filter-content">
+      <button class="filter-item">Herramientas eléctricas</button>
+      <button class="filter-item">Manuales</button>
+      <button class="filter-item">Accesorios</button>
     </div>
+  </div>
 
-    <div class="filter-block">
-      <h4>Marcas</h4>
-      <label><input type="checkbox"> Bosch</label>
-      <label><input type="checkbox"> Black & Decker</label>
-      <label><input type="checkbox"> Makita</label>
-      <label><input type="checkbox"> DeWalt</label>
+  <!-- MARCAS -->
+  <div class="filter-group">
+    <button class="filter-toggle">
+      Marcas <span>▾</span>
+    </button>
+
+    <div class="filter-content">
+      <button class="filter-item">Bosch</button>
+      <button class="filter-item">Makita</button>
+      <button class="filter-item">DeWalt</button>
     </div>
+  </div>
 
-    <div class="filter-block">
-      <h4>Precio</h4>
-      <label><input type="checkbox"> Hasta $50.000</label>
-      <label><input type="checkbox"> $50.000 - $100.000</label>
-      <label><input type="checkbox"> + $100.000</label>
+  <!-- PRECIO -->
+  <div class="filter-group">
+    <button class="filter-toggle">
+      Precio <span>▾</span>
+    </button>
+
+    <div class="filter-content">
+      <button class="filter-item">Hasta $50.000</button>
+      <button class="filter-item">$50.000 - $100.000</button>
+      <button class="filter-item">+ $100.000</button>
     </div>
+  </div>
 
-  </aside>
-
+</aside>
   <!-- ========== CONTENT ========== -->
   <section class="shop-content">
 
