@@ -46,11 +46,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       productsToShow.forEach(product => {
       container.innerHTML += createProductCard(product);
-
-      document.querySelectorAll(".filter-toggle").forEach(btn => {
-      btn.addEventListener("click", () => {
-      btn.parentElement.classList.toggle("active");
-        });
       });
     }
 
@@ -98,6 +93,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     container.innerHTML = "<p>Error cargando productos.</p>";
   }
 
+   document.querySelectorAll(".filter-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+      btn.parentElement.classList.toggle("active");
+    });
+  }); 
 });
 
 // ===============================
