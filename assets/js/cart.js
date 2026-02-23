@@ -32,12 +32,13 @@ function addToCart(product) {
       id: product.id,
       name: product.name,
       price: product.price,
-      image: product.image_url,
+      image: product.images ? product.images[0] : "",
       quantity: 1
     });
   }
 
   saveCart(cart);
+  renderCartPage();
 }
 
 // ==========================
@@ -102,7 +103,7 @@ function increaseQty(id) {
   let cart = getCart();
   const item = cart.find(p => p.id === id);
   if (item) item.quantity++;
-  saveCart(cart);
+  
   renderCartPage();
 }
 
