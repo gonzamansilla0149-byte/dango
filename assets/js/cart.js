@@ -127,27 +127,35 @@ function removeFromCart(id) {
 document.addEventListener("DOMContentLoaded", () => {
 
   updateCartCount();
+  renderCartPage();
 
+  const cartDrawer = document.getElementById("cart-drawer");
   const cartBtn = document.getElementById("btn-cart");
-  const drawer = document.getElementById("cart-drawer");
-  const closeBtn = document.getElementById("close-cart");
+  const closeCart = document.getElementById("close-cart");
   const checkoutBtn = document.getElementById("btn-checkout");
 
-  // ABRIR DRAWER
-  if (cartBtn && drawer) {
+  // ABRIR CARRITO
+  if (cartBtn && cartDrawer) {
     cartBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      drawer.classList.add("active");
+      cartDrawer.classList.add("active");
       renderCartPage();
-      document.body.style.overflow = "hidden"; // bloquea scroll
     });
   }
 
-  // CERRAR DRAWER
-  if (closeBtn && drawer) {
-    closeBtn.addEventListener("click", () => {
-      drawer.classList.remove("active");
-      document.body.style.overflow = "auto";
+  // CERRAR CARRITO
+  if (closeCart && cartDrawer) {
+    closeCart.addEventListener("click", () => {
+      cartDrawer.classList.remove("active");
+    });
+  }
+
+  // CERRAR SI CLICKEAN FUERA
+  if (cartDrawer) {
+    cartDrawer.addEventListener("click", (e) => {
+      if (e.target === cartDrawer) {
+        cartDrawer.classList.remove("active");
+      }
     });
   }
 
