@@ -1,78 +1,72 @@
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
 
-  const container = document.querySelector(".product-container");
   const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
+  const id = Number(params.get("id"));
 
-  if (!id) {
-    container.innerHTML = "<h2>ID inválido o no especificado</h2>";
+  if (!id || isNaN(id)) {
+    document.querySelector(".product-container").innerHTML =
+      "<h2>ID inválido o no especificado</h2>";
     return;
   }
 
-  try {
+  const product = products.find(p => p.id === id);
 
-    const response = await fetch(
-      `https://dango.gonzamansilla0149.workers.dev/api/products/${id}`
-    );
+  if (!product) {
+    document.querySelector(".product-container").innerHTML =
+      "<h2>Producto no encontrado</h2>";
+    return;
+  }
 
-    const product = await response.json();
+  // ELEMENTOS
+  const title = document.querySelector(".product-title");
+  const brand = document.querySelector(".product-brand");
+  const price = document.querySelector(".product-price");
+  const description = document.querySelector(".product-description");
+  const mainImage = document.querySelector(".main-image");
+  const breadcrumb = document.querySelector(".breadcrumb-product");
 
-    if (!product || !product.id) {
-      container.innerHTML = "<h2>Producto no encontrado</h2>";
-      return;
-    }
+  // RENDER DATOS
+  title.textContent = product.name;
+  brand.textContent = product.brand;
+  price.textContent = `$${product.price.toLocaleString()}`;
+  description.textContent = product.description;
+  breadcrumb.textContent = product.name;
 
-    // ELEMENTOS
-    const title = document.querySelector(".product-title");
-    const brand = document.querySelector(".product-brand");
-    const price = document.querySelector(".product-price");
-    const description = document.querySelector(".product-description");
-    const mainImage = document.querySelector(".main-image");
-    const breadcrumb = document.querySelector(".breadcrumb-product");
+  // IMAGEN
+  if (product.images && product.images.length > 0) {
+    mainImage.style.backgroundImage = `url(${product.images[0]})`;
+    mainImage.style.backgroundSize = "cover";
+    mainImage.style.backgroundPosition = "center";
+  }
 
-    // RENDER
-    title.textContent = product.name;
-    brand.textContent = product.brand;
-    price.textContent = `$${Number(product.price).toLocaleString()}`;
-    description.textContent = product.description;
-    breadcrumb.textContent = product.name;
+  // ===============================
+  // AGREGAR AL CARRITO
+  // ===============================
 
-    // IMAGEN
-    if (product.image_url) {
-      mainImage.style.backgroundImage = `url(${product.image_url})`;
-      mainImage.style.backgroundSize = "cover";
-      mainImage.style.backgroundPosition = "center";
-      mainImage.style.backgroundRepeat = "no-repeat";
-    }
+  const addBtn = document.querySelector(".add-to-cart-btn");
+  const qtyInput = document.querySelector(".quantity-selector input");
 
-    // ===============================
-// AGREGAR AL CARRITO
-// ===============================
+  if (addBtn) {
+    addBtn.addEventListener("click", () => {
 
-const addBtn = document.querySelector(".add-to-cart-btn");
-const qtyInput = document.querySelector(".quantity-selector input");
+      const quantity = Number(qtyInput.value) || 1;
 
-if (addBtn) {
-  addBtn.addEventListener("click", () => {
+      if (typeof addToCart === "function") {
 
-    const quantity = Number(qtyInput.value) || 1;
+        for (let i = 0; i < quantity; i++) {
+          addToCart(product);
+        }
 
-    // Agregamos tantas veces como indique la cantidad
-    for (let i = 0; i < quantity; i++) {
-      addToCart(product);
-    }
+        const drawer = document.getElementById("cart-drawer");
+        if (drawer) {
+          drawer.classList.add("active");
+        }
 
-    // Opcional: abrir carrito automáticamente
-    const drawer = document.getElementById("cart-drawer");
-    if (drawer) {
-      drawer.classList.add("active");
-    }
+      } else {
+        console.error("addToCart no está definido");
+      }
 
-  });
-}
-  } catch (err) {
-    console.error("Error cargando producto:", err);
-    container.innerHTML = "<h2>Error cargando producto</h2>";
+    });
   }
 
 });
