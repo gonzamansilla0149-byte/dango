@@ -43,44 +43,41 @@
   <!-- ========== SIDEBAR ========== -->
 <aside class="sidebar">
 
-  <!-- CATEGORÍAS -->
-  <div class="filter-group">
-    <button class="filter-toggle">
-      Categorías <span>▾</span>
-    </button>
+<!-- CATEGORÍA (solo mostrar seleccionada) -->
+<div class="filter-group">
+  <button class="filter-toggle">
+    Categoría <span>▾</span>
+  </button>
+  <div class="filter-content" id="category-filter"></div>
+</div>
 
-    <div class="filter-content">
-      <button class="filter-item">Herramientas eléctricas</button>
-      <button class="filter-item">Manuales</button>
-      <button class="filter-item">Accesorios</button>
-    </div>
+<!-- SUBCATEGORÍAS -->
+<div class="filter-group">
+  <button class="filter-toggle">
+    Subcategorías <span>▾</span>
+  </button>
+  <div class="filter-content" id="subcategory-filter"></div>
+</div>
+
+<!-- MARCAS -->
+<div class="filter-group">
+  <button class="filter-toggle">
+    Marcas <span>▾</span>
+  </button>
+  <div class="filter-content" id="brand-filter"></div>
+</div>
+
+<!-- PRECIO -->
+<div class="filter-group">
+  <button class="filter-toggle">
+    Precio <span>▾</span>
+  </button>
+  <div class="filter-content" id="price-filter">
+    <button data-price="0-50000">Hasta $50.000</button>
+    <button data-price="50000-100000">$50.000 - $100.000</button>
+    <button data-price="100000-99999999">+ $100.000</button>
   </div>
-
-  <!-- MARCAS -->
-  <div class="filter-group">
-    <button class="filter-toggle">
-      Marcas <span>▾</span>
-    </button>
-
-    <div class="filter-content">
-      <button class="filter-item">Bosch</button>
-      <button class="filter-item">Makita</button>
-      <button class="filter-item">DeWalt</button>
-    </div>
-  </div>
-
-  <!-- PRECIO -->
-  <div class="filter-group">
-    <button class="filter-toggle">
-      Precio <span>▾</span>
-    </button>
-
-    <div class="filter-content">
-      <button class="filter-item">Hasta $50.000</button>
-      <button class="filter-item">$50.000 - $100.000</button>
-      <button class="filter-item">+ $100.000</button>
-    </div>
-  </div>
+</div>
 
 </aside>
   <!-- ========== CONTENT ========== -->
