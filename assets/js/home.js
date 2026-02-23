@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
   const featuredContainer = document.getElementById("featured-products");
-  const herramientasContainer = document.getElementById("home-herramientas");
   const heroSection = document.querySelector(".hero");
 
   try {
@@ -43,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // ===============================
-    // TOP GLOBAL
+    // TOP GLOBAL (DESTACADOS)
     // ===============================
 
     if (featuredContainer) {
@@ -52,19 +51,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // ===============================
-    // TOP HERRAMIENTAS
+    // TOP POR CATEGORÍA (DINÁMICO)
     // ===============================
 
-    if (herramientasContainer) {
+    const categories = [
+      "herramientas",
+      "celulares",
+      "computacion",
+      "accesorios"
+    ];
 
-      const herramientas = products.filter(
-        p => p.category.toLowerCase() === "herramientas"
+    categories.forEach(category => {
+
+      const container = document.getElementById(`home-${category}`);
+      if (!container) return;
+
+      const filtered = products.filter(
+        p => p.category.toLowerCase() === category
       );
 
-      const topHerramientas = getTopBySales(herramientas, 5);
+      const topByCategory = getTopBySales(filtered, 5);
 
-      renderProducts(herramientasContainer, topHerramientas);
-    }
+      renderProducts(container, topByCategory);
+
+    });
 
     // ===============================
     // HERO DINÁMICO
