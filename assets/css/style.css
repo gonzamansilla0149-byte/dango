@@ -758,12 +758,12 @@ body {
 .related-slider::-webkit-scrollbar-thumb {
   background: #ccc;
   border-radius: 10px;
+  overflow-x: auto;
 }
 /* TRACK */
 .related-track {
   display: flex;
   gap: 20px;
-  width: max-content;
 }
 
 /* CARD SIZE FIJO (IMPORTANTE) */
