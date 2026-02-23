@@ -45,6 +45,31 @@ document.addEventListener("DOMContentLoaded", async () => {
       mainImage.style.backgroundRepeat = "no-repeat";
     }
 
+    // ===============================
+// AGREGAR AL CARRITO
+// ===============================
+
+const addBtn = document.querySelector(".add-to-cart-btn");
+const qtyInput = document.querySelector(".quantity-selector input");
+
+if (addBtn) {
+  addBtn.addEventListener("click", () => {
+
+    const quantity = Number(qtyInput.value) || 1;
+
+    // Agregamos tantas veces como indique la cantidad
+    for (let i = 0; i < quantity; i++) {
+      addToCart(product);
+    }
+
+    // Opcional: abrir carrito automáticamente
+    const drawer = document.getElementById("cart-drawer");
+    if (drawer) {
+      drawer.classList.add("active");
+    }
+
+  });
+}
   } catch (err) {
     console.error("Error cargando producto:", err);
     container.innerHTML = "<h2>Error cargando producto</h2>";
