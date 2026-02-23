@@ -28,6 +28,43 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
+
+    // ===============================
+// PRODUCTOS RELACIONADOS
+// ===============================
+
+const relatedTrack = document.getElementById("related-track");
+
+if (relatedTrack) {
+
+  const relatedProducts = products
+    .filter(p =>
+      p.category === product.category &&  // misma categoría
+      Number(p.id) !== Number(product.id) // excluir actual
+    )
+    .slice(0, 8); // máximo 8
+
+  if (relatedProducts.length === 0) {
+    relatedTrack.innerHTML = "<p>No hay productos relacionados.</p>";
+  } else {
+
+    relatedTrack.innerHTML = relatedProducts.map(p => `
+      <article class="product-card">
+        <div class="product-image"
+          style="background-image:url('${p.images?.[0] || ""}');
+                 background-size:cover;
+                 background-position:center;">
+        </div>
+        <h3>${p.name}</h3>
+        <p class="price">$${Number(p.price).toLocaleString()}</p>
+        <button onclick="location.href='producto.html?id=${p.id}'">
+          Ver producto
+        </button>
+      </article>
+    `).join("");
+
+  }
+}
     // ===============================
     // ELEMENTOS
     // ===============================
