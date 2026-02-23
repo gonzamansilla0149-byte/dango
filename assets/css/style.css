@@ -628,3 +628,51 @@ body {
   border: none;
   cursor: pointer;
 }
+.checkout-page {
+  padding: 40px 20px;
+}
+
+.checkout-container {
+  max-width: 900px;
+  margin: auto;
+  display: grid;
+  gap: 40px;
+}
+
+.checkout-summary {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+.checkout-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.checkout-total {
+  font-weight: bold;
+  margin-top: 15px;
+  font-size: 18px;
+}
+
+.checkout-form {
+  display: grid;
+  gap: 12px;
+}
+
+.checkout-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.confirm-btn {
+  margin-top: 15px;
+  padding: 12px;
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
