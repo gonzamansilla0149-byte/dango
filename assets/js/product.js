@@ -18,7 +18,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       throw new Error("Error al obtener productos");
     }
 
-    const products = await response.json();
+    console.log("Todos los productos:", products);
+    console.log("Producto actual:", product);
 
     const product = products.find(p => Number(p.id) === id);
 
