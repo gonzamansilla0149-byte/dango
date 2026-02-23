@@ -727,3 +727,49 @@ body {
   flex: 1;
   overflow-y: auto;
 }
+
+/* ============================= */
+/* RELATED PRODUCTS */
+/* ============================= */
+
+.related-products {
+  margin-top: 60px;
+}
+
+.related-container {
+  max-width: 1200px; /* mismo ancho que product-container */
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.related-title {
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+/* SLIDER */
+.related-slider {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+.related-slider::-webkit-scrollbar {
+  height: 8px;
+}
+
+.related-slider::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+.related-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+}
+
+/* CARD */
+.related-track .product-card {
+  min-width: 200px; /* 5 visibles aprox */
+  flex: 0 0 auto;
+}
