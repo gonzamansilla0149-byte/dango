@@ -45,7 +45,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       const productsToShow = filteredProducts.slice(start, end);
 
       productsToShow.forEach(product => {
-        container.innerHTML += createProductCard(product);
+      container.innerHTML += createProductCard(product);
+
+      document.querySelectorAll(".filter-toggle").forEach(btn => {
+      btn.addEventListener("click", () => {
+      btn.parentElement.classList.toggle("active");
+        });
       });
     }
 
