@@ -132,19 +132,34 @@
   </div>
 </div>
 
-<div class="modal" id="cart-modal">
-  <div class="modal-content">
-    <h3>Carrito</h3>
-    <p>Tu carrito está vacío</p>
-    <button>Cerrar</button>
-    <span class="close-modal">✕</span>
-  </div>
-</div>
-
 <script src="assets/js/products.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/category.js"></script>
+<script src="assets/js/cart.js"></script>
 
+<!-- ================= CART DRAWER ================= -->
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-panel">
 
+    <div class="cart-header">
+      <h3>Tu carrito</h3>
+      <span id="close-cart">✕</span>
+    </div>
+
+    <div id="cart-items"></div>
+
+    <div class="cart-summary">
+      <div class="cart-total">
+        Total: <span id="cart-total">$0</span>
+      </div>
+
+      <button id="btn-checkout" class="checkout-btn">
+        Ir a pagar
+      </button>
+    </div>
+
+  </div>
+</div>
+  
 </body>
 </html>
