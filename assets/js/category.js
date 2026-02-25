@@ -111,8 +111,8 @@ const filteredProducts = allProducts.filter(p =>
     const subcategoryContainer = document.getElementById("subcategory-filter");
     const brandContainer = document.getElementById("brand-filter");
 
-    const subcategories = [...new Set(filteredProducts.map(p => p.subcategory).filter(Boolean))];
-    const brands = [...new Set(filteredProducts.map(p => p.brand).filter(Boolean))];
+    const subcategories = [...new Set(filteredProducts.map(p => p.subcategory_name).filter(Boolean))];
+    const brands = [...new Set(filteredProducts.map(p => p.brand_name).filter(Boolean))];
 
     if (subcategoryContainer) {
       subcategoryContainer.innerHTML = "";
