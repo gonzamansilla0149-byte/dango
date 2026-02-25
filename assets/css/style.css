@@ -924,3 +924,25 @@ body {
   }
 
 }
+
+/* ===============================
+   CATEGORY GRID DESKTOP
+================================ */
+
+.shop-content .products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 1200px) {
+  .shop-content .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .shop-content .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
