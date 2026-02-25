@@ -442,6 +442,17 @@ body {
     gap: 20px;
   }
 }
+
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+  body {
+    padding-top: 110px; /* altura real del header */
+  }
+}
 /* ===============================
    PRODUCT VIEW (MEJORADO)
 ================================ */
@@ -997,6 +1008,6 @@ body {
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 2000; /* más alto que cualquier sección */
+  z-index: 3000; /* más alto que todo */
   width: 100%;
 }
