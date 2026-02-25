@@ -146,14 +146,17 @@ const filteredProducts = allProducts.filter(p =>
 
         let match = true;
 
-        if (selectedSubcategory) {
-          match = match && p.subcategory === selectedSubcategory;
-        }
+if (selectedSubcategory) {
+  match = match &&
+    (p.subcategory_name || "").toLowerCase() ===
+    selectedSubcategory.toLowerCase();
+}
 
-        if (selectedBrand) {
-          match = match && p.brand === selectedBrand;
-        }
-
+if (selectedBrand) {
+  match = match &&
+    (p.brand_name || "").toLowerCase() ===
+    selectedBrand.toLowerCase();
+}
         if (selectedPriceRange) {
           const [min, max] = selectedPriceRange;
           match = match && p.price >= min && p.price <= max;
@@ -311,7 +314,7 @@ function createProductCard(product) {
              ">
         </div>
         <h3>${product.name}</h3>
-        <p class="brand">${product.brand}</p>
+        <p class="brand">${product.brand_name || ""}</p>
         <p class="price">$${Number(product.price).toLocaleString()}</p>
       </a>
       <button>Agregar al carrito</button>
