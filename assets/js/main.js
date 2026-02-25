@@ -34,10 +34,11 @@ function initAccountDropdown() {
   const openLogin = document.getElementById("open-login");
   const openRegister = document.getElementById("open-register");
   const loginModal = document.getElementById("login-modal");
+  const closeModal = document.querySelector(".close-modal");
 
   if (!btnLogin || !dropdown) return;
 
-  // Mostrar dropdown
+  // Mostrar / ocultar dropdown
   btnLogin.addEventListener("click", (e) => {
     e.stopPropagation();
     dropdown.classList.toggle("show");
@@ -49,6 +50,43 @@ function initAccountDropdown() {
       dropdown.classList.remove("show");
     }
   });
+
+  // Abrir modal login
+  if (openLogin && loginModal) {
+    openLogin.addEventListener("click", () => {
+      dropdown.classList.remove("show");
+      loginModal.style.display = "flex";
+      document.body.style.overflow = "hidden";
+    });
+  }
+
+  // Abrir modal registro (usa mismo modal por ahora)
+  if (openRegister && loginModal) {
+    openRegister.addEventListener("click", () => {
+      dropdown.classList.remove("show");
+      loginModal.style.display = "flex";
+      document.body.style.overflow = "hidden";
+    });
+  }
+
+  // Cerrar modal con la X
+  if (closeModal && loginModal) {
+    closeModal.addEventListener("click", () => {
+      loginModal.style.display = "none";
+      document.body.style.overflow = "";
+    });
+  }
+
+  // Cerrar modal haciendo click fuera del contenido
+  if (loginModal) {
+    loginModal.addEventListener("click", (e) => {
+      if (e.target === loginModal) {
+        loginModal.style.display = "none";
+        document.body.style.overflow = "";
+      }
+    });
+  }
+}
 
   // Abrir modal login
   if (openLogin && loginModal) {
