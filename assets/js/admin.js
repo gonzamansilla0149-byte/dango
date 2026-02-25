@@ -167,6 +167,7 @@ async function loadCategories() {
     const res = await authFetch(`${API_URL}/api/categories`);
     categories = await res.json();
     fillCategorySelect();
+    renderCategoriesList();   // 🔥 AGREGAR ESTA LÍNEA
   } catch (error) {
     console.error("Error cargando categorías:", error);
   }
@@ -177,6 +178,7 @@ async function loadBrands() {
     const res = await authFetch(`${API_URL}/api/brands`);
     brands = await res.json();
     fillBrandSelect();
+    renderBrandsList();   // 🔥 AGREGAR ESTA LÍNEA
   } catch (error) {
     console.error("Error cargando marcas:", error);
   }
