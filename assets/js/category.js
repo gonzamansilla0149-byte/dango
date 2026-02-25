@@ -16,28 +16,35 @@ if (!container) return;
 // ===============================
 // GENERAR LISTA DE CATEGORÍAS
 // ===============================
+// ===============================
+// GENERAR LISTA DE CATEGORÍAS (DINÁMICO)
+// ===============================
 
 const categoryContainer = document.getElementById("category-filter");
 
-const categoriesList = [
-  { key: "ofertas", name: "Ofertas" },
-  { key: "celulares", name: "Celulares" },
-  { key: "computacion", name: "Computación" },
-  { key: "herramientas", name: "Herramientas" },
-  { key: "accesorios", name: "Accesorios" }
-];
+function slugify(text) {
+  return (text || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") // quitar tildes
+    .replace(/\s+/g, "-");
+}
 
 if (categoryContainer) {
 
+  const res = await fetch("https://dango.gonzamansilla0149.workers.dev/api/categories");
+  const categories = await res.json();
+
   categoryContainer.innerHTML = "";
 
-  categoriesList.forEach(cat => {
+  categories.forEach(cat => {
 
-    const isActive = category === cat.key ? "active" : "";
+    const slug = slugify(cat.name);
+    const isActive = slug === category ? "active" : "";
 
     categoryContainer.innerHTML += `
-      <button class="filter-item ${isActive}" 
-              data-category="${cat.key}">
+      <button class="filter-item ${isActive}"
+              data-category="${slug}">
         ${cat.name}
       </button>
     `;
@@ -45,51 +52,47 @@ if (categoryContainer) {
 
   categoryContainer.addEventListener("click", (e) => {
     if (!e.target.dataset.category) return;
-
-    const selectedCat = e.target.dataset.category;
-    window.location.href = `categoria.html?cat=${selectedCat}`;
+    window.location.href = `categoria.html?cat=${e.target.dataset.category}`;
   });
 }
-
 
 // ⚠️ RECIÉN ACÁ validamos category
 if (!category) {
   container.innerHTML = "<p>Selecciona una categoría.</p>";
   return;
 }
+// ===============================
+// TÍTULO Y BREADCRUMB (DINÁMICO)
+// ===============================
 
-  // ===============================
-  // TÍTULO Y BREADCRUMB
-  // ===============================
+const resCategories = await fetch("https://dango.gonzamansilla0149.workers.dev/api/categories");
+const allCategories = await resCategories.json();
 
-  const categoryNames = {
-    celulares: "Celulares",
-    computacion: "Computación",
-    herramientas: "Herramientas",
-    accesorios: "Accesorios",
-    ofertas: "Ofertas"
-  };
+const currentCategoryObj = allCategories.find(
+  c => slugify(c.name) === category
+);
 
-  const categoryName = categoryNames[category] || "Categoría";
+const categoryName = currentCategoryObj
+  ? currentCategoryObj.name
+  : "Categoría";
 
-  const titleElement = document.getElementById("category-title");
-  const breadcrumbElement = document.getElementById("breadcrumb");
+const titleElement = document.getElementById("category-title");
+const breadcrumbElement = document.getElementById("breadcrumb");
 
-  if (titleElement) titleElement.textContent = categoryName;
-  if (breadcrumbElement)
-    breadcrumbElement.textContent = `Inicio / Categoría / ${categoryName}`;
+if (titleElement) titleElement.textContent = categoryName;
+if (breadcrumbElement)
+  breadcrumbElement.textContent = `Inicio / Categoría / ${categoryName}`;
 
-  document.title = `Dango | ${categoryName}`;
+document.title = `Dango | ${categoryName}`;
 
   try {
 
     const response = await fetch("https://dango.gonzamansilla0149.workers.dev/api/products");
     const allProducts = await response.json();
-
-const filteredProducts = allProducts.filter(p =>
-  (p.category_name || "").toLowerCase() === category.toLowerCase()
-);
     
+const filteredProducts = allProducts.filter(p =>
+  slugify(p.category_name || "") === category
+);
     if (filteredProducts.length === 0) {
       container.innerHTML = "<p>No hay productos en esta categoría.</p>";
       return;
