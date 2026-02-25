@@ -362,6 +362,86 @@ body {
 }
 
 /* ===============================
+   MOBILE GLOBAL FIXES
+================================ */
+
+@media (max-width: 768px) {
+
+  /* ===============================
+   MOBILE PRODUCT GRID FIX
+================================ */
+
+@media (max-width: 1024px) {
+
+  .shop-layout {
+    flex-direction: column;
+  }
+
+  .shop-content .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .product-card {
+    padding: 10px;
+  }
+
+  .product-image {
+    height: 120px;
+  }
+
+  .product-card h3 {
+    font-size: 13px;
+  }
+
+  .brand {
+    font-size: 11px;
+  }
+
+  .price {
+    font-size: 14px;
+  }
+
+}
+  
+  html, body {
+    overflow-x: hidden;
+  }
+
+  .header-top {
+    gap: 10px;
+    padding: 12px 14px;
+  }
+
+  .search-bar input {
+    width: 140px;
+    padding: 6px;
+    font-size: 14px;
+  }
+
+  .header-actions button {
+    padding: 6px 8px;
+    font-size: 13px;
+  }
+
+  .main-nav {
+    background: transparent;
+    padding: 0;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .footer-columns {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+}
+/* ===============================
    PRODUCT VIEW (MEJORADO)
 ================================ */
 
@@ -820,51 +900,6 @@ body {
   }
 }
 
-/* ===============================
-   MOBILE FIX CATEGORIA
-================================ */
-
-@media (max-width: 1024px) {
-
-  /* Sidebar horizontal (como antes) */
-  .shop-layout {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    width: 100%;
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    padding: 8px 0;
-    border-bottom: 1px solid #eee;
-  }
-
-  .filter-group {
-    flex: 0 0 auto;
-  }
-
-  .filter-content {
-    display: none;
-  }
-
-  /* 3 columnas */
-  .shop-content .products-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
-
-  /* 🔥 Hacer cards proporcionales */
-  .product-card {
-    padding: 8px;
-  }
-
-  .product-image {
-    aspect-ratio: 1 / 1;   /* ← ESTO LAS HACE CUADRADAS */
-    height: auto;
-  }
-
-}
 
 .product-link {
   text-decoration: none;
