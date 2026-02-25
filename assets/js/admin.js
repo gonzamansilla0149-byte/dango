@@ -711,7 +711,6 @@ document.addEventListener("click", async (e) => {
       alert("Error creando categoría");
       console.error(err);
     }
-  });
 }
 // Crear subcategoría
 if (createSubcategoryBtn) {
