@@ -7,12 +7,11 @@ export default {
 
     const url = new URL(request.url);
 
-    const corsHeaders = {
-      "Access-Control-Allow-Origin": "https://dangotools.com",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization"
-    };
-
+const corsHeaders = {
+  "Access-Control-Allow-Origin": request.headers.get("Origin") || "*",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization"
+};
     // =========================
     // CORS PREFLIGHT
     // =========================
