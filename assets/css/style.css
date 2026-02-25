@@ -441,19 +441,6 @@ body {
     flex-direction: column;
     gap: 20px;
   }
-
-  /* 🔥 ESTO VA DENTRO DEL MEDIA QUERY */
-  .site-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-  }
-
-  body {
-    padding-top: var(--header-height);
-  }
-
 }
 /* ===============================
    PRODUCT VIEW (MEJORADO)
