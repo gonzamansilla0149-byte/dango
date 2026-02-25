@@ -581,3 +581,173 @@ loadCategories();
 loadBrands();
 loadProducts();
 renderOrders();
+
+// ============================
+// GESTIÓN DE CATEGORÍAS
+// ============================
+
+const createCategoryBtn = document.getElementById("create-category-btn");
+const createSubcategoryBtn = document.getElementById("create-subcategory-btn");
+const createBrandBtn = document.getElementById("create-brand-btn");
+
+const categoriesList = document.getElementById("categories-list");
+const brandsList = document.getElementById("brands-list");
+const subcategoryCategorySelect = document.getElementById("subcategory-category-select");
+
+// Cargar categorías en select de subcategoría
+async function loadCategoriesForSubcategory() {
+  if (!subcategoryCategorySelect) return;
+
+  subcategoryCategorySelect.innerHTML =
+    `<option value="">Seleccionar categoría</option>`;
+
+  categories.forEach(c => {
+    subcategoryCategorySelect.innerHTML +=
+      `<option value="${c.id}">${c.name}</option>`;
+  });
+}
+
+// Render listado categorías
+function renderCategoriesList() {
+  if (!categoriesList) return;
+
+  if (categories.length === 0) {
+    categoriesList.innerHTML = "<p>No hay categorías</p>";
+    return;
+  }
+
+  let html = "<ul>";
+
+  categories.forEach(c => {
+    html += `
+      <li>
+        ${c.name}
+        <button onclick="deleteCategory(${c.id})">Eliminar</button>
+      </li>
+    `;
+  });
+
+  html += "</ul>";
+
+  categoriesList.innerHTML = html;
+}
+
+// Render listado marcas
+function renderBrandsList() {
+  if (!brandsList) return;
+
+  if (brands.length === 0) {
+    brandsList.innerHTML = "<p>No hay marcas</p>";
+    return;
+  }
+
+  let html = "<ul>";
+
+  brands.forEach(b => {
+    html += `
+      <li>
+        ${b.name}
+        <button onclick="deleteBrand(${b.id})">Eliminar</button>
+      </li>
+    `;
+  });
+
+  html += "</ul>";
+
+  brandsList.innerHTML = html;
+}
+
+// Crear categoría
+if (createCategoryBtn) {
+  createCategoryBtn.addEventListener("click", async () => {
+    const name = document.getElementById("new-category-name").value.trim();
+    if (!name) return alert("Ingresá un nombre");
+
+    await authFetch(`${API_URL}/api/categories`, {
+      method: "POST",
+      body: JSON.stringify({ name })
+    });
+
+    document.getElementById("new-category-name").value = "";
+    await loadCategories();
+    loadCategoriesForSubcategory();
+    renderCategoriesList();
+  });
+}
+
+// Crear subcategoría
+if (createSubcategoryBtn) {
+  createSubcategoryBtn.addEventListener("click", async () => {
+
+    const name = document.getElementById("new-subcategory-name").value.trim();
+    const category_id = subcategoryCategorySelect.value;
+
+    if (!name || !category_id) return alert("Completá los campos");
+
+    await authFetch(`${API_URL}/api/subcategories`, {
+      method: "POST",
+      body: JSON.stringify({ name, category_id })
+    });
+
+    document.getElementById("new-subcategory-name").value = "";
+    alert("Subcategoría creada");
+  });
+}
+
+// Crear marca
+if (createBrandBtn) {
+  createBrandBtn.addEventListener("click", async () => {
+    const name = document.getElementById("new-brand-name").value.trim();
+    if (!name) return alert("Ingresá un nombre");
+
+    await authFetch(`${API_URL}/api/brands`, {
+      method: "POST",
+      body: JSON.stringify({ name })
+    });
+
+    document.getElementById("new-brand-name").value = "";
+    await loadBrands();
+    renderBrandsList();
+  });
+}
+
+// Eliminar categoría
+async function deleteCategory(id) {
+  if (!confirm("¿Eliminar categoría?")) return;
+
+  await authFetch(`${API_URL}/api/categories/${id}`, {
+    method: "DELETE"
+  });
+
+  await loadCategories();
+  renderCategoriesList();
+}
+
+// Eliminar marca
+async function deleteBrand(id) {
+  if (!confirm("¿Eliminar marca?")) return;
+
+  await authFetch(`${API_URL}/api/brands/${id}`, {
+    method: "DELETE"
+  });
+
+  await loadBrands();
+  renderBrandsList();
+}
+
+// Actualizar listados cuando se carga la vista
+async function initCategoryView() {
+  await loadCategories();
+  await loadBrands();
+  loadCategoriesForSubcategory();
+  renderCategoriesList();
+  renderBrandsList();
+}
+
+// Detectar cuando entramos a vista categorías
+const categoriasBtn = document.querySelector('[data-view="categorias"]');
+if (categoriasBtn) {
+  categoriasBtn.addEventListener("click", () => {
+    setTimeout(initCategoryView, 100);
+  });
+}
