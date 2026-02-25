@@ -5,7 +5,7 @@
 }
 
 body {
-  padding-top: 0;
+  padding-top: 120px; /* ajustamos según altura real */
   font-family: Arial, sans-serif;
   background: #fff;
   color: #111;
@@ -15,9 +15,11 @@ body {
 .site-header {
   background: #111;
   color: white;
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 3000;
+  left: 0;
+  width: 100%;
+  z-index: 5000;
 }
 
 .header-top {
@@ -939,40 +941,47 @@ body {
 
 /* ===== HOME CATEGORIES ICONS ===== */
 
+/* ===== HOME CATEGORIES CARD ===== */
+
 .home-categories {
-  padding: 20px;
-  background: #fff;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }
 
 .categories-row {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
+  width: 100%;
+  max-width: 600px;
+  background: white;
+  padding: 16px 20px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 .category-icon {
   text-decoration: none;
-  color: #333;
+  color: #111;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: 0.2s ease;
+  font-size: 12px;
+  flex: 1;
 }
 
 .category-icon .icon {
-  font-size: 40px;
-  margin-bottom: 8px;
+  font-size: 26px;
+  margin-bottom: 6px;
 }
 
 .category-icon span {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 12px;
 }
 
 .category-icon:hover {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
 
@@ -1013,4 +1022,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.categories-row {
+  backdrop-filter: blur(10px);
 }
