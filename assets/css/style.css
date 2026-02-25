@@ -123,7 +123,7 @@ body {
 
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 20px;
 }
 
@@ -918,10 +918,29 @@ body {
 
 /* ===== FORZAR GRID CATEGORIA ===== */
 
+/* ===== FORZAR GRID CATEGORIA REAL ===== */
+
 @media (max-width: 1024px) {
+
   main.shop-layout section.shop-content .products-grid {
-    display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
-    gap: 8px !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 6px !important;
   }
+
+  main.shop-layout .product-image {
+    height: 70px !important;
+  }
+
+  main.shop-layout .product-card {
+    padding: 5px !important;
+  }
+
+  main.shop-layout .product-card h3 {
+    font-size: 9px !important;
+  }
+
+  main.shop-layout .price {
+    font-size: 10px !important;
+  }
+
 }
