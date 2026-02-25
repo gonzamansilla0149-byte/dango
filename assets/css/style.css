@@ -225,6 +225,10 @@ body {
 }
 
 .hero {
+  padding: 0 24px; /* sin padding superior */
+}
+
+.hero {
   position: relative;
   min-height: 360px;
   display: flex;
@@ -1029,3 +1033,4 @@ body {
 .categories-row {
   backdrop-filter: blur(10px);
 }
+
