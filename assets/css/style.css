@@ -468,20 +468,6 @@ body {
   grid-template-columns: 1fr;
 }
 
-  /* 7) SLIDERS HORIZONTALES EN HOME */
-  .products-grid {
-    display: flex;
-    overflow-x: auto;
-    gap: 16px;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 10px;
-  }
-
-  .product-card {
-    min-width: 220px;
-    max-width: 220px;
-    scroll-snap-align: start;
-  }
 
   /* 8) FOOTER EN COLUMNA */
   .footer-columns {
