@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (!container) return;
 
       const filtered = products.filter(
-        p => p.category.toLowerCase() === category
+        p => p.category_name.toLowerCase() === category
       );
 
       const topByCategory = getTopBySales(filtered, 5);
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (heroSection) {
 
       const herramientas = products.filter(
-        p => p.category.toLowerCase() === "herramientas"
+        p => p.category_name.toLowerCase() === "herramientas"
       );
 
       function getRandomImage() {
