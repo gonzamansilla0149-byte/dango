@@ -472,7 +472,22 @@ async function openProductAdmin(id) {
     const product = await res.json();
 
     document.querySelector(".product-title").innerText = product.name || "";
-document.querySelector(".product-brand").innerText = product.brand || "";
+    // Cargar marcas en select edición
+const brandSelect = document.getElementById("admin-edit-brand");
+
+if (brandSelect) {
+  brandSelect.innerHTML = "";
+
+  brands.forEach(b => {
+    brandSelect.innerHTML += `
+      <option value="${b.id}">${b.name}</option>
+    `;
+  });
+
+  if (product.brand_id) {
+    brandSelect.value = product.brand_id;
+  }
+}
 document.querySelector(".price").innerText =
   "$" + Number(product.price || 0).toLocaleString();
 document.querySelector(".product-description").innerText =
@@ -504,7 +519,7 @@ if (adminSaveBtn) {
 
 const updated = {
   name: document.querySelector(".product-title").innerText,
-  brand: document.querySelector(".product-brand").innerText,
+  brand_id: Number(document.getElementById("admin-edit-brand").value),
   price: Number(
     document.querySelector(".price").innerText.replace(/[^0-9]/g, "")
   ),
