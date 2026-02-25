@@ -946,3 +946,35 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+@media (max-width: 768px) {
+
+  .shop-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 10px 0;
+  }
+
+  .filter-group {
+    border: none;
+    padding: 0;
+    min-width: 140px;
+  }
+
+  .filter-toggle {
+    background: #f5f5f5;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+  }
+
+  .filter-content {
+    display: none; /* solo botón visible */
+  }
+}
