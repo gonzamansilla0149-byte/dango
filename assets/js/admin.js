@@ -681,8 +681,8 @@ function renderBrandsList() {
 }
 
 // Crear categoría
-if (createCategoryBtn) {
-  createCategoryBtn.addEventListener("click", async () => {
+document.addEventListener("click", async (e) => {
+  if (e.target && e.target.id === "create-category-btn") {
     const name = document.getElementById("new-category-name").value.trim();
     if (!name) return alert("Ingresá un nombre");
 
