@@ -964,3 +964,32 @@ body {
 .category-icon:hover {
   transform: scale(1.1);
 }
+
+/* ===== HEADER BUTTONS ===== */
+
+.header-actions {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.header-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.header-btn:hover {
+  transform: scale(1.05);
+}
+
+.btn-icon {
+  font-size: 18px;
+}
