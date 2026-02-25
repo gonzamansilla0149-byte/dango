@@ -110,6 +110,34 @@ if (request.method === "POST" && url.pathname === "/api/categories") {
 }
 
 // =========================
+// DELETE CATEGORY (ADMIN)
+// =========================
+if (
+  request.method === "DELETE" &&
+  url.pathname.startsWith("/api/categories/")
+) {
+
+  if (!verifyAdmin(request)) {
+    return new Response("No autorizado", { status: 401, headers: corsHeaders });
+  }
+
+  const id = url.pathname.split("/").pop();
+
+  await env.DB.prepare(`
+    DELETE FROM categories
+    WHERE id = ?
+  `)
+  .bind(id)
+  .run();
+
+  return new Response(JSON.stringify({ success: true }), {
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders
+    }
+  });
+}
+// =========================
 // GET SUBCATEGORIES
 // =========================
 if (
@@ -196,6 +224,35 @@ if (request.method === "POST" && url.pathname === "/api/brands") {
     VALUES (?)
   `)
   .bind(data.name)
+  .run();
+
+  return new Response(JSON.stringify({ success: true }), {
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders
+    }
+  });
+}
+
+// =========================
+// DELETE BRAND (ADMIN)
+// =========================
+if (
+  request.method === "DELETE" &&
+  url.pathname.startsWith("/api/brands/")
+) {
+
+  if (!verifyAdmin(request)) {
+    return new Response("No autorizado", { status: 401, headers: corsHeaders });
+  }
+
+  const id = url.pathname.split("/").pop();
+
+  await env.DB.prepare(`
+    DELETE FROM brands
+    WHERE id = ?
+  `)
+  .bind(id)
   .run();
 
   return new Response(JSON.stringify({ success: true }), {
