@@ -49,9 +49,9 @@ function updateCartCount() {
   const cart = getCart();
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  const cartBtn = document.getElementById("btn-cart");
-  if (cartBtn) {
-    cartBtn.textContent = `Carrito (${totalItems})`;
+  const cartCount = document.getElementById("cart-count");
+  if (cartCount) {
+    cartCount.textContent = totalItems;
   }
 }
 
