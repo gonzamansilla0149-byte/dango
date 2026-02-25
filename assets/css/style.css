@@ -841,38 +841,6 @@ body {
   }
 }
 
-@media (max-width: 1024px) {
-
-  .shop-layout {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    width: 100%;
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-  }
-
-  .filter-group {
-    min-width: auto;
-  }
-
-  .filter-toggle {
-    background: #f1f1f1;
-    padding: 6px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    white-space: nowrap;
-  }
-
-  .filter-content {
-    display: none;
-  }
-
-}
 
 /* ===============================
    CATEGORY RESPONSIVE CLEAN
