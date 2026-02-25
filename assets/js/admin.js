@@ -50,6 +50,22 @@ let orders = JSON.parse(localStorage.getItem("admin_orders")) || [];
 
 const tableContainer = document.getElementById("products-table");
 const form = document.getElementById("product-form");
+const categorySelect = document.getElementById("product-category");
+
+if (categorySelect) {
+  categorySelect.addEventListener("change", (e) => {
+    const categoryId = e.target.value;
+
+    if (categoryId) {
+      loadSubcategories(categoryId);
+    } else {
+      const subSelect = document.getElementById("product-subcategory");
+      if (subSelect) {
+        subSelect.innerHTML = `<option value="">Seleccionar subcategoría</option>`;
+      }
+    }
+  });
+}
 const searchInput = document.getElementById("product-search");
 const sidebar = document.querySelector(".sidebar");
 const overlay = document.getElementById("sidebar-overlay");
