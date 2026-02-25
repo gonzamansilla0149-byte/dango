@@ -366,6 +366,43 @@ body {
 
 @media (max-width: 768px) {
 
+  /* ===============================
+   MOBILE PRODUCT GRID FIX
+================================ */
+
+@media (max-width: 1024px) {
+
+  .shop-layout {
+    flex-direction: column;
+  }
+
+  .shop-content .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .product-card {
+    padding: 10px;
+  }
+
+  .product-image {
+    height: 120px;
+  }
+
+  .product-card h3 {
+    font-size: 13px;
+  }
+
+  .brand {
+    font-size: 11px;
+  }
+
+  .price {
+    font-size: 14px;
+  }
+
+}
+  
   html, body {
     overflow-x: hidden;
   }
@@ -862,85 +899,6 @@ body {
   }
 }
 
-
-/* ===============================
-   CATEGORY RESPONSIVE CLEAN
-================================ */
-
-@media (max-width: 1024px) {
-
-  /* Layout vertical */
-  .shop-layout {
-    flex-direction: column;
-  }
-
-  /* Sidebar horizontal arriba */
-  .sidebar {
-    width: 100%;
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    padding: 8px 0;
-    border-bottom: 1px solid #eee;
-  }
-
-  .filter-group {
-    flex: 0 0 auto;
-  }
-
-  .filter-toggle {
-    background: #f2f2f2;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    white-space: nowrap;
-  }
-
-  .filter-content {
-    display: none;
-  }
-
-  /* 4 columnas */
-  .shop-content .products-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
-  }
-
-  /* Cards compactas */
-  .product-card {
-    padding: 6px;
-  }
-
-  .product-image {
-    height: 80px;
-  }
-
-  .product-card h3 {
-    font-size: 10px;
-  }
-
-  .brand {
-    font-size: 9px;
-  }
-
-  .price {
-    font-size: 11px;
-    margin: 4px 0;
-  }
-
-  .product-card button {
-    padding: 6px;
-    font-size: 10px;
-  }
-
-}
-
-/* Extra pequeño (móvil chico) */
-@media (max-width: 600px) {
-  .shop-content .products-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
 
 .product-link {
   text-decoration: none;
