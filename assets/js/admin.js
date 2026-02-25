@@ -488,9 +488,7 @@ if (brandSelect) {
     `;
   });
 
-  if (product.brand_id) {
-    brandSelect.value = product.brand_id;
-  }
+brandSelect.value = product.brand_id || "";
 }
 document.querySelector(".price").innerText =
   "$" + Number(product.price || 0).toLocaleString();
