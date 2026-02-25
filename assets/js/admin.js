@@ -475,6 +475,10 @@ async function openProductAdmin(id) {
     // Cargar marcas en select edición
 const brandSelect = document.getElementById("admin-edit-brand");
 
+if (brands.length === 0) {
+  await loadBrands();
+}
+
 if (brandSelect) {
   brandSelect.innerHTML = "";
 
