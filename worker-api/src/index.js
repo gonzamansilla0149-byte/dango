@@ -1,86 +1,159 @@
+const ADMIN_USER = "dango4545";
+const ADMIN_PASS = "4358dango2525";
+const ADMIN_TOKEN = "DANGO_ADMIN_TOKEN_2025_SECURE";
+
 export default {
   async fetch(request, env) {
+
     const url = new URL(request.url);
 
     const corsHeaders = {
       "Access-Control-Allow-Origin": "https://dangotools.com",
-      "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type"
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization"
     };
 
-    // Manejo preflight CORS
+    // =========================
+    // CORS PREFLIGHT
+    // =========================
     if (request.method === "OPTIONS") {
-      return new Response(null, {
-        headers: corsHeaders
+      return new Response(null, { headers: corsHeaders });
+    }
+
+    // =========================
+    // ADMIN LOGIN
+    // =========================
+    if (request.method === "POST" && url.pathname === "/api/admin-login") {
+
+      const body = await request.json();
+
+      if (
+        body.username === ADMIN_USER &&
+        body.password === ADMIN_PASS
+      ) {
+        return new Response(JSON.stringify({
+          token: ADMIN_TOKEN,
+          role: "admin"
+        }), {
+          headers: {
+            "Content-Type": "application/json",
+            ...corsHeaders
+          }
+        });
+      }
+
+      return new Response(JSON.stringify({
+        error: "Credenciales incorrectas"
+      }), {
+        status: 401,
+        headers: {
+          "Content-Type": "application/json",
+          ...corsHeaders
+        }
       });
+    }
+
+    // =========================
+    // VERIFICAR TOKEN
+    // =========================
+    function verifyAdmin(request) {
+      const authHeader = request.headers.get("Authorization");
+      if (!authHeader) return false;
+
+      const token = authHeader.replace("Bearer ", "");
+      return token === ADMIN_TOKEN;
     }
 
     try {
 
-if (request.method === "GET" && url.pathname === "/api/products") {
+      // =========================
+      // GET PRODUCTS
+      // =========================
+      if (request.method === "GET" && url.pathname === "/api/products") {
 
-  const search = url.searchParams.get("search");
+        if (!verifyAdmin(request)) {
+          return new Response("No autorizado", {
+            status: 401,
+            headers: corsHeaders
+          });
+        }
 
-  let query = `
-    SELECT * FROM products 
-    WHERE active = 1
-  `;
+        const search = url.searchParams.get("search");
 
-  if (search) {
-    query += `
-      AND (
-        name LIKE ? OR
-        brand LIKE ? OR
-        category LIKE ?
-      )
-    `;
-  }
+        let query = `
+          SELECT * FROM products 
+          WHERE active = 1
+        `;
 
-  query += " ORDER BY id DESC";
+        if (search) {
+          query += `
+            AND (
+              name LIKE ? OR
+              brand LIKE ? OR
+              category LIKE ?
+            )
+          `;
+        }
 
-  let stmt = env.DB.prepare(query);
+        query += " ORDER BY id DESC";
 
-  if (search) {
-    const term = `%${search}%`;
-    stmt = stmt.bind(term, term, term);
-  }
+        let stmt = env.DB.prepare(query);
 
-  const { results } = await stmt.all();
+        if (search) {
+          const term = `%${search}%`;
+          stmt = stmt.bind(term, term, term);
+        }
 
-  return new Response(JSON.stringify(results), {
-    headers: {
-      "Content-Type": "application/json",
-      ...corsHeaders
-    }
-  });
-}
+        const { results } = await stmt.all();
+
+        return new Response(JSON.stringify(results), {
+          headers: {
+            "Content-Type": "application/json",
+            ...corsHeaders
+          }
+        });
+      }
 
       // =========================
-// GET PRODUCTO POR ID
-// =========================
-if (request.method === "GET" && url.pathname.startsWith("/api/products/")) {
+      // GET PRODUCT BY ID
+      // =========================
+      if (request.method === "GET" && url.pathname.startsWith("/api/products/")) {
 
-  const id = url.pathname.split("/").pop();
+        if (!verifyAdmin(request)) {
+          return new Response("No autorizado", {
+            status: 401,
+            headers: corsHeaders
+          });
+        }
 
-  const product = await env.DB.prepare(`
-    SELECT * FROM products
-    WHERE id = ? AND active = 1
-  `)
-  .bind(id)
-  .first();
+        const id = url.pathname.split("/").pop();
 
-  return new Response(JSON.stringify(product || {}), {
-    headers: {
-      "Content-Type": "application/json",
-      ...corsHeaders
-    }
-  });
-}
+        const product = await env.DB.prepare(`
+          SELECT * FROM products
+          WHERE id = ? AND active = 1
+        `)
+        .bind(id)
+        .first();
+
+        return new Response(JSON.stringify(product || {}), {
+          headers: {
+            "Content-Type": "application/json",
+            ...corsHeaders
+          }
+        });
+      }
 
       // =========================
-      // CREAR PRODUCTO
+      // CREATE PRODUCT
       // =========================
       if (request.method === "POST" && url.pathname === "/api/products") {
+
+        if (!verifyAdmin(request)) {
+          return new Response("No autorizado", {
+            status: 401,
+            headers: corsHeaders
+          });
+        }
 
         const data = await request.json();
 
@@ -110,41 +183,55 @@ if (request.method === "GET" && url.pathname.startsWith("/api/products/")) {
       }
 
       // =========================
-// ACTUALIZAR PRODUCTO
-// =========================
-if (request.method === "PUT" && url.pathname.startsWith("/api/products/")) {
+      // UPDATE PRODUCT
+      // =========================
+      if (request.method === "PUT" && url.pathname.startsWith("/api/products/")) {
 
-  const id = url.pathname.split("/").pop();
-  const data = await request.json();
+        if (!verifyAdmin(request)) {
+          return new Response("No autorizado", {
+            status: 401,
+            headers: corsHeaders
+          });
+        }
 
-  await env.DB.prepare(`
-    UPDATE products
-    SET name = ?, brand = ?, price = ?, description = ?, image_url = ?, stock = ?
-    WHERE id = ?
-  `)
-  .bind(
-    data.name,
-    data.brand,
-    data.price,
-    data.description,
-    data.image_url,
-    data.stock,
-    id
-  )
-  .run();
+        const id = url.pathname.split("/").pop();
+        const data = await request.json();
 
-  return new Response(JSON.stringify({ success: true }), {
-    headers: {
-      "Content-Type": "application/json",
-      ...corsHeaders
-    }
-  });
-}
+        await env.DB.prepare(`
+          UPDATE products
+          SET name = ?, brand = ?, price = ?, description = ?, image_url = ?, stock = ?
+          WHERE id = ?
+        `)
+        .bind(
+          data.name,
+          data.brand,
+          data.price,
+          data.description,
+          data.image_url,
+          data.stock,
+          id
+        )
+        .run();
+
+        return new Response(JSON.stringify({ success: true }), {
+          headers: {
+            "Content-Type": "application/json",
+            ...corsHeaders
+          }
+        });
+      }
 
       // =========================
-      // ELIMINAR PRODUCTO
+      // DELETE PRODUCT
       // =========================
       if (request.method === "DELETE" && url.pathname.startsWith("/api/products/")) {
+
+        if (!verifyAdmin(request)) {
+          return new Response("No autorizado", {
+            status: 401,
+            headers: corsHeaders
+          });
+        }
 
         const id = url.pathname.split("/").pop();
 
