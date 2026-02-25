@@ -3,14 +3,6 @@
   --header-height: 110px;
 }
 
-.home,
-.shop-layout,
-.product-page,
-.cart-page,
-.checkout-page {
-  margin-top: var(--header-height);
-}
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -18,7 +10,7 @@
 }
 
 body {
-  padding-top: 0; /* ajustamos según altura real */
+  padding-top: var(--header-height);
   font-family: Arial, sans-serif;
   background: #fff;
   color: #111;
