@@ -222,6 +222,43 @@ function fillCategorySelect() {
   });
 }
 
+function fillAdminCategorySelect(selectedId = null) {
+  const select = document.getElementById("admin-edit-category");
+  if (!select) return;
+
+  select.innerHTML = `<option value="">Seleccionar categoría</option>`;
+
+  categories.forEach(c => {
+    select.innerHTML += `
+      <option value="${c.id}">${c.name}</option>
+    `;
+  });
+
+  if (selectedId) {
+    select.value = selectedId;
+  }
+}
+
+async function fillAdminSubcategorySelect(categoryId, selectedId = null) {
+  const select = document.getElementById("admin-edit-subcategory");
+  if (!select) return;
+
+  const res = await authFetch(`${API_URL}/api/categories/${categoryId}/subcategories`);
+  const subs = await res.json();
+
+  select.innerHTML = `<option value="">Seleccionar subcategoría</option>`;
+
+  subs.forEach(s => {
+    select.innerHTML += `
+      <option value="${s.id}">${s.name}</option>
+    `;
+  });
+
+  if (selectedId) {
+    select.value = selectedId;
+  }
+}
+
 function fillBrandSelect() {
   const select = document.getElementById("product-brand");
   if (!select) return;
@@ -496,6 +533,35 @@ if (brandSelect) {
 
 brandSelect.value = product.brand_id || "";
 }
+
+// ============================
+// CARGAR CATEGORÍA EN EDICIÓN
+// ============================
+
+if (categories.length === 0) {
+  await loadCategories();
+}
+
+fillAdminCategorySelect(product.category_id);
+
+// Cuando cambia categoría → actualizar subcategorías
+const adminCategorySelect = document.getElementById("admin-edit-category");
+
+if (adminCategorySelect) {
+  adminCategorySelect.onchange = async (e) => {
+    const newCategoryId = e.target.value;
+    await fillAdminSubcategorySelect(newCategoryId);
+  };
+}
+
+// Cargar subcategorías actuales del producto
+if (product.category_id) {
+  await fillAdminSubcategorySelect(
+    product.category_id,
+    product.subcategory_id
+  );
+}
+    
 document.querySelector(".price").innerText =
   "$" + Number(product.price || 0).toLocaleString();
 document.querySelector(".product-description").innerText =
@@ -528,13 +594,15 @@ if (adminSaveBtn) {
 const updated = {
   name: document.querySelector(".product-title").innerText,
   brand_id: Number(document.getElementById("admin-edit-brand").value),
+  category_id: Number(document.getElementById("admin-edit-category").value),
+  subcategory_id: Number(document.getElementById("admin-edit-subcategory").value),
   price: Number(
     document.querySelector(".price").innerText.replace(/[^0-9]/g, "")
   ),
   description: document.querySelector(".product-description").innerText,
-      image_url: document.getElementById("admin-edit-image").value,
-      stock: Number(document.getElementById("admin-edit-stock").value)
-    };
+  image_url: document.getElementById("admin-edit-image").value,
+  stock: Number(document.getElementById("admin-edit-stock").value)
+};
 
     try {
 
