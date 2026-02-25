@@ -1,3 +1,16 @@
+
+:root {
+  --header-height: 110px;
+}
+
+.home,
+.shop-layout,
+.product-page,
+.cart-page,
+.checkout-page {
+  margin-top: var(--header-height);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,7 +18,7 @@
 }
 
 body {
-  padding-top: 100px; /* ajustamos según altura real */
+  padding-top: 0; /* ajustamos según altura real */
   font-family: Arial, sans-serif;
   background: #fff;
   color: #111;
@@ -21,7 +34,6 @@ body {
   width: 100%;
   z-index: 5000;
 }
-
 .header-top {
   display: flex;
   align-items: center;
