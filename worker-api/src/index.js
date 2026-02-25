@@ -66,9 +66,145 @@ export default {
 
     try {
 
-      // =========================
-      // GET PRODUCTS
-      // =========================
+// =========================
+// GET CATEGORIES
+// =========================
+if (request.method === "GET" && url.pathname === "/api/categories") {
+
+  const { results } = await env.DB.prepare(`
+    SELECT * FROM categories ORDER BY name ASC
+  `).all();
+
+  return new Response(JSON.stringify(results), {
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders
+    }
+  });
+}
+
+// =========================
+// CREATE CATEGORY (ADMIN)
+// =========================
+if (request.method === "POST" && url.pathname === "/api/categories") {
+
+  if (!verifyAdmin(request)) {
+    return new Response("No autorizado", { status: 401, headers: corsHeaders });
+  }
+
+  const data = await request.json();
+
+  await env.DB.prepare(`
+    INSERT INTO categories (name)
+    VALUES (?)
+  `)
+  .bind(data.name)
+  .run();
+
+  return new Response(JSON.stringify({ success: true }), {
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders
+    }
+  });
+}
+
+// =========================
+// GET SUBCATEGORIES
+// =========================
+if (
+  request.method === "GET" &&
+  url.pathname.startsWith("/api/categories/") &&
+  url.pathname.endsWith("/subcategories")
+) {
+
+  const parts = url.pathname.split("/");
+  const categoryId = parts[3];
+
+  const { results } = await env.DB.prepare(`
+    SELECT * FROM subcategories
+    WHERE category_id = ?
+    ORDER BY name ASC
+  `)
+  .bind(categoryId)
+  .all();
+
+  return new Response(JSON.stringify(results), {
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders
+    }
+  });
+}
+
+// =========================
+// CREATE SUBCATEGORY
+// =========================
+if (request.method === "POST" && url.pathname === "/api/subcategories") {
+
+  if (!verifyAdmin(request)) {
+    return new Response("No autorizado", { status: 401, headers: corsHeaders });
+  }
+
+  const data = await request.json();
+
+  await env.DB.prepare(`
+    INSERT INTO subcategories (name, category_id)
+    VALUES (?, ?)
+  `)
+  .bind(data.name, data.category_id)
+  .run();
+
+  return new Response(JSON.stringify({ success: true }), {
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders
+    }
+  });
+}
+
+// =========================
+// GET BRANDS
+// =========================
+if (request.method === "GET" && url.pathname === "/api/brands") {
+
+  const { results } = await env.DB.prepare(`
+    SELECT * FROM brands ORDER BY name ASC
+  `).all();
+
+  return new Response(JSON.stringify(results), {
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders
+    }
+  });
+}
+
+// =========================
+// CREATE BRAND
+// =========================
+if (request.method === "POST" && url.pathname === "/api/brands") {
+
+  if (!verifyAdmin(request)) {
+    return new Response("No autorizado", { status: 401, headers: corsHeaders });
+  }
+
+  const data = await request.json();
+
+  await env.DB.prepare(`
+    INSERT INTO brands (name)
+    VALUES (?)
+  `)
+  .bind(data.name)
+  .run();
+
+  return new Response(JSON.stringify({ success: true }), {
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders
+    }
+  });
+}
 // =========================
 // GET PRODUCTS (PÚBLICO)
 // =========================
