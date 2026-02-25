@@ -1,19 +1,22 @@
 /* ===============================
-   CATEGORÍA DESDE LA URL
+   FUNCIONES
 ================================ */
-document.addEventListener("DOMContentLoaded", () => {
-const params = new URLSearchParams(window.location.search);
-const category = params.get("cat");
 
-const categoryNames = {
-  celulares: "Celulares",
-  computacion: "Computación",
-  herramientas: "Herramientas",
-  accesorios: "Accesorios",
-  ofertas: "Ofertas"
-};
+/* -------- CATEGORÍA DESDE LA URL -------- */
+function initCategoryFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const category = params.get("cat");
 
-if (category) {
+  const categoryNames = {
+    celulares: "Celulares",
+    computacion: "Computación",
+    herramientas: "Herramientas",
+    accesorios: "Accesorios",
+    ofertas: "Ofertas"
+  };
+
+  if (!category) return;
+
   const title = document.querySelector(".category-header h1");
   const breadcrumb = document.querySelector(".breadcrumb");
 
@@ -23,64 +26,76 @@ if (category) {
   if (breadcrumb) breadcrumb.textContent = `Inicio / ${name}`;
 }
 
-/* ===============================
-   MODAL LOGIN
-================================ */
 
-const loginBtn = document.getElementById("btn-login");
-const loginModal = document.getElementById("login-modal");
+/* -------- DROPDOWN CUENTA -------- */
+function initAccountDropdown() {
+  const btnLogin = document.getElementById("btn-login");
+  const dropdown = document.getElementById("account-dropdown");
 
-if (loginBtn && loginModal) {
-  loginBtn.addEventListener("click", () => {
-    loginModal.style.display = "flex";
-    document.body.style.overflow = "hidden";
+  if (!btnLogin || !dropdown) return;
+
+  btnLogin.addEventListener("click", (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle("show");
   });
 
-  loginModal.addEventListener("click", (e) => {
-    if (e.target === loginModal || e.target.classList.contains("close-modal")) {
-      loginModal.style.display = "none";
-      document.body.style.overflow = "";
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".account-wrapper")) {
+      dropdown.classList.remove("show");
     }
   });
 }
 
-/* ===============================
-   MENÚ CATEGORÍAS MOBILE
-================================ */
 
-const btnCategories = document.getElementById("btn-categories");
-const categoriesDropdown = document.getElementById("categories-dropdown");
+/* -------- MENÚ CATEGORÍAS MOBILE -------- */
+function initMobileMenu() {
+  const btnCategories = document.getElementById("btn-categories");
+  const categoriesDropdown = document.getElementById("categories-dropdown");
 
-if (btnCategories && categoriesDropdown) {
+  if (!btnCategories || !categoriesDropdown) return;
+
   btnCategories.addEventListener("click", () => {
     categoriesDropdown.classList.toggle("show");
   });
 }
 
+
+/* -------- SLIDERS AUTOMÁTICOS HOME -------- */
+function initAutoSliders() {
+  const sliders = document.querySelectorAll(".auto-slider");
+
+  if (!sliders.length) return;
+
+  sliders.forEach((slider) => {
+    let scrollAmount = 0;
+    const step = 240;
+
+    setInterval(() => {
+      if (slider.scrollWidth <= slider.clientWidth) return;
+
+      scrollAmount += step;
+
+      if (scrollAmount >= slider.scrollWidth - slider.clientWidth) {
+        scrollAmount = 0;
+      }
+
+      slider.scrollTo({
+        left: scrollAmount,
+        behavior: "smooth"
+      });
+    }, 3000);
+  });
+}
+
+
+
 /* ===============================
-   SLIDERS AUTOMÁTICOS HOME
+   INICIALIZACIÓN GENERAL
 ================================ */
 
-document.querySelectorAll(".auto-slider").forEach((slider) => {
-  let scrollAmount = 0;
-  const step = 240;
-
-  setInterval(() => {
-    if (slider.scrollWidth <= slider.clientWidth) return;
-
-    scrollAmount += step;
-
-    if (scrollAmount >= slider.scrollWidth - slider.clientWidth) {
-      scrollAmount = 0;
-    }
-
-    slider.scrollTo({
-      left: scrollAmount,
-      behavior: "smooth"
-    });
-  }, 3000);
+document.addEventListener("DOMContentLoaded", () => {
+  initCategoryFromURL();
+  initAccountDropdown();
+  initMobileMenu();
+  initAutoSliders();
 });
-
-});
-
-
