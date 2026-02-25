@@ -87,7 +87,7 @@ if (!category) {
     const allProducts = await response.json();
 
 const filteredProducts = allProducts.filter(p =>
-  p.category_id && p.category_id == category
+  (p.category_name || "").toLowerCase() === category.toLowerCase()
 );
     
     if (filteredProducts.length === 0) {
