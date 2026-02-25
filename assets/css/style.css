@@ -18,12 +18,8 @@ body {
 
 /* HEADER */
 .site-header {
-  position: fixed;   /* CAMBIO CLAVE */
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 5000;
   background: #111;
+  color: white;
 }
 .header-top {
   display: flex;
@@ -224,7 +220,7 @@ body {
 /* ================= HOME ================= */
 
 .home section {
-  padding: 0 24px;
+  padding: 40px 24px;
 }
 
 .home section:not(.hero) {
@@ -888,10 +884,10 @@ body {
    CATEGORY GRID DESKTOP
 ================================ */
 
-.shop-content .products-grid {
+.products-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
 }
 
 @media (max-width: 1200px) {
