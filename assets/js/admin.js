@@ -43,6 +43,9 @@ async function authFetch(url, options = {}) {
 // ============================
 
 let products = [];
+let categories = [];
+let subcategories = [];
+let brands = [];
 let orders = JSON.parse(localStorage.getItem("admin_orders")) || [];
 
 const tableContainer = document.getElementById("products-table");
@@ -135,12 +138,80 @@ async function loadProducts(search = "") {
   }
 }
 
+// ============================
+// LOAD CATEGORIES / BRANDS
+// ============================
 
+async function loadCategories() {
+  try {
+    const res = await authFetch(`${API_URL}/api/categories`);
+    categories = await res.json();
+    fillCategorySelect();
+  } catch (error) {
+    console.error("Error cargando categorías:", error);
+  }
+}
 
+async function loadBrands() {
+  try {
+    const res = await authFetch(`${API_URL}/api/brands`);
+    brands = await res.json();
+    fillBrandSelect();
+  } catch (error) {
+    console.error("Error cargando marcas:", error);
+  }
+}
+
+async function loadSubcategories(categoryId) {
+  try {
+    const res = await authFetch(`${API_URL}/api/categories/${categoryId}/subcategories`);
+    subcategories = await res.json();
+    fillSubcategorySelect();
+  } catch (error) {
+    console.error("Error cargando subcategorías:", error);
+  }
+}
+
+function fillSubcategorySelect() {
+  const select = document.getElementById("product-subcategory");
+  if (!select) return;
+
+  select.innerHTML = `<option value="">Seleccionar subcategoría</option>`;
+
+  subcategories.forEach(s => {
+    select.innerHTML += `
+      <option value="${s.id}">${s.name}</option>
+    `;
+  });
+}
 // ============================
 // RENDER PRODUCTOS
 // ============================
+function fillCategorySelect() {
+  const select = document.getElementById("product-category");
+  if (!select) return;
 
+  select.innerHTML = `<option value="">Seleccionar categoría</option>`;
+
+  categories.forEach(c => {
+    select.innerHTML += `
+      <option value="${c.id}">${c.name}</option>
+    `;
+  });
+}
+
+function fillBrandSelect() {
+  const select = document.getElementById("product-brand");
+  if (!select) return;
+
+  select.innerHTML = `<option value="">Seleccionar marca</option>`;
+
+  brands.forEach(b => {
+    select.innerHTML += `
+      <option value="${b.id}">${b.name}</option>
+    `;
+  });
+}
 function renderProducts() {
 
   if (!tableContainer) return;
@@ -197,15 +268,16 @@ if (form) {
 
     const data = new FormData(form);
 
-    const product = {
-      name: data.get("name"),
-      brand: data.get("brand"),
-      category: data.get("category"),
-      price: Number(data.get("price")),
-      stock: Number(data.get("stock")),
-      description: data.get("description"),
-      image_url: data.get("image")
-    };
+const product = {
+  name: data.get("name"),
+  brand_id: Number(data.get("brand_id")),
+  category_id: Number(data.get("category_id")),
+  subcategory_id: Number(data.get("subcategory_id")),
+  price: Number(data.get("price")),
+  stock: Number(data.get("stock")),
+  description: data.get("description"),
+  image_url: data.get("image")
+};
 
     try {
       await authFetch(`${API_URL}/api/products`, {
@@ -489,6 +561,7 @@ if (savedView) {
 // ============================
 // INIT
 // ============================
-
+loadCategories();
+loadBrands();
 loadProducts();
 renderOrders();
