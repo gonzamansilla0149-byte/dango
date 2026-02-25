@@ -34,6 +34,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         .slice(0, limit);
     }
 
+    const normalize = str => (str || "").toLowerCase().trim();
+    
     function renderProducts(container, list) {
       container.innerHTML = "";
       list.forEach(product => {
@@ -67,7 +69,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (!container) return;
 
       const filtered = products.filter(
-        p => (p.category_name || "").toLowerCase() === category
+        p => normalize(p.category_name) === normalize(category)
       );
 
       const topByCategory = getTopBySales(filtered, 5);
@@ -83,7 +85,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (heroSection) {
 
       const herramientas = products.filter(
-        p => (p.category_name || "").toLowerCase() === "herramientas"
+        p => normalize(p.category_name) === "herramientas"
       );
 
       function getRandomImage() {
