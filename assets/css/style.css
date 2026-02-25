@@ -920,3 +920,14 @@ body {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+.product-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.products-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 6px !important;
+}
