@@ -260,8 +260,16 @@ if (request.method === "GET" && url.pathname.startsWith("/api/products/")) {
   const id = url.pathname.split("/").pop();
 
   const product = await env.DB.prepare(`
-    SELECT * FROM products
-    WHERE id = ? AND active = 1
+SELECT 
+  p.*,
+  c.name as category_name,
+  s.name as subcategory_name,
+  b.name as brand_name
+FROM products p
+LEFT JOIN categories c ON p.category_id = c.id
+LEFT JOIN subcategories s ON p.subcategory_id = s.id
+LEFT JOIN brands b ON p.brand_id = b.id
+WHERE p.id = ? AND p.active = 1
   `)
   .bind(id)
   .first();
