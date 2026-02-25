@@ -913,7 +913,6 @@ body {
   justify-content: center;
   margin-top: -40px; /* lo sube hacia el hero */
   position: relative;
-  z-index: 10;
 }
 
 .categories-row {
@@ -998,5 +997,6 @@ body {
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: 2000; /* más alto que cualquier sección */
+  width: 100%;
 }
