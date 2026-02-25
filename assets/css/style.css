@@ -360,13 +360,9 @@ body {
 /* ===============================
    MOBILE GLOBAL FIXES
 ================================ */
-
-@media (max-width: 768px) {
-
-  /* ===============================
-   MOBILE PRODUCT GRID FIX
+/* ===============================
+   TABLET (hasta 1024px)
 ================================ */
-
 @media (max-width: 1024px) {
 
   .shop-layout {
@@ -397,9 +393,14 @@ body {
   .price {
     font-size: 14px;
   }
-
 }
-  
+
+
+/* ===============================
+   MOBILE (hasta 768px)
+================================ */
+@media (max-width: 768px) {
+
   html, body {
     overflow-x: hidden;
   }
@@ -435,7 +436,6 @@ body {
     flex-direction: column;
     gap: 20px;
   }
-
 }
 /* ===============================
    PRODUCT VIEW (MEJORADO)
