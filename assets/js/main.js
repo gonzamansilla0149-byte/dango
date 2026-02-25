@@ -1,7 +1,7 @@
 /* ===============================
    CATEGORÍA DESDE LA URL
 ================================ */
-
+document.addEventListener("DOMContentLoaded", () => {
 const params = new URLSearchParams(window.location.search);
 const category = params.get("cat");
 
@@ -79,6 +79,8 @@ document.querySelectorAll(".auto-slider").forEach((slider) => {
       behavior: "smooth"
     });
   }, 3000);
+});
+
 });
 
 
