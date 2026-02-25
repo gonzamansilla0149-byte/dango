@@ -88,25 +88,6 @@ function initAccountDropdown() {
   }
 }
 
-  // Abrir modal login
-  if (openLogin && loginModal) {
-    openLogin.addEventListener("click", () => {
-      dropdown.classList.remove("show");
-      loginModal.style.display = "flex";
-      document.body.style.overflow = "hidden";
-    });
-  }
-
-  // Abrir modal registro (por ahora mismo modal)
-  if (openRegister && loginModal) {
-    openRegister.addEventListener("click", () => {
-      dropdown.classList.remove("show");
-      loginModal.style.display = "flex";
-      document.body.style.overflow = "hidden";
-    });
-  }
-}
-
 /* -------- MENÚ CATEGORÍAS MOBILE -------- */
 function initMobileMenu() {
   const btnCategories = document.getElementById("btn-categories");
