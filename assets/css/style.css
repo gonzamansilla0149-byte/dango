@@ -5,7 +5,7 @@
 }
 
 body {
-  padding-top: 120px; /* ajustamos según altura real */
+  padding-top: 100px; /* ajustamos según altura real */
   font-family: Arial, sans-serif;
   background: #fff;
   color: #111;
@@ -946,7 +946,9 @@ body {
 .home-categories {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: -40px; /* lo sube hacia el hero */
+  position: relative;
+  z-index: 10;
 }
 
 .categories-row {
