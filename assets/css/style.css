@@ -956,8 +956,7 @@ body {
 .header-actions {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 120px; /* controla separación */
+  gap: 16px;
 }
 .icon-btn {
   position: relative;
@@ -999,6 +998,12 @@ body {
   top: 0;
   z-index: 3000;
   width: 100%;
+}
+
+.account-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .account-dropdown {
