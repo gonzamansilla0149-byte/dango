@@ -3,16 +3,19 @@ document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
   const id = Number(params.get("id"));
 
+  const container = document.querySelector(".product-container");
+  if (!container) return;
+
   if (!id || isNaN(id)) {
-    document.querySelector(".product-container").innerHTML =
-      "<h2>ID inválido o no especificado</h2>";
+    container.innerHTML = "<h2>ID inválido o no especificado</h2>";
     return;
   }
 
   try {
 
-    // 🔥 CAMBIÁ ESTA URL POR TU ENDPOINT REAL
-    const response = await fetch("https://dango.gonzamansilla0149.workers.dev/api/products");
+    const response = await fetch(
+      "https://dango.gonzamansilla0149.workers.dev/api/products"
+    );
 
     if (!response.ok) {
       throw new Error("Error al obtener productos");
@@ -23,48 +26,46 @@ document.addEventListener("DOMContentLoaded", async () => {
     const product = products.find(p => Number(p.id) === id);
 
     if (!product) {
-      document.querySelector(".product-container").innerHTML =
-        "<h2>Producto no encontrado</h2>";
+      container.innerHTML = "<h2>Producto no encontrado</h2>";
       return;
     }
 
-
     // ===============================
-// PRODUCTOS RELACIONADOS
-// ===============================
+    // PRODUCTOS RELACIONADOS
+    // ===============================
 
-const relatedTrack = document.getElementById("related-track");
+    const relatedTrack = document.getElementById("related-track");
 
-if (relatedTrack) {
+    if (relatedTrack) {
 
-  const relatedProducts = products
-    .filter(p =>
-      p.category === product.category &&  // misma categoría
-      Number(p.id) !== Number(product.id) // excluir actual
-    )
-    .slice(0, 8); // máximo 8
+      const relatedProducts = products
+        .filter(p =>
+          p.category_name === product.category_name &&
+          Number(p.id) !== Number(product.id)
+        )
+        .slice(0, 8);
 
-  if (relatedProducts.length === 0) {
-    relatedTrack.innerHTML = "<p>No hay productos relacionados.</p>";
-  } else {
+      if (relatedProducts.length === 0) {
+        relatedTrack.innerHTML = "<p>No hay productos relacionados.</p>";
+      } else {
 
-    relatedTrack.innerHTML = relatedProducts.map(p => `
-      <article class="product-card">
-        <div class="product-image"
-          style="background-image:url('${p.images?.[0] || ""}');
-                 background-size:cover;
-                 background-position:center;">
-        </div>
-        <h3>${p.name}</h3>
-        <p class="price">$${Number(p.price).toLocaleString()}</p>
-        <button onclick="location.href='producto.html?id=${p.id}'">
-          Ver producto
-        </button>
-      </article>
-    `).join("");
+        relatedTrack.innerHTML = relatedProducts.map(p => `
+          <article class="product-card">
+            <div class="product-image"
+              style="background-image:url('${p.image_url || ""}');
+                     background-size:cover;
+                     background-position:center;">
+            </div>
+            <h3>${p.name}</h3>
+            <p class="price">$${Number(p.price).toLocaleString()}</p>
+            <button onclick="location.href='producto.html?id=${p.id}'">
+              Ver producto
+            </button>
+          </article>
+        `).join("");
+      }
+    }
 
-  }
-}
     // ===============================
     // ELEMENTOS
     // ===============================
@@ -81,17 +82,17 @@ if (relatedTrack) {
     // ===============================
 
     if (title) title.textContent = product.name;
-    if (brand) brand.textContent = product.brand;
+    if (brand) brand.textContent = product.brand_name || "";
     if (price) price.textContent = `$${Number(product.price).toLocaleString()}`;
-    if (description) description.textContent = product.description;
+    if (description) description.textContent = product.description || "";
     if (breadcrumb) breadcrumb.textContent = product.name;
 
     // ===============================
     // IMAGEN
     // ===============================
 
-    if (product.images && product.images.length > 0 && mainImage) {
-      mainImage.style.backgroundImage = `url(${product.images[0]})`;
+    if (mainImage && product.image_url) {
+      mainImage.style.backgroundImage = `url(${product.image_url})`;
       mainImage.style.backgroundSize = "cover";
       mainImage.style.backgroundPosition = "center";
     }
@@ -115,9 +116,7 @@ if (relatedTrack) {
           }
 
           const drawer = document.getElementById("cart-drawer");
-          if (drawer) {
-            drawer.classList.add("active");
-          }
+          if (drawer) drawer.classList.add("active");
 
         } else {
           console.error("addToCart no está definido");
@@ -128,8 +127,7 @@ if (relatedTrack) {
 
   } catch (error) {
     console.error("Error cargando producto:", error);
-    document.querySelector(".product-container").innerHTML =
-      "<h2>Error cargando producto</h2>";
+    container.innerHTML = "<h2>Error cargando producto</h2>";
   }
 
 });
