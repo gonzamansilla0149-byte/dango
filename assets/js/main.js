@@ -31,21 +31,43 @@ function initCategoryFromURL() {
 function initAccountDropdown() {
   const btnLogin = document.getElementById("btn-login");
   const dropdown = document.getElementById("account-dropdown");
+  const openLogin = document.getElementById("open-login");
+  const openRegister = document.getElementById("open-register");
+  const loginModal = document.getElementById("login-modal");
 
   if (!btnLogin || !dropdown) return;
 
+  // Mostrar dropdown
   btnLogin.addEventListener("click", (e) => {
     e.stopPropagation();
     dropdown.classList.toggle("show");
   });
 
+  // Cerrar dropdown al hacer click afuera
   document.addEventListener("click", (e) => {
     if (!e.target.closest(".account-wrapper")) {
       dropdown.classList.remove("show");
     }
   });
-}
 
+  // Abrir modal login
+  if (openLogin && loginModal) {
+    openLogin.addEventListener("click", () => {
+      dropdown.classList.remove("show");
+      loginModal.style.display = "flex";
+      document.body.style.overflow = "hidden";
+    });
+  }
+
+  // Abrir modal registro (por ahora mismo modal)
+  if (openRegister && loginModal) {
+    openRegister.addEventListener("click", () => {
+      dropdown.classList.remove("show");
+      loginModal.style.display = "flex";
+      document.body.style.overflow = "hidden";
+    });
+  }
+}
 
 /* -------- MENÚ CATEGORÍAS MOBILE -------- */
 function initMobileMenu() {
