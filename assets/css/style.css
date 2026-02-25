@@ -376,8 +376,6 @@ body {
     font-size: 16px;
   }
 
-  /* ❌ ELIMINAR COMPLETAMENTE EL BLOQUE DEL SLIDER */
-}
   /* 1) NO SCROLL LATERAL */
   html, body {
     overflow-x: hidden;
@@ -402,19 +400,17 @@ body {
     font-size: 13px;
   }
 
-/* 4) NAV MOBILE: ocultar barra azul */
-.main-nav {
-  background: transparent;
-  padding: 0;
-  flex-direction: column;
-  gap: 0;
-}
+  /* NAV MOBILE */
+  .main-nav {
+    background: transparent;
+    padding: 0;
+    flex-direction: column;
+    gap: 0;
+  }
 
-  
-  /* OCULTAR LINKS DESKTOP EN MOBILE */
-.nav-links {
-  display: none;
-}
+  .nav-links {
+    display: none;
+  }
 
   .btn-categories {
     background: white;
@@ -444,7 +440,7 @@ body {
     display: flex;
   }
 
-  /* 5) HERO MÁS CHICO */
+  /* HERO */
   .hero {
     min-height: 240px;
     padding: 24px 16px;
@@ -458,24 +454,20 @@ body {
     font-size: 15px;
   }
 
-  /* 6) OCULTAR TEXTO QUE SOBRA */
   .home-categories h2 {
     display: none;
   }
 
-  /* CATEGORÍAS HOME EN COLUMNA (MOBILE) */
-.categories-grid {
-  grid-template-columns: 1fr;
-}
+  .categories-grid {
+    grid-template-columns: 1fr;
+  }
 
-
-  /* 8) FOOTER EN COLUMNA */
+  /* FOOTER */
   .footer-columns {
     flex-direction: column;
     gap: 20px;
   }
 }
-
 /* ===============================
    PRODUCT VIEW (MEJORADO)
 ================================ */
