@@ -902,3 +902,25 @@ body {
   background: #111;
   color: white;
 }
+
+/* ===============================
+   HOME SLIDER MOBILE
+================================ */
+@media (max-width: 768px) {
+
+  .products-grid.auto-slider {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 10px;
+  }
+
+  .products-grid.auto-slider .product-card {
+    min-width: 160px;
+    max-width: 160px;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+
+}
