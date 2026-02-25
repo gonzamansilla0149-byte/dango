@@ -69,79 +69,68 @@ export default {
       // =========================
       // GET PRODUCTS
       // =========================
-      if (request.method === "GET" && url.pathname === "/api/products") {
+// =========================
+// GET PRODUCTS (PÚBLICO)
+// =========================
+if (request.method === "GET" && url.pathname === "/api/products") {
 
-        if (!verifyAdmin(request)) {
-          return new Response("No autorizado", {
-            status: 401,
-            headers: corsHeaders
-          });
-        }
+  const search = url.searchParams.get("search");
 
-        const search = url.searchParams.get("search");
+  let query = `
+    SELECT * FROM products 
+    WHERE active = 1
+  `;
 
-        let query = `
-          SELECT * FROM products 
-          WHERE active = 1
-        `;
+  if (search) {
+    query += `
+      AND (
+        name LIKE ? OR
+        brand LIKE ? OR
+        category LIKE ?
+      )
+    `;
+  }
 
-        if (search) {
-          query += `
-            AND (
-              name LIKE ? OR
-              brand LIKE ? OR
-              category LIKE ?
-            )
-          `;
-        }
+  query += " ORDER BY id DESC";
 
-        query += " ORDER BY id DESC";
+  let stmt = env.DB.prepare(query);
 
-        let stmt = env.DB.prepare(query);
+  if (search) {
+    const term = `%${search}%`;
+    stmt = stmt.bind(term, term, term);
+  }
 
-        if (search) {
-          const term = `%${search}%`;
-          stmt = stmt.bind(term, term, term);
-        }
+  const { results } = await stmt.all();
 
-        const { results } = await stmt.all();
+  return new Response(JSON.stringify(results), {
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders
+    }
+  });
+}
 
-        return new Response(JSON.stringify(results), {
-          headers: {
-            "Content-Type": "application/json",
-            ...corsHeaders
-          }
-        });
-      }
+// =========================
+// GET PRODUCT BY ID (PÚBLICO)
+// =========================
+if (request.method === "GET" && url.pathname.startsWith("/api/products/")) {
 
-      // =========================
-      // GET PRODUCT BY ID
-      // =========================
-      if (request.method === "GET" && url.pathname.startsWith("/api/products/")) {
+  const id = url.pathname.split("/").pop();
 
-        if (!verifyAdmin(request)) {
-          return new Response("No autorizado", {
-            status: 401,
-            headers: corsHeaders
-          });
-        }
+  const product = await env.DB.prepare(`
+    SELECT * FROM products
+    WHERE id = ? AND active = 1
+  `)
+  .bind(id)
+  .first();
 
-        const id = url.pathname.split("/").pop();
-
-        const product = await env.DB.prepare(`
-          SELECT * FROM products
-          WHERE id = ? AND active = 1
-        `)
-        .bind(id)
-        .first();
-
-        return new Response(JSON.stringify(product || {}), {
-          headers: {
-            "Content-Type": "application/json",
-            ...corsHeaders
-          }
-        });
-      }
+  return new Response(JSON.stringify(product || {}), {
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders
+    }
+  });
+}
 
       // =========================
       // CREATE PRODUCT
