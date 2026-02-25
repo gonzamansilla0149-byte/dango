@@ -680,18 +680,33 @@ if (createCategoryBtn) {
     const name = document.getElementById("new-category-name").value.trim();
     if (!name) return alert("Ingresá un nombre");
 
-    await authFetch(`${API_URL}/api/categories`, {
-      method: "POST",
-      body: JSON.stringify({ name })
-    });
+    try {
 
-    document.getElementById("new-category-name").value = "";
-    await loadCategories();
-    loadCategoriesForSubcategory();
-    renderCategoriesList();
+      const res = await authFetch(`${API_URL}/api/categories`, {
+        method: "POST",
+        body: JSON.stringify({ name })
+      });
+
+      if (!res.ok) {
+        const error = await res.text();
+        alert("Error: " + error);
+        return;
+      }
+
+      document.getElementById("new-category-name").value = "";
+
+      await loadCategories();
+      loadCategoriesForSubcategory();
+      renderCategoriesList();
+
+      alert("Categoría creada correctamente");
+
+    } catch (err) {
+      alert("Error creando categoría");
+      console.error(err);
+    }
   });
 }
-
 // Crear subcategoría
 if (createSubcategoryBtn) {
   createSubcategoryBtn.addEventListener("click", async () => {
