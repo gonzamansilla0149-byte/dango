@@ -225,18 +225,16 @@ LEFT JOIN brands b ON p.brand_id = b.id
 WHERE p.active = 1
 `;
 
-  if (search) {
-    query += `
+if (search) {
+  query += `
       AND (
-        name LIKE ? OR
+        p.name LIKE ? OR
         b.name LIKE ? OR
         c.name LIKE ?
       )
     `;
-  }
-
-  query += " ORDER BY id DESC";
-
+}
+  query += " ORDER BY p.id DESC";
   let stmt = env.DB.prepare(query);
 
   if (search) {
