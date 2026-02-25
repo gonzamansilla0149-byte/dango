@@ -3,7 +3,41 @@
 // ============================
 
 const API_URL = "https://dango.gonzamansilla0149.workers.dev";
+// ============================
+// PROTECCIÓN ADMIN
+// ============================
 
+const token = localStorage.getItem("token");
+const role = localStorage.getItem("role");
+
+if (!token || role !== "admin") {
+  window.location.href = "admin-login.html";
+}
+
+// ============================
+// FETCH AUTENTICADO
+// ============================
+async function authFetch(url, options = {}) {
+
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(url, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + token,
+      ...(options.headers || {})
+    }
+  });
+
+  if (response.status === 401 || response.status === 403) {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    window.location.href = "admin-login.html";
+  }
+
+  return response;
+}
 // ============================
 // DATA
 // ============================
@@ -24,6 +58,15 @@ const formContainer = document.getElementById("product-form-container");
 const ordersBody = document.getElementById("orders-body");
 const btnLoadReport = document.getElementById("btnLoadReport");
 
+const logoutBtn = document.getElementById("logoutBtn");
+
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    window.location.href = "admin-login.html";
+  });
+}
 
 // ============================
 // CAMBIO DE VISTA (SIDEBAR)
@@ -84,7 +127,7 @@ if (menuToggle && sidebar) {
 }
 async function loadProducts(search = "") {
   try {
-    const res = await fetch(`${API_URL}/api/products?search=${encodeURIComponent(search)}`);
+    const res = await authFetch(`${API_URL}/api/products?search=${encodeURIComponent(search)}`);
     products = await res.json();
     renderProducts();
   } catch (error) {
@@ -165,9 +208,8 @@ if (form) {
     };
 
     try {
-      await fetch(`${API_URL}/api/products`, {
+      await authFetch(`${API_URL}/api/products`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(product)
       });
 
@@ -189,7 +231,7 @@ if (form) {
 
 async function deleteProduct(id) {
   try {
-    await fetch(`${API_URL}/api/products/${id}`, {
+    await authFetch(`${API_URL}/api/products/${id}`, {
       method: "DELETE"
     });
 
@@ -338,7 +380,7 @@ async function openProductAdmin(id) {
 
   try {
 
-    const res = await fetch(`${API_URL}/api/products/${id}`);
+    const res = await authFetch(`${API_URL}/api/products/${id}`);
     const product = await res.json();
 
     document.querySelector(".product-title").innerText = product.name || "";
@@ -385,11 +427,10 @@ const updated = {
 
     try {
 
-      await fetch(`${API_URL}/api/products/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updated)
-      });
+await authFetch(`${API_URL}/api/products/${id}`, {
+  method: "PUT",
+  body: JSON.stringify(updated)
+});
 
       alert("Producto actualizado");
 
