@@ -441,17 +441,19 @@ body {
     flex-direction: column;
     gap: 20px;
   }
-}
 
+  /* 🔥 ESTO VA DENTRO DEL MEDIA QUERY */
   .site-header {
     position: fixed;
     top: 0;
     left: 0;
+    width: 100%;
   }
 
   body {
-    padding-top: 110px; /* altura real del header */
+    padding-top: var(--header-height);
   }
+
 }
 /* ===============================
    PRODUCT VIEW (MEJORADO)
@@ -1008,6 +1010,6 @@ body {
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 3000; /* más alto que todo */
+  z-index: 3000;
   width: 100%;
 }
