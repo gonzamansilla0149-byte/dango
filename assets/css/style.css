@@ -121,12 +121,6 @@ body {
    PRODUCTS GRID
 ================================ */
 
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 20px;
-}
-
 .product-card {
   border: 1px solid #ddd;
   padding: 14px;
@@ -848,42 +842,6 @@ body {
 }
 
 @media (max-width: 1024px) {
-  .shop-content .products-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-  }
-}
-
-@media (max-width: 1024px) {
-
-  .product-card {
-    padding: 6px;
-  }
-
-  .product-image {
-    height: 90px;
-  }
-
-  .product-card h3 {
-    font-size: 11px;
-  }
-
-  .brand {
-    font-size: 10px;
-  }
-
-  .price {
-    font-size: 12px;
-    margin: 4px 0;
-  }
-
-  .product-card button {
-    padding: 6px;
-    font-size: 11px;
-  }
-}
-
-@media (max-width: 1024px) {
 
   .shop-layout {
     flex-direction: column;
@@ -916,31 +874,81 @@ body {
 
 }
 
-/* ===== FORZAR GRID CATEGORIA ===== */
-
-/* ===== FORZAR GRID CATEGORIA REAL ===== */
+/* ===============================
+   CATEGORY RESPONSIVE CLEAN
+================================ */
 
 @media (max-width: 1024px) {
 
-  main.shop-layout section.shop-content .products-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-    gap: 6px !important;
+  /* Layout vertical */
+  .shop-layout {
+    flex-direction: column;
   }
 
-  main.shop-layout .product-image {
-    height: 70px !important;
+  /* Sidebar horizontal arriba */
+  .sidebar {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
   }
 
-  main.shop-layout .product-card {
-    padding: 5px !important;
+  .filter-group {
+    flex: 0 0 auto;
   }
 
-  main.shop-layout .product-card h3 {
-    font-size: 9px !important;
+  .filter-toggle {
+    background: #f2f2f2;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    white-space: nowrap;
   }
 
-  main.shop-layout .price {
-    font-size: 10px !important;
+  .filter-content {
+    display: none;
   }
 
+  /* 4 columnas */
+  .shop-content .products-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  /* Cards compactas */
+  .product-card {
+    padding: 6px;
+  }
+
+  .product-image {
+    height: 80px;
+  }
+
+  .product-card h3 {
+    font-size: 10px;
+  }
+
+  .brand {
+    font-size: 9px;
+  }
+
+  .price {
+    font-size: 11px;
+    margin: 4px 0;
+  }
+
+  .product-card button {
+    padding: 6px;
+    font-size: 10px;
+  }
+
+}
+
+/* Extra pequeño (móvil chico) */
+@media (max-width: 600px) {
+  .shop-content .products-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
