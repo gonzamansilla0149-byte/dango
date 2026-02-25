@@ -915,3 +915,13 @@ body {
   }
 
 }
+
+/* ===== FORZAR GRID CATEGORIA ===== */
+
+@media (max-width: 1024px) {
+  main.shop-layout section.shop-content .products-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 8px !important;
+  }
+}
