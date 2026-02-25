@@ -406,7 +406,7 @@ body {
 ================================ */
 @media (max-width: 768px) {
 
-  html, body {
+  body {
     overflow-x: hidden;
   }
 
