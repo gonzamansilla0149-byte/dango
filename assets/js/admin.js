@@ -682,7 +682,9 @@ function renderBrandsList() {
 
 // Crear categoría
 document.addEventListener("click", async (e) => {
+
   if (e.target && e.target.id === "create-category-btn") {
+
     const name = document.getElementById("new-category-name").value.trim();
     if (!name) return alert("Ingresá un nombre");
 
@@ -711,7 +713,10 @@ document.addEventListener("click", async (e) => {
       alert("Error creando categoría");
       console.error(err);
     }
-}
+
+  }
+
+});
 // Crear subcategoría
 if (createSubcategoryBtn) {
   createSubcategoryBtn.addEventListener("click", async () => {
