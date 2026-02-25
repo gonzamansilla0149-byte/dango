@@ -131,6 +131,11 @@ body {
 /* ===============================
    PRODUCTS GRID
 ================================ */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
+}
 
 .product-card {
   border: 1px solid #ddd;
@@ -884,11 +889,7 @@ body {
    CATEGORY GRID DESKTOP
 ================================ */
 
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 24px;
-}
+
 
 @media (max-width: 1200px) {
   .shop-content .products-grid {
