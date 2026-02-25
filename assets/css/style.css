@@ -17,13 +17,10 @@ body {
 
 /* HEADER */
 .site-header {
-  background: #111;
-  color: white;
   position: sticky;
   top: 0;
-  left: 0;
-  width: 100%;
   z-index: 5000;
+  background: #111;
 }
 .header-top {
   display: flex;
