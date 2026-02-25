@@ -349,32 +349,6 @@ body {
 /* ===============================
    MOBILE FIXES
 ================================ */
-@media (max-width: 768px) {
-
-  /* GRID MOBILE COMPACTO */
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
-  .product-card {
-    padding: 10px;
-    min-width: auto;
-    max-width: 100%;
-  }
-
-  .product-image {
-    height: 140px;
-  }
-
-  .product-card h3 {
-    font-size: 14px;
-  }
-
-  .price {
-    font-size: 16px;
-  }
 
   /* 1) NO SCROLL LATERAL */
   html, body {
