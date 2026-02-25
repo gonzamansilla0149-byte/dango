@@ -17,8 +17,10 @@ body {
 
 /* HEADER */
 .site-header {
-  position: sticky;
+  position: fixed;   /* CAMBIO CLAVE */
   top: 0;
+  left: 0;
+  width: 100%;
   z-index: 5000;
   background: #111;
 }
