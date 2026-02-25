@@ -213,7 +213,16 @@ if (request.method === "GET" && url.pathname === "/api/products") {
   const search = url.searchParams.get("search");
 
   let query = `
-    SELECT * FROM products 
+SELECT 
+  p.*,
+  c.name as category_name,
+  s.name as subcategory_name,
+  b.name as brand_name
+FROM products p
+LEFT JOIN categories c ON p.category_id = c.id
+LEFT JOIN subcategories s ON p.subcategory_id = s.id
+LEFT JOIN brands b ON p.brand_id = b.id
+WHERE p.active = 1
     WHERE active = 1
   `;
 
@@ -221,8 +230,8 @@ if (request.method === "GET" && url.pathname === "/api/products") {
     query += `
       AND (
         name LIKE ? OR
-        brand LIKE ? OR
-        category LIKE ?
+        b.name LIKE ? OR
+        c.name LIKE ?
       )
     `;
   }
@@ -283,20 +292,20 @@ if (request.method === "GET" && url.pathname.startsWith("/api/products/")) {
         const data = await request.json();
 
         await env.DB.prepare(`
-          INSERT INTO products
-          (name, price, description, category, brand, model, stock, image_url)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+INSERT INTO products
+(name, price, description, category_id, subcategory_id, brand_id, stock, image_url, active)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)
         `)
-        .bind(
-          data.name,
-          data.price,
-          data.description,
-          data.category,
-          data.brand,
-          data.model || "",
-          data.stock,
-          data.image_url
-        )
+ .bind(
+  data.name,
+  data.price,
+  data.description,
+  data.category_id,
+  data.subcategory_id,
+  data.brand_id,
+  data.stock,
+  data.image_url
+)
         .run();
 
         return new Response(JSON.stringify({ success: true }), {
@@ -323,19 +332,19 @@ if (request.method === "GET" && url.pathname.startsWith("/api/products/")) {
         const data = await request.json();
 
         await env.DB.prepare(`
-          UPDATE products
-          SET name = ?, brand = ?, price = ?, description = ?, image_url = ?, stock = ?
+UPDATE products
+SET name = ?, brand_id = ?, price = ?, description = ?, image_url = ?, stock = ?
           WHERE id = ?
         `)
-        .bind(
-          data.name,
-          data.brand,
-          data.price,
-          data.description,
-          data.image_url,
-          data.stock,
-          id
-        )
+.bind(
+  data.name,
+  data.brand_id,
+  data.price,
+  data.description,
+  data.image_url,
+  data.stock,
+  id
+)
         .run();
 
         return new Response(JSON.stringify({ success: true }), {
