@@ -128,8 +128,17 @@
 
         <form id="product-form">
           <input name="name" placeholder="Nombre" required>
-          <input name="brand" placeholder="Marca" required>
-          <input name="category" placeholder="Categoría" required>
+<select name="brand_id" id="product-brand" required>
+  <option value="">Seleccionar marca</option>
+</select>
+
+<select name="category_id" id="product-category" required>
+  <option value="">Seleccionar categoría</option>
+</select>
+
+<select name="subcategory_id" id="product-subcategory" required>
+  <option value="">Seleccionar subcategoría</option>
+</select>
           <input name="price" type="number" placeholder="Precio" required>
           <input name="stock" type="number" placeholder="Stock" required>
           <textarea name="description" placeholder="Descripción"></textarea>
