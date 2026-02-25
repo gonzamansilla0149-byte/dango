@@ -212,7 +212,7 @@ if (request.method === "GET" && url.pathname === "/api/products") {
 
   const search = url.searchParams.get("search");
 
-  let query = `
+let query = `
 SELECT 
   p.*,
   c.name as category_name,
@@ -223,8 +223,7 @@ LEFT JOIN categories c ON p.category_id = c.id
 LEFT JOIN subcategories s ON p.subcategory_id = s.id
 LEFT JOIN brands b ON p.brand_id = b.id
 WHERE p.active = 1
-    WHERE active = 1
-  `;
+`;
 
   if (search) {
     query += `
