@@ -86,10 +86,10 @@ if (!category) {
     const response = await fetch("https://dango.gonzamansilla0149.workers.dev/api/products");
     const allProducts = await response.json();
 
-    const filteredProducts = allProducts.filter(p =>
-      p.category.toLowerCase() === category.toLowerCase()
-    );
-
+const filteredProducts = allProducts.filter(p =>
+  p.category_id && p.category_id == category
+);
+    
     if (filteredProducts.length === 0) {
       container.innerHTML = "<p>No hay productos en esta categoría.</p>";
       return;
