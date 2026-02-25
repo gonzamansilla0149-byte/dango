@@ -122,27 +122,6 @@ buttons.forEach(btn => {
   });
 });
 
-    buttons.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-
-    sections.forEach(sec => sec.classList.add("hidden"));
-
-    const view = btn.dataset.view;
-    const target = document.getElementById(view + "-view");
-
-    if (target) {
-      target.classList.remove("hidden");
-      localStorage.setItem("admin_view", view);
-      if (window.innerWidth <= 768 && sidebar) {
-      sidebar.classList.remove("open");
-      overlay.classList.remove("active");
-}
-}// 🔥 guardamos vista
-  });
-});
-
-
-
 // ============================
 // MOSTRAR / OCULTAR FORM PRODUCTO
 // ============================
