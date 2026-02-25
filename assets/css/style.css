@@ -854,10 +854,17 @@ body {
   }
 
   /* 🔥 Hacer cards proporcionales */
-  .product-card {
-    padding: 8px;
-  }
+.product-card {
+  padding: 8px;
+  height: auto;
+}
 
+.product-card h3 {
+  font-size: 13px;
+  line-height: 1.2;
+  min-height: 32px;   /* evita que unas crezcan más que otras */
+  overflow: hidden;
+}
   .product-image {
     aspect-ratio: 1 / 1;   /* ← ESTO LAS HACE CUADRADAS */
     height: auto;
