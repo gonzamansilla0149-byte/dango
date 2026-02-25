@@ -927,3 +927,40 @@ body {
   display: block;
 }
 
+/* ===== HOME CATEGORIES ICONS ===== */
+
+.home-categories {
+  padding: 20px;
+  background: #fff;
+}
+
+.categories-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.category-icon {
+  text-decoration: none;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: 0.2s ease;
+}
+
+.category-icon .icon {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+.category-icon span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.category-icon:hover {
+  transform: scale(1.1);
+}
