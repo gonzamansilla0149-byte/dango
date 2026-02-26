@@ -13,42 +13,31 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
 
-    const response = await fetch(
-      "https://dango.gonzamansilla0149.workers.dev/api/products"
-    );
-
-    if (!response.ok) {
-      throw new Error("Error al obtener productos");
-    }
-
-    const products = await response.json();
-
-    const product = products.find(p => Number(p.id) === id);
+const product = products.find(p => Number(p.id) === id);
 
     if (!product) {
       container.innerHTML = "<h2>Producto no encontrado</h2>";
       return;
     }
 
-    // ===============================
-    // PRODUCTOS RELACIONADOS
-    // ===============================
+  // ===============================
+// TRAER PRODUCTO POR ID
+// ===============================
 
-    const relatedTrack = document.getElementById("related-track");
+const response = await fetch(
+  `https://dango.gonzamansilla0149.workers.dev/api/products/${id}`
+);
 
-    if (relatedTrack) {
+if (!response.ok) {
+  throw new Error("Error al obtener producto");
+}
 
-      const relatedProducts = products
-        .filter(p =>
-          p.category_name === product.category_name &&
-          Number(p.id) !== Number(product.id)
-        )
-        .slice(0, 8);
+const product = await response.json();
 
-      if (relatedProducts.length === 0) {
-        relatedTrack.innerHTML = "<p>No hay productos relacionados.</p>";
-      } else {
-
+if (!product || !product.id) {
+  container.innerHTML = "<h2>Producto no encontrado</h2>";
+  return;
+}
         relatedTrack.innerHTML = relatedProducts.map(p => `
           <article class="product-card">
             <div class="product-image"
