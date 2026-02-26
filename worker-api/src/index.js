@@ -24,21 +24,6 @@ if (
 ) {
   return fetch(request);
 }
-// =========================
-// DEJAR PASAR ARCHIVOS ESTÁTICOS
-// =========================
-if (
-  url.pathname.startsWith("/assets") ||
-  url.pathname.endsWith(".css") ||
-  url.pathname.endsWith(".js") ||
-  url.pathname.endsWith(".png") ||
-  url.pathname.endsWith(".jpg") ||
-  url.pathname.endsWith(".webp") ||
-  url.pathname.endsWith(".svg") ||
-  url.pathname.endsWith(".ico")
-) {
-  return fetch(request);
-}
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": request.headers.get("Origin") || "*",
