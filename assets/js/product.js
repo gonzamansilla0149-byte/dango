@@ -127,7 +127,6 @@ if (Number(product.stock) <= 0) {
     // AGREGAR AL CARRITO
     // ===============================
 
-    const addBtn = document.querySelector(".add-to-cart-btn");
     const qtyInput = document.querySelector(".quantity-selector input");
 
     if (addBtn) {
@@ -156,7 +155,6 @@ if (Number(product.stock) <= 0) {
 // QUICK CHECKOUT (COMPRAR AHORA)
 // ===============================
 
-const buyBtn = document.getElementById("buy-now-btn");
 const quickCheckout = document.getElementById("quick-checkout");
 const qcInputs = document.querySelectorAll(".qc-input");
 
