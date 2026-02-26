@@ -53,6 +53,121 @@ const corsHeaders = {
     }
 
     // =========================
+// CUSTOMER REGISTER
+// =========================
+if (request.method === "POST" && url.pathname === "/api/register") {
+
+  const { name, email, password } = await request.json();
+
+  if (!name || !email || !password) {
+    return new Response(JSON.stringify({
+      error: "Faltan campos"
+    }), {
+      status: 400,
+      headers: {
+        "Content-Type": "application/json",
+        ...corsHeaders
+      }
+    });
+  }
+
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashedPassword = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+
+  try {
+    await env.DB.prepare(`
+      INSERT INTO customers (name, email, password)
+      VALUES (?, ?, ?)
+    `)
+    .bind(name, email, hashedPassword)
+    .run();
+
+    return new Response(JSON.stringify({ success: true }), {
+      headers: {
+        "Content-Type": "application/json",
+        ...corsHeaders
+      }
+    });
+
+  } catch (err) {
+    return new Response(JSON.stringify({
+      error: "El email ya está registrado"
+    }), {
+      status: 400,
+      headers: {
+        "Content-Type": "application/json",
+        ...corsHeaders
+      }
+    });
+  }
+}
+
+
+// =========================
+// CUSTOMER LOGIN
+// =========================
+if (request.method === "POST" && url.pathname === "/api/login") {
+
+  const { email, password } = await request.json();
+
+  if (!email || !password) {
+    return new Response(JSON.stringify({
+      error: "Faltan campos"
+    }), {
+      status: 400,
+      headers: {
+        "Content-Type": "application/json",
+        ...corsHeaders
+      }
+    });
+  }
+
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashedPassword = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+
+  const user = await env.DB.prepare(`
+    SELECT * FROM customers
+    WHERE email = ? AND password = ?
+  `)
+  .bind(email, hashedPassword)
+  .first();
+
+  if (!user) {
+    return new Response(JSON.stringify({
+      error: "Credenciales incorrectas"
+    }), {
+      status: 401,
+      headers: {
+        "Content-Type": "application/json",
+        ...corsHeaders
+      }
+    });
+  }
+
+  const token = crypto.randomUUID();
+
+  return new Response(JSON.stringify({
+    token,
+    user: {
+      id: user.id,
+      name: user.name,
+      email: user.email
+    }
+  }), {
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders
+    }
+  });
+}
+    
+    // =========================
     // VERIFICAR TOKEN
     // =========================
     function verifyAdmin(request) {
