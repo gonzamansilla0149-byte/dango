@@ -25,8 +25,9 @@
       <button id="btn-login" class="icon-btn">👤</button>
 
 <div class="account-dropdown" id="account-dropdown">
-  <button class="account-item" id="open-login">Iniciar sesión</button>
-  <button class="account-item" id="open-register">Crear cuenta</button>
+  <a href="login.html" class="account-item" id="login-link">Iniciar sesión</a>
+  <a href="register.html" class="account-item" id="register-link">Crear cuenta</a>
+  <button class="account-item" id="logout-btn" style="display:none;">Cerrar sesión</button>
 </div>
 </div>
 
@@ -219,16 +220,7 @@
 
   </div>
 </div>
-<div class="modal" id="login-modal">
-  <div class="modal-content">
-    <h3>Iniciar sesión</h3>
-    <input type="email" placeholder="Email">
-    <input type="password" placeholder="Contraseña">
-    <button>Ingresar</button>
-    <span class="close-modal">✕</span>
-  </div>
-</div>
-
+  
 <script src="assets/js/products.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/home.js"></script>
