@@ -9,38 +9,45 @@
 
 <body class="auth-page">
 
-<div class="auth-modal" id="auth-modal">
+<div class="auth-overlay" id="auth-overlay">
 
-  <span class="auth-close" id="close-auth">✕</span>
+  <div class="auth-modal">
+    
+    <span class="auth-close" id="close-auth">✕</span>
 
-  <h2>Iniciar sesión</h2>
+    <h2>Iniciar sesión</h2>
 
-  <div id="error-message" class="auth-error"></div>
+    <div id="error-message" class="auth-error"></div>
 
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="password" placeholder="Contraseña">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Contraseña">
 
-  <button id="login-btn">Ingresar</button>
+    <button id="login-btn">Ingresar</button>
 
-  <p>
-    ¿No tienes cuenta?
-    <a href="register.html">Crear cuenta</a>
-  </p>
+    <p>
+      ¿No tienes cuenta?
+      <a href="register.html">Crear cuenta</a>
+    </p>
+
+  </div>
 
 </div>
 
 <script src="assets/js/auth.js"></script>
 
 <script>
+
+const overlay = document.getElementById("auth-overlay");
+const closeBtn = document.getElementById("close-auth");
+
 // Cerrar con X
-document.getElementById("close-auth").addEventListener("click", () => {
+closeBtn.addEventListener("click", () => {
   window.history.back();
 });
 
-// Cerrar con click fuera
-document.addEventListener("click", (e) => {
-  const modal = document.getElementById("auth-modal");
-  if (!modal.contains(e.target)) {
+// Cerrar haciendo click SOLO en el overlay
+overlay.addEventListener("click", (e) => {
+  if (e.target === overlay) {
     window.history.back();
   }
 });
@@ -51,6 +58,7 @@ document.addEventListener("keydown", (e) => {
     window.history.back();
   }
 });
+
 </script>
 
 </body>
