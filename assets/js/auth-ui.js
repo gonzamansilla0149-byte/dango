@@ -1,4 +1,4 @@
-export function initAuthUI() {
+function initAuthUI() {
 
   const authHTML = `
     <div class="auth-overlay" id="auth-overlay">
@@ -59,22 +59,12 @@ export function initAuthUI() {
     document.body.classList.remove("no-scroll");
   }
 
-  // Eventos header
-  document.getElementById("open-login")?.addEventListener("click", (e) => {
-    e.preventDefault();
-    openLogin();
-  });
+  document.getElementById("open-login")?.addEventListener("click", openLogin);
+  document.getElementById("open-register")?.addEventListener("click", openRegister);
 
-  document.getElementById("open-register")?.addEventListener("click", (e) => {
-    e.preventDefault();
-    openRegister();
-  });
-
-  // Cambios internos
   document.getElementById("open-register-modal")?.addEventListener("click", openRegister);
   document.getElementById("open-login-modal")?.addEventListener("click", openLogin);
 
-  // Cerrar
   overlay.addEventListener("click", (e) => {
     if (e.target === overlay) closeModals();
   });
@@ -88,3 +78,5 @@ export function initAuthUI() {
   });
 
 }
+
+document.addEventListener("DOMContentLoaded", initAuthUI);
