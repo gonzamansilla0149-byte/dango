@@ -489,31 +489,7 @@ body {
   border-color: #0077ff;
 }
 
-.product-info span {
-  font-size: 14px;
-  color: #777;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
 
-.product-info h1 {
-  font-size: 28px;
-  font-weight: 600;
-  margin: 12px 0;
-}
-
-.product-info .price {
-  font-size: 32px;
-  font-weight: bold;
-  margin: 20px 0;
-}
-
-.product-info p {
-  font-size: 15px;
-  color: #555;
-  margin-bottom: 20px;
-  line-height: 1.6;
-}
 
 .quantity-selector {
   display: flex;
@@ -552,12 +528,101 @@ body {
 }
 
 /* RESPONSIVE PRODUCT VIEW */
+
 @media (max-width: 900px) {
+
   .product-container {
     grid-template-columns: 1fr;
     padding: 24px;
   }
 
+  .product-info-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .product-purchase-card {
+    position: static;
+  }
+
+  .product-gallery .main-image {
+    height: 360px;
+  }
+}
+
+  /* ===============================
+   PRODUCT INFO SPLIT (NUEVO)
+================================ */
+
+.product-info-wrapper {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* IZQUIERDA - DETALLES */
+
+.product-details span {
+  font-size: 13px;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.product-details h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 12px 0;
+}
+
+.product-details p {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+/* DERECHA - CARD COMPRA */
+
+.product-purchase-card {
+  border: 1px solid #eaeaea;
+  border-radius: 12px;
+  padding: 24px;
+  position: sticky;
+  top: 120px;
+  background: #fff;
+}
+
+.product-purchase-card .product-price {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.product-purchase-card .quantity-selector {
+  margin: 20px 0;
+}
+
+.buy-now-btn {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 12px;
+  background: #111;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.buy-now-btn:hover {
+  background: #333;
+}
+
+.product-purchase-card .add-to-cart-btn {
+  width: 100%;
+}
   .product-gallery .main-image {
     height: 360px;
   }
