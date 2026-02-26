@@ -1,5 +1,8 @@
 function initAuthUI() {
 
+  // Evita duplicar el modal
+  if (document.getElementById("auth-overlay")) return;
+
   const authHTML = `
     <div class="auth-overlay" id="auth-overlay">
 
@@ -59,8 +62,15 @@ function initAuthUI() {
     document.body.classList.remove("no-scroll");
   }
 
-  document.getElementById("open-login")?.addEventListener("click", openLogin);
-  document.getElementById("open-register")?.addEventListener("click", openRegister);
+  document.getElementById("open-login")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    openLogin();
+  });
+
+  document.getElementById("open-register")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    openRegister();
+  });
 
   document.getElementById("open-register-modal")?.addEventListener("click", openRegister);
   document.getElementById("open-login-modal")?.addEventListener("click", openLogin);
@@ -76,7 +86,6 @@ function initAuthUI() {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeModals();
   });
-
 }
 
 document.addEventListener("DOMContentLoaded", initAuthUI);
