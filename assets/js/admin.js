@@ -580,6 +580,7 @@ function openProductAdmin(id) {
   window.location.href = `/admin/producto-editar.html?id=${id}`;
 }
 
+const adminSaveBtn = document.getElementById("admin-save-product");
 const adminBackBtn = document.getElementById("admin-back-products");
 
 if (adminSaveBtn) {
