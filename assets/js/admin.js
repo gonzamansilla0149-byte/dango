@@ -74,7 +74,69 @@ const overlay = document.getElementById("sidebar-overlay");
 const menuToggle = document.getElementById("menu-toggle");
 const toggleBtn = document.getElementById("toggle-form");
 const formContainer = document.getElementById("product-form-container");
+const createMediaInput = document.getElementById("create-media-input");
+const createPreviewContainer = document.getElementById("create-media-preview");
 
+let createSelectedFiles = [];
+
+// ============================
+// PREVIEW CREAR PRODUCTO
+// ============================
+
+if (createMediaInput) {
+
+  createMediaInput.addEventListener("change", (e) => {
+
+    const files = Array.from(e.target.files);
+
+    createSelectedFiles = [...createSelectedFiles, ...files];
+
+    if (createSelectedFiles.length > 5) {
+      alert("Máximo 5 archivos permitidos");
+      createSelectedFiles = createSelectedFiles.slice(0, 5);
+    }
+
+    renderCreatePreview();
+    syncCreateInputFiles();
+  });
+
+}
+
+function renderCreatePreview() {
+
+  if (!createPreviewContainer) return;
+
+  createPreviewContainer.innerHTML = "";
+
+  createSelectedFiles.forEach((file, index) => {
+
+    const url = URL.createObjectURL(file);
+    const isVideo = file.type.startsWith("video/");
+
+    createPreviewContainer.innerHTML += `
+      <div class="create-media-item">
+        ${
+          isVideo
+            ? `<video src="${url}" width="100"></video>`
+            : `<img src="${url}" width="100">`
+        }
+        <button type="button" onclick="removeCreateFile(${index})">✖</button>
+      </div>
+    `;
+  });
+}
+
+function removeCreateFile(index) {
+  createSelectedFiles.splice(index, 1);
+  renderCreatePreview();
+  syncCreateInputFiles();
+}
+
+function syncCreateInputFiles() {
+  const dataTransfer = new DataTransfer();
+  createSelectedFiles.forEach(file => dataTransfer.items.add(file));
+  createMediaInput.files = dataTransfer.files;
+}
 // PEDIDOS
 const ordersBody = document.getElementById("orders-body");
 const btnLoadReport = document.getElementById("btnLoadReport");
@@ -329,32 +391,29 @@ if (form) {
 
     const formData = new FormData(form);
 
-    // Validación archivos
-    const files = formData.getAll("media[]");
+if (createSelectedFiles.length === 0) {
+  alert("Debes subir al menos una imagen");
+  return;
+}
 
-    if (files.length > 5) {
-      alert("Máximo 5 archivos permitidos");
-      return;
-    }
+let videoCount = 0;
 
-    let videoCount = 0;
+for (let file of createSelectedFiles) {
 
-    for (let file of files) {
-      if (file.type.startsWith("video/")) {
-        videoCount++;
-      }
+  if (file.type.startsWith("video/")) {
+    videoCount++;
+  }
 
-      // Limite 30MB por archivo
-      if (file.size > 30 * 1024 * 1024) {
-        alert("Un archivo supera los 30MB");
-        return;
-      }
-    }
+  if (file.size > 30 * 1024 * 1024) {
+    alert("Un archivo supera los 30MB");
+    return;
+  }
+}
 
-    if (videoCount > 1) {
-      alert("Solo se permite 1 video por producto");
-      return;
-    }
+if (videoCount > 1) {
+  alert("Solo se permite 1 video por producto");
+  return;
+}
 
     try {
 
@@ -370,6 +429,8 @@ if (form) {
       }
 
       form.reset();
+      createSelectedFiles = [];
+      if (createPreviewContainer) createPreviewContainer.innerHTML = "";
       formContainer.classList.add("hidden");
       loadProducts();
 
@@ -644,6 +705,13 @@ if (adminSaveBtn) {
 
     const formData = new FormData();
 
+    const totalFinal = document.querySelectorAll(".admin-media-item").length;
+
+    if (totalFinal > 5) {
+    alert("Máximo 5 archivos permitidos");
+    return;
+    }
+
     // Datos básicos
     formData.append("name", document.querySelector(".product-title").innerText);
     formData.append("brand_id", document.getElementById("admin-edit-brand").value);
@@ -818,6 +886,48 @@ function renderCategoriesList() {
 function removeMedia(btn) {
   const item = btn.closest(".admin-media-item");
   if (item) item.remove();
+}
+
+// ============================
+// PREVIEW NUEVOS ARCHIVOS EN EDICIÓN
+// ============================
+
+const adminNewMediaInput = document.getElementById("admin-new-media");
+
+if (adminNewMediaInput) {
+
+  adminNewMediaInput.addEventListener("change", () => {
+
+    const gallery = document.getElementById("admin-media-gallery");
+
+    const existingCount = document.querySelectorAll(".admin-media-item").length;
+    const newFiles = Array.from(adminNewMediaInput.files);
+
+    if (existingCount + newFiles.length > 5) {
+      alert("Máximo 5 archivos en total");
+      adminNewMediaInput.value = "";
+      return;
+    }
+
+    newFiles.forEach(file => {
+
+      const url = URL.createObjectURL(file);
+      const isVideo = file.type.startsWith("video/");
+
+      gallery.innerHTML += `
+        <div class="admin-media-item new-file">
+          ${
+            isVideo
+              ? `<video src="${url}" width="120"></video>`
+              : `<img src="${url}" width="120">`
+          }
+          <button type="button" onclick="removeMedia(this)">Eliminar</button>
+        </div>
+      `;
+    });
+
+  });
+
 }
 // Render listado marcas
 function renderBrandsList() {
