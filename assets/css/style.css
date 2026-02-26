@@ -454,11 +454,10 @@ body {
 
 .product-container {
   display: grid;
-  grid-template-columns: 1.3fr 1fr 420px;
-  gap: 60px;
+  grid-template-columns: minmax(400px, 1.3fr) minmax(350px, 1fr) 380px;
+  gap: 50px;
   align-items: start;
 }
-
 /* ===============================
    GALERÍA
 ================================ */
@@ -600,6 +599,9 @@ body {
 ================================ */
 
 .product-purchase-card {
+  width: 100%;
+  max-width: 380px;
+  justify-self: end; /* lo alinea a la derecha */
   background: #fafafa;
   border: 1px solid #e5e5e5;
   border-radius: 14px;
@@ -725,14 +727,17 @@ body {
 ================================ */
 
 @media (max-width: 1100px) {
+
   .product-container {
     grid-template-columns: 1fr;
-    gap: 40px;
   }
 
   .product-purchase-card {
     position: static;
+    max-width: 100%;
+    justify-self: stretch;
   }
+
 }
 /* ===============================
    FIX PAGINACIÓN CATEGORÍA
