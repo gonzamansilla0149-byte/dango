@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Dango Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+  
+<div class="mobile-header">
+  <button class="menu-toggle" id="menu-toggle">☰</button>
+  <span class="mobile-title">DANGO Admin</span>
+</div>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<div class="admin-layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2>DANGO</h2>
+<nav>
+  <button data-view="inicio" class="active">Inicio</button>
+  <button data-view="pedidos">Pedidos</button>
+  <button data-view="reporte">Reporte</button>
+  <button data-view="productos">Productos</button>
+  <button data-view="categorias">Categorías</button>
+  <button id="logoutBtn">Cerrar sesión</button>
+</nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="content" id="main-content">
+    <!-- Aquí se cargarán las secciones dinámicamente con JavaScript -->
+  </main>
+
+</div>
+
+<script src="assets/js/admin.js" defer></script>
+</body>
+</html>
