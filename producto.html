@@ -107,12 +107,12 @@
   <h1 class="product-title"></h1>
 
   <p class="product-price"></p>
-  
+
   <div class="product-description"></div>
 
-  <div class="product-features">
-    <!-- Características inyectadas desde dashboard -->
-  </div>
+  <div class="product-features"></div>
+
+</div>
 
 </div>
 
@@ -134,9 +134,19 @@
     Stock disponible: <span class="stock-units"></span>
   </p>
 
-  <button class="buy-now-btn">
-    Comprar ahora
-  </button>
+<button class="buy-now-btn" id="buy-now-btn">
+  Comprar ahora
+</button>
+
+<div class="quick-checkout" id="quick-checkout">
+
+  <input type="text" placeholder="Nombre completo" class="qc-input" required>
+  <input type="text" placeholder="Dirección" class="qc-input" required>
+  <input type="text" placeholder="Ciudad" class="qc-input" required>
+  <input type="text" placeholder="Código Postal" class="qc-input" required>
+  <input type="tel" placeholder="Teléfono" class="qc-input" required>
+
+</div>
 
   <button class="add-to-cart-btn">
     Agregar al carrito
