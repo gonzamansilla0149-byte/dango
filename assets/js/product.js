@@ -100,6 +100,10 @@ if (stockUnits) {
   stockUnits.textContent = product.stock ?? 0;
 }
 
+if (Number(product.stock) > 0 && Number(product.stock) <= 5) {
+  stockUnits.style.color = "orange";
+}
+
 if (soldUnits) {
   soldUnits.textContent = product.sold_units ?? 0;
 }
