@@ -1,257 +1,114 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Admin Dango</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Login Admin - Dango</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-body {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #111, #1e1e2f);
-}
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background: #111;
+    }
 
-.login-container {
-  background: white;
-  width: 360px;
-  border-radius: 12px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-  padding: 35px;
-}
+    .login-box {
+      background: white;
+      padding: 40px;
+      width: 320px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
 
-h2 {
-  text-align: center;
-  margin-bottom: 25px;
-}
+    .login-box h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
 
-.tabs {
-  display: flex;
-  margin-bottom: 20px;
-  border-bottom: 2px solid #eee;
-}
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
 
-.tab {
-  flex: 1;
-  text-align: center;
-  padding: 10px;
-  cursor: pointer;
-  font-weight: bold;
-  color: #777;
-}
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #0077ff;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    }
 
-.tab.active {
-  color: #0077ff;
-  border-bottom: 3px solid #0077ff;
-}
+    button:hover {
+      opacity: 0.9;
+    }
 
-.form {
-  display: none;
-}
+    .error {
+      color: red;
+      margin-bottom: 10px;
+      text-align: center;
+    }
 
-.form.active {
-  display: block;
-}
-
-input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  transition: 0.2s;
-}
-
-input:focus {
-  border-color: #0077ff;
-  outline: none;
-}
-
-button {
-  width: 100%;
-  padding: 12px;
-  background: #0077ff;
-  border: none;
-  color: white;
-  font-weight: bold;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-button:hover {
-  background: #005ad6;
-}
-
-.error {
-  color: red;
-  margin-bottom: 10px;
-  text-align: center;
-  font-size: 14px;
-}
-
-.success {
-  color: green;
-  margin-bottom: 10px;
-  text-align: center;
-  font-size: 14px;
-}
-</style>
+  </style>
 </head>
-
 <body>
 
-<div class="login-container">
+  <div class="login-box">
+    <h2>Admin DANGO</h2>
 
-  <h2>Admin DANGO</h2>
+    <div id="error" class="error"></div>
 
-  <div class="tabs">
-    <div class="tab active" onclick="showLogin()">Iniciar Sesión</div>
-    <div class="tab" onclick="showRegister()">Crear Cuenta</div>
+    <input type="text" id="username" placeholder="Usuario">
+    <input type="password" id="password" placeholder="Contraseña">
+
+    <button id="loginBtn">Ingresar</button>
   </div>
-
-  <!-- LOGIN ADMIN -->
-  <div id="loginForm" class="form active">
-    <div id="loginError" class="error"></div>
-
-    <input type="text" id="loginUsername" placeholder="Usuario">
-    <input type="password" id="loginPassword" placeholder="Contraseña">
-
-    <button onclick="login()">Ingresar</button>
-  </div>
-
-  <!-- REGISTER ADMIN -->
-  <div id="registerForm" class="form">
-    <div id="registerMessage"></div>
-
-    <input type="text" id="registerUsername" placeholder="Usuario">
-    <input type="email" id="registerEmail" placeholder="Email">
-    <input type="password" id="registerPassword" placeholder="Contraseña">
-    <input type="password" id="registerConfirm" placeholder="Confirmar contraseña">
-
-    <button onclick="register()">Crear Cuenta</button>
-  </div>
-
-</div>
 
 <script>
+
 const API_URL = "https://dango.gonzamansilla0149.workers.dev";
 
-/* ---------- CAMBIO DE PESTAÑAS ---------- */
+document.getElementById("loginBtn").addEventListener("click", async () => {
 
-function showLogin() {
-  document.querySelectorAll(".tab")[0].classList.add("active");
-  document.querySelectorAll(".tab")[1].classList.remove("active");
-  document.getElementById("loginForm").classList.add("active");
-  document.getElementById("registerForm").classList.remove("active");
-}
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
 
-function showRegister() {
-  document.querySelectorAll(".tab")[1].classList.add("active");
-  document.querySelectorAll(".tab")[0].classList.remove("active");
-  document.getElementById("registerForm").classList.add("active");
-  document.getElementById("loginForm").classList.remove("active");
-}
+  const res = await fetch(`${API_URL}/api/admin-login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ username, password })
+  });
 
-/* ---------- LOGIN ADMIN ---------- */
+  const data = await res.json();
 
-async function login() {
-
-  const username = document.getElementById("loginUsername").value.trim();
-  const password = document.getElementById("loginPassword").value.trim();
-  const errorBox = document.getElementById("loginError");
-
-  errorBox.innerText = "";
-
-  if (!username || !password) {
-    errorBox.innerText = "Completa todos los campos";
+  if (!res.ok) {
+    document.getElementById("error").innerText = data.error || "Error login";
     return;
   }
 
-  try {
-    const res = await fetch(`${API_URL}/api/admin-login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password })
-    });
+  localStorage.setItem("token", data.token);
+  localStorage.setItem("role", data.role);
 
-    const data = await res.json();
+  window.location.href = "admin.html";
 
-    if (!res.ok) {
-      errorBox.innerText = data.error || "Error al iniciar sesión";
-      return;
-    }
+});
 
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("role", data.role);
-
-    window.location.href = "admin.html";
-
-  } catch (err) {
-    errorBox.innerText = "Error de conexión";
-  }
-}
-
-/* ---------- REGISTER ADMIN ---------- */
-
-async function register() {
-
-  const username = document.getElementById("registerUsername").value.trim();
-  const email = document.getElementById("registerEmail").value.trim();
-  const password = document.getElementById("registerPassword").value.trim();
-  const confirm = document.getElementById("registerConfirm").value.trim();
-  const messageBox = document.getElementById("registerMessage");
-
-  messageBox.innerHTML = "";
-
-  if (!username || !email || !password || !confirm) {
-    messageBox.innerHTML = "<div class='error'>Completa todos los campos</div>";
-    return;
-  }
-
-  if (password.length < 6) {
-    messageBox.innerHTML = "<div class='error'>La contraseña debe tener mínimo 6 caracteres</div>";
-    return;
-  }
-
-  if (password !== confirm) {
-    messageBox.innerHTML = "<div class='error'>Las contraseñas no coinciden</div>";
-    return;
-  }
-
-  try {
-    const res = await fetch(`${API_URL}/api/admin-register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, email, password })
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      messageBox.innerHTML = `<div class='error'>${data.error || "Error al registrar"}</div>`;
-      return;
-    }
-
-    messageBox.innerHTML = "<div class='success'>Cuenta creada correctamente 🎉</div>";
-
-    setTimeout(() => {
-      showLogin();
-    }, 1500);
-
-  } catch (err) {
-    messageBox.innerHTML = "<div class='error'>Error de conexión</div>";
-  }
-}
 </script>
 
 </body>
