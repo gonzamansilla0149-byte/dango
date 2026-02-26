@@ -7,13 +7,18 @@ export default {
 
     const url = new URL(request.url);
 
-    // =========================
+// =========================
 // ADMIN SPA ROUTING
 // =========================
 if (request.method === "GET" && url.pathname.startsWith("/admin")) {
-  return fetch("https://dangotools.com/admin.html");
-}
 
+  const asset = await env.ASSETS.fetch(
+    new Request(new URL("/admin.html", request.url))
+  );
+
+  return asset;
+}
+    
 const corsHeaders = {
   "Access-Control-Allow-Origin": request.headers.get("Origin") || "*",
   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
