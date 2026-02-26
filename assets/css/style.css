@@ -443,166 +443,152 @@ body {
   }
 }
 /* ===============================
-   PRODUCT VIEW (MEJORADO)
+   PRODUCT PAGE PRO LAYOUT
 ================================ */
 
 .product-page {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 40px auto;
   padding: 0 24px;
 }
 
 .product-container {
   display: grid;
-  grid-template-columns: 1.2fr 1fr 0.8fr;
-  gap: 40px;
-  background: #fff;
-  padding: 40px;
-  border: 1px solid #eaeaea;
-  border-radius: 12px;
+  grid-template-columns: 1.3fr 1fr 420px;
+  gap: 60px;
+  align-items: start;
 }
 
+/* ===============================
+   GALERÍA
+================================ */
+
 .product-gallery .main-image {
-  background: #f2f2f2;
-  height: 480px;
-  border-radius: 10px;
-  border: 1px solid #eaeaea;
+  background: #f6f6f6;
+  height: 520px;
+  border-radius: 12px;
+  border: 1px solid #eee;
 }
 
 .thumbnail-list {
   display: flex;
-  gap: 12px;
-  margin-top: 18px;
+  gap: 14px;
+  margin-top: 20px;
 }
 
 .thumb {
-  width: 75px;
-  height: 75px;
-  background: #eee;
-  border-radius: 8px;
+  width: 80px;
+  height: 80px;
+  background: #f0f0f0;
+  border-radius: 10px;
   border: 1px solid #ddd;
   cursor: pointer;
   transition: 0.2s ease;
 }
 
 .thumb:hover {
-  border-color: #0077ff;
+  border-color: #111;
 }
 
+/* ===============================
+   DETALLES CENTRO
+================================ */
 
+.product-details {
+  padding-right: 20px;
+}
+
+.product-brand {
+  font-size: 13px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.product-title {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 12px 0 25px 0;
+  line-height: 1.3;
+}
+
+.product-description {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #444;
+  margin-bottom: 30px;
+}
+
+.extra-info {
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.extra-info p {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+/* ===============================
+   CAJA DE COMPRA DERECHA
+================================ */
+
+.product-purchase-card {
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+  padding: 28px;
+  position: sticky;
+  top: 120px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.product-price {
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.shipping-info {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+/* ===============================
+   CANTIDAD
+================================ */
 
 .quantity-selector {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin: 25px 0;
+  justify-content: space-between;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.quantity-selector button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: white;
+  font-size: 18px;
+  cursor: pointer;
 }
 
 .quantity-selector input {
-  width: 70px;
-  padding: 8px;
+  width: 60px;
   text-align: center;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-}
-
-.add-to-cart-btn {
-  width: 100%;
-  padding: 14px;
-  background: #0077ff;
-  color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.add-to-cart-btn:hover {
-  background: #005edb;
-}
-
-.related-products {
-  padding: 60px 0;
-}
-
-/* RESPONSIVE PRODUCT VIEW */
-
-@media (max-width: 900px) {
-
-  .product-container {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
-
-  .product-info-wrapper {
-    grid-template-columns: 1fr;
-  }
-
-  .product-purchase-card {
-    position: static;
-  }
-
-  .product-gallery .main-image {
-    height: 360px;
-  }
-}
-
-  /* ===============================
-   PRODUCT INFO SPLIT (NUEVO)
-================================ */
-
-.product-info-wrapper {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 40px;
-  align-items: start;
-}
-
-/* IZQUIERDA - DETALLES */
-
-.product-details span {
-  font-size: 13px;
-  color: #777;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.product-details h1 {
-  font-size: 28px;
-  font-weight: 600;
-  margin: 12px 0;
-}
-
-.product-details p {
   font-size: 15px;
-  color: #555;
-  margin-bottom: 20px;
-  line-height: 1.6;
 }
 
-/* DERECHA - CARD COMPRA */
-
-.product-purchase-card {
-  border: 1px solid #eaeaea;
-  border-radius: 12px;
-  padding: 24px;
-  position: sticky;
-  top: 120px;
-  background: #fff;
-}
-
-.product-purchase-card .product-price {
-  font-size: 30px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.product-purchase-card .quantity-selector {
-  margin: 20px 0;
-}
+/* ===============================
+   BOTONES PRO
+================================ */
 
 .buy-now-btn {
   width: 100%;
@@ -613,16 +599,47 @@ body {
   border: none;
   border-radius: 8px;
   font-weight: 600;
+  font-size: 15px;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.2s ease;
 }
 
 .buy-now-btn:hover {
-  background: #333;
+  background: #000;
+  transform: translateY(-1px);
 }
 
-.product-purchase-card .add-to-cart-btn {
+.add-to-cart-btn {
   width: 100%;
+  padding: 14px;
+  background: white;
+  color: #111;
+  border: 1px solid #111;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.add-to-cart-btn:hover {
+  background: #111;
+  color: white;
+}
+
+/* ===============================
+   RESPONSIVE LIMPIO
+================================ */
+
+@media (max-width: 1100px) {
+  .product-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .product-purchase-card {
+    position: static;
+  }
 }
 /* ===============================
    FIX PAGINACIÓN CATEGORÍA
