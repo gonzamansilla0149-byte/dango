@@ -602,8 +602,10 @@ if (searchInput) {
 }
 async function openProductAdmin(id) {
 
-  window.history.pushState({}, "", `?product=${id}`);
-  
+  if (push) {
+    window.history.pushState({}, "", `?product=${id}`);
+  }
+
   sections.forEach(sec => sec.classList.add("hidden"));
   document.getElementById("product-admin-view").classList.remove("hidden");
 
@@ -819,10 +821,10 @@ function handleRouting() {
 
   sections.forEach(sec => sec.classList.add("hidden"));
 
-  if (productId) {
-    openProductAdmin(Number(productId));
-    return;
-  }
+if (productId) {
+  openProductAdmin(Number(productId), false);
+  return;
+}
 
   if (view) {
     const target = document.getElementById(view + "-view");
@@ -840,7 +842,9 @@ loadCategories();
 loadBrands();
 loadProducts();
 renderOrders();
+handleRouting();
 
+window.addEventListener("popstate", handleRouting);
 // ============================
 // GESTIÓN DE CATEGORÍAS
 // ============================
