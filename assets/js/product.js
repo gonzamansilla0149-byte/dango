@@ -125,6 +125,49 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     }
 
+
+    // ===============================
+// QUICK CHECKOUT (COMPRAR AHORA)
+// ===============================
+
+const buyBtn = document.getElementById("buy-now-btn");
+const quickCheckout = document.getElementById("quick-checkout");
+const qcInputs = document.querySelectorAll(".qc-input");
+
+let checkoutOpen = false;
+
+if (buyBtn && quickCheckout) {
+
+  buyBtn.addEventListener("click", () => {
+
+    if (!checkoutOpen) {
+      quickCheckout.classList.add("active");
+      checkoutOpen = true;
+      buyBtn.textContent = "Continuar";
+      return;
+    }
+
+    // Validar campos
+    let allFilled = true;
+
+    qcInputs.forEach(input => {
+      if (!input.value.trim()) {
+        allFilled = false;
+        input.style.borderColor = "red";
+      } else {
+        input.style.borderColor = "#ddd";
+      }
+    });
+
+    if (!allFilled) return;
+
+    alert("Datos completos. Proceder al pago.");
+    
+    // Acá después podemos conectar pasarela de pago
+
+  });
+
+}
   } catch (error) {
     console.error("Error cargando producto:", error);
     container.innerHTML = "<h2>Error cargando producto</h2>";
