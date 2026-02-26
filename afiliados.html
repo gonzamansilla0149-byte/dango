@@ -1,46 +1,114 @@
-<!-- ================= FORMULARIO DE AFILIADOS ================= -->
-<section class="affiliate-form-section">
-  <div class="affiliate-form-container">
-    <h2>¡Únete al programa de afiliados de Dango!</h2>
-    <p>Gana un 20% de comisión por cada venta generada, sin necesidad de comprar mercadería ni gestionar logística. Nosotros nos encargamos de todo.</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Dango | Programa de Afiliados</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
 
-    <form id="affiliate-form" action="/submit-affiliate" method="POST" novalidate>
-      <div class="form-group">
-        <label for="full-name">Nombre Completo</label>
-        <input type="text" id="full-name" name="full-name" placeholder="Escribe tu nombre completo" required>
-      </div>
+<body>
 
-      <div class="form-group">
-        <label for="email">Correo Electrónico</label>
-        <input type="email" id="email" name="email" placeholder="Escribe tu correo electrónico" required>
-      </div>
+<!-- ================= HEADER ================= -->
+<header class="site-header">
 
-      <div class="form-group">
-        <label for="phone">Teléfono de Contacto</label>
-        <input type="tel" id="phone" name="phone" placeholder="Escribe tu número de teléfono" required>
-      </div>
+  <div class="header-top">
+    <a href="index.html" class="logo">DANGO</a>
 
-      <div class="form-group">
-        <label for="referral-source">¿Cómo nos conociste?</label>
-        <select id="referral-source" name="referral-source">
-          <option value="redes-sociales">Redes Sociales</option>
-          <option value="amigo">Amigos</option>
-          <option value="publicidad">Publicidad</option>
-          <option value="otro">Otro</option>
-        </select>
-      </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar productos">
+    </div>
 
-      <div class="form-group">
-        <label for="website">¿Tienes un sitio web o redes sociales?</label>
-        <input type="url" id="website" name="website" placeholder="Escribe tu sitio web o perfil social">
-      </div>
+    <div class="header-actions">
+      <a href="index.html" class="icon-btn">🏠</a>
+    </div>
+  </div>
 
-      <div class="form-group">
-        <label for="terms">Acepto los <a href="#">Términos y Condiciones</a></label>
-        <input type="checkbox" id="terms" name="terms" required>
-      </div>
+  <nav class="main-nav">
+    <div class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="afiliados.html">Afiliados</a>
+    </div>
+  </nav>
 
-      <button type="submit" class="submit-btn">Registrarme</button>
-    </form>
+</header>
+
+<!-- ================= AFILIADOS ================= -->
+
+<section class="affiliate-hero">
+  <div class="affiliate-hero-content">
+    <h1>Programa de Afiliados Dango</h1>
+    <p>Ganá 20% de comisión por cada venta. Sin stock, sin envíos, sin inversión.</p>
   </div>
 </section>
+
+<section class="affiliate-section">
+  <div class="affiliate-container">
+
+    <div class="affiliate-info">
+      <h2>¿Cómo funciona?</h2>
+      <ul>
+        <li>✔ Compartís tu link personalizado</li>
+        <li>✔ Nosotros procesamos el pago y envío</li>
+        <li>✔ Cobrás el 20% de cada venta generada</li>
+      </ul>
+    </div>
+
+    <form id="affiliate-form" class="affiliate-form">
+
+      <h2>Registrate ahora</h2>
+
+      <div class="form-group">
+        <input type="text" id="name" placeholder="Nombre completo" required>
+      </div>
+
+      <div class="form-group">
+        <input type="email" id="email" placeholder="Correo electrónico" required>
+      </div>
+
+      <div class="form-group">
+        <input type="tel" id="phone" placeholder="Teléfono" required>
+      </div>
+
+      <div class="form-group">
+        <input type="url" id="social" placeholder="Instagram / Web / TikTok (opcional)">
+      </div>
+
+      <div class="form-check">
+        <input type="checkbox" id="terms" required>
+        <label for="terms">Acepto los términos y condiciones</label>
+      </div>
+
+      <button type="submit" class="affiliate-btn">Quiero ser afiliado</button>
+
+      <p class="form-message" id="form-message"></p>
+
+    </form>
+
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="footer-columns">
+    <div>
+      <h4>Dango</h4>
+      <p>Tecnología y herramientas</p>
+    </div>
+    <div>
+      <h4>Ayuda</h4>
+      <a href="#">Contacto</a><br>
+      <a href="#">Envíos</a>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <a href="#">Términos</a><br>
+      <a href="#">Privacidad</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/afiliados.js"></script>
+
+</body>
+</html>
