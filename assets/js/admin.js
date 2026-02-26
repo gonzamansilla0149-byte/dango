@@ -147,7 +147,7 @@ if (logoutBtn) {
   logoutBtn.addEventListener("click", () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
-    window.location.href = "admin-login.html";
+    window.location.href = "/admin/admin-login.html";
   });
 }
 
@@ -159,22 +159,6 @@ document.querySelectorAll("[data-view]").forEach(btn => {
   btn.addEventListener("click", () => {
     const view = btn.dataset.view;
     window.location.href = `/admin/${view}.html`;
-  });
-});
-    if (target) {
-      target.classList.remove("hidden");
-
-
-      // 🔥 SI ES CATEGORÍAS → INICIALIZAMOS TODO
-      if (view === "categorias") {
-        await initCategoryView();
-      }
-
-      if (window.innerWidth <= 768 && sidebar) {
-        sidebar.classList.remove("open");
-        overlay.classList.remove("active");
-      }
-    }
   });
 });
 
@@ -592,18 +576,9 @@ if (searchInput) {
     }
   });
 }
-async function openProductAdmin(id, push = true) {
-
-  if (push) {
-    window.location.href = `/admin/producto-editar.html?id=${id}`;
-  }
-
-  sections.forEach(sec => sec.classList.add("hidden"));
-  document.getElementById("product-admin-view").classList.remove("hidden");
-
-
-
-  try {
+function openProductAdmin(id) {
+  window.location.href = `/admin/producto-editar.html?id=${id}`;
+}
 
     const res = await authFetch(`${API_URL}/api/products/${id}`);
     const product = await res.json();
