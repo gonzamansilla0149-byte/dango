@@ -1,0 +1,47 @@
+<section id="pedidos-view">
+  <h1>Pedidos</h1>
+
+  <div class="card" style="margin-bottom:20px">
+    <!-- Filtros -->
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px">
+      <input type="date" id="reportFrom">
+      <input type="date" id="reportTo">
+      <button id="btnLoadReport">Ver reporte</button>
+    </div>
+
+    <div style="display:flex;gap:20px;flex-wrap:wrap">
+      <div><strong id="rTotal">Total:</strong></div>
+      <div><strong id="rPicadas">Picadas:</strong></div>
+      <div><strong id="rEnvios">Envíos:</strong></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <!-- Tabla de Pedidos -->
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr class="desktop-only">
+            <th>Fecha</th>
+            <th>Modelo</th>
+            <th>Tamaño</th>
+            <th>Monto</th>
+            <th>Cliente</th>
+            <th>Zona</th>
+            <th>Dirección</th>
+            <th>Contacto</th>
+          </tr>
+          <tr class="mobile-only">
+            <th>Cliente</th>
+            <th>Fecha</th>
+            <th>Modelo</th>
+            <th>Monto</th>
+          </tr>
+        </thead>
+        <tbody id="orders-body">
+          <!-- JS renderiza acá -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
