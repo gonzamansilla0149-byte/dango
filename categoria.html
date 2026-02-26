@@ -20,9 +20,17 @@
 
 <div class="header-actions">
 
-  <button id="btn-login" class="icon-btn" title="Mi cuenta">
-    👤
-  </button>
+  <div class="account-wrapper">
+    <button id="btn-login" class="icon-btn">👤</button>
+
+    <div class="account-dropdown" id="account-dropdown">
+      <a href="#" class="account-item" id="open-login">Iniciar sesión</a>
+      <a href="#" class="account-item" id="open-register">Crear cuenta</a>
+      <button class="account-item" id="logout-btn" style="display:none;">
+        Cerrar sesión
+      </button>
+    </div>
+  </div>
 
   <a href="#" id="btn-cart" class="icon-btn cart-btn" title="Carrito">
     🛒
@@ -142,21 +150,13 @@
   </div>
 </footer>
 
-<!-- ================= MODALES ================= -->
-<div class="modal" id="login-modal">
-  <div class="modal-content">
-    <h3>Iniciar sesión</h3>
-    <input type="email" placeholder="Email">
-    <input type="password" placeholder="Contraseña">
-    <button>Ingresar</button>
-    <span class="close-modal">✕</span>
-  </div>
-</div>
-
 
 <script src="assets/js/main.js"></script>
 <script src="assets/js/category.js"></script>
 <script src="assets/js/cart.js"></script>
+
+<script type="module" src="assets/js/auth-ui.js"></script>
+<script src="assets/js/auth.js"></script>
 
 <!-- ================= CART DRAWER ================= -->
 <div class="cart-drawer" id="cart-drawer">
