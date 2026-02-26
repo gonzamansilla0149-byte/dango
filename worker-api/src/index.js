@@ -10,13 +10,13 @@ export default {
 // =========================
 // ADMIN SPA ROUTING
 // =========================
-if (request.method === "GET" && url.pathname.startsWith("/admin")) {
-
-  const asset = await env.ASSETS.fetch(
-    new Request(new URL("/admin.html", request.url))
-  );
-
-  return asset;
+if (
+  request.method === "GET" &&
+  url.pathname.startsWith("/admin") &&
+  !url.pathname.startsWith("/admin/assets") &&
+  !url.pathname.startsWith("/assets")
+) {
+  return fetch("https://dangotools.com/admin.html");
 }
     
 const corsHeaders = {
