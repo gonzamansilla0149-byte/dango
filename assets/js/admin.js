@@ -151,16 +151,6 @@ if (logoutBtn) {
   });
 }
 
-// ============================
-// CAMBIO DE VISTA (SIDEBAR)
-// ============================
-
-document.querySelectorAll("[data-view]").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const view = btn.dataset.view;
-    window.location.href = `/admin/${view}.html`;
-  });
-});
 
 // ============================
 // MOSTRAR / OCULTAR FORM PRODUCTO
