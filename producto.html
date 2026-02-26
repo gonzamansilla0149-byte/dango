@@ -97,30 +97,46 @@
     </div>
 
     <!-- INFO -->
-    <div class="product-info">
+<!-- INFO -->
+<div class="product-info-wrapper">
 
-      <span class="product-brand"></span>
-      <h1 class="product-title"></h1>
-      <p class="product-price"></p>
-      <p class="product-description"></p>
+  <!-- COLUMNA IZQUIERDA (DETALLES) -->
+  <div class="product-details">
 
-      <div class="quantity-selector">
-        <button>-</button>
-        <input type="number" value="1" min="1">
-        <button>+</button>
-      </div>
+    <span class="product-brand"></span>
+    <h1 class="product-title"></h1>
+    <p class="product-description"></p>
 
-      <button class="add-to-cart-btn">
-        Agregar al carrito
-      </button>
-
-      <div class="extra-info">
-        <p>✔ Envíos a todo el país</p>
-        <p>✔ Garantía oficial</p>
-        <p>✔ Compra segura</p>
-      </div>
-
+    <div class="extra-info">
+      <p>✔ Envíos a todo el país</p>
+      <p>✔ Garantía oficial</p>
+      <p>✔ Compra segura</p>
     </div>
+
+  </div>
+
+  <!-- COLUMNA DERECHA (CARD DE COMPRA) -->
+  <div class="product-purchase-card">
+
+    <p class="product-price"></p>
+
+    <div class="quantity-selector">
+      <button class="qty-minus">-</button>
+      <input type="number" value="1" min="1">
+      <button class="qty-plus">+</button>
+    </div>
+
+    <button class="buy-now-btn">
+      Comprar ahora
+    </button>
+
+    <button class="add-to-cart-btn">
+      Agregar al carrito
+    </button>
+
+  </div>
+
+</div>
 
   </div>
 
