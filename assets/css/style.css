@@ -1159,3 +1159,76 @@ body {
 body.no-scroll {
   overflow: hidden;
 }
+
+/* Estilo adicional para el formulario de afiliados */
+.affiliate-form-section {
+  background-color: #f7f7f7;
+  padding: 40px;
+  text-align: center;
+}
+
+.affiliate-form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.affiliate-form-container h2 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.affiliate-form-container p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 1em;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.form-group input[type="checkbox"] {
+  width: auto;
+  margin-right: 10px;
+}
+
+.submit-btn {
+  background-color: #0077ff;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1.1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #005ad6;
+}
+
+a {
+  color: #0077ff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
