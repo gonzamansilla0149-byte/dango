@@ -816,7 +816,7 @@ adminBackBtn.addEventListener("click", () => {
 
 function handleRouting() {
 
-  const path = window.location.pathname;
+ const path = window.location.pathname.replace(/\/$/, "");
 
   // Ocultar todo
   sections.forEach(sec => sec.classList.add("hidden"));
