@@ -97,46 +97,57 @@
   </div>
 
   <!-- 2️⃣ DETALLES DEL PRODUCTO -->
-  <div class="product-details">
+<div class="product-details">
 
+  <div class="brand-sold">
     <span class="product-brand"></span>
-    <h1 class="product-title"></h1>
-
-    <div class="product-description"></div>
-
-    <div class="extra-info">
-      <p>✔ Envíos a todo el país</p>
-      <p>✔ Garantía oficial</p>
-      <p>✔ Compra segura</p>
-    </div>
-
+    <span class="sold-count">| <span class="sold-units"></span> vendidos</span>
   </div>
+
+  <h1 class="product-title"></h1>
+
+  <div class="product-description"></div>
+
+  <p class="product-price"></p>
+
+  <div class="product-features">
+    <!-- Características inyectadas desde dashboard -->
+  </div>
+
+</div>
 
   <!-- 3️⃣ CARD DE COMPRA -->
-  <div class="product-purchase-card">
+ <div class="product-purchase-card">
 
-    <p class="product-price"></p>
-
-    <div class="shipping-info">
-      <p>🚚 Envío gratis</p>
-      <p>📦 Llega en 2-4 días</p>
-    </div>
-
-    <div class="quantity-selector">
-      <button class="qty-minus">-</button>
-      <input type="number" value="1" min="1">
-      <button class="qty-plus">+</button>
-    </div>
-
-    <button class="buy-now-btn">
-      Comprar ahora
-    </button>
-
-    <button class="add-to-cart-btn">
-      Agregar al carrito
-    </button>
-
+  <div class="shipping-info">
+    <p>🚚 Envío gratis a todo el país</p>
+    <p>📦 Llega en 2-4 días hábiles</p>
   </div>
+
+  <div class="quantity-selector">
+    <button class="qty-minus">-</button>
+    <input type="number" value="1" min="1">
+    <button class="qty-plus">+</button>
+  </div>
+
+  <p class="stock-info">
+    Stock disponible: <span class="stock-units"></span>
+  </p>
+
+  <button class="buy-now-btn">
+    Comprar ahora
+  </button>
+
+  <button class="add-to-cart-btn">
+    Agregar al carrito
+  </button>
+
+  <div class="purchase-benefits">
+    <p>✔ Garantía oficial</p>
+    <p>✔ Compra 100% segura</p>
+  </div>
+
+</div>
 
 </div>
 
