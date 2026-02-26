@@ -76,7 +76,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     const description = document.querySelector(".product-description");
     const mainImage = document.querySelector(".main-image");
     const breadcrumb = document.querySelector(".breadcrumb-product");
-
+    const stockUnits = document.querySelector(".stock-units");
+    const soldUnits = document.querySelector(".sold-units");
+    const buyBtn = document.getElementById("buy-now-btn");
+    const addBtn = document.querySelector(".add-to-cart-btn");
+    
     // ===============================
     // RENDER DATOS
     // ===============================
@@ -87,6 +91,28 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (description) description.textContent = product.description || "";
     if (breadcrumb) breadcrumb.textContent = product.name;
 
+
+    // ===============================
+// STOCK Y VENDIDOS
+// ===============================
+
+if (stockUnits) {
+  stockUnits.textContent = product.stock ?? 0;
+}
+
+if (soldUnits) {
+  soldUnits.textContent = product.sold_units ?? 0;
+}
+
+if (Number(product.stock) <= 0) {
+  if (buyBtn) buyBtn.disabled = true;
+  if (addBtn) addBtn.disabled = true;
+
+  if (stockUnits) {
+    stockUnits.textContent = "Sin stock";
+    stockUnits.style.color = "red";
+  }
+}
     // ===============================
     // IMAGEN
     // ===============================
