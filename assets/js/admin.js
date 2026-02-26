@@ -155,13 +155,6 @@ if (logoutBtn) {
 // CAMBIO DE VISTA (SIDEBAR)
 // ============================
 
-const buttons = document.querySelectorAll(".sidebar button");
-const sections = document.querySelectorAll(".content section");
-
-buttons.forEach(btn => {
-  btn.addEventListener("click", async () => {
-
-    buttons.forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
 
     sections.forEach(sec => sec.classList.add("hidden"));
@@ -604,7 +597,7 @@ if (searchInput) {
 async function openProductAdmin(id, push = true) {
 
   if (push) {
-    window.history.pushState({}, "", `/admin/productos/editar/${id}`);
+    window.location.href = `/admin/producto-editar.html?id=${id}`;
   }
 
   sections.forEach(sec => sec.classList.add("hidden"));
@@ -813,28 +806,6 @@ adminBackBtn.addEventListener("click", () => {
 
 });
 }
-
-function handleRouting() {
-
- const path = window.location.pathname.replace(/\/$/, "");
-
-  // Ocultar todo
-  sections.forEach(sec => sec.classList.add("hidden"));
-  buttons.forEach(b => b.classList.remove("active"));
-
-  // =========================
-  // EDITAR PRODUCTO
-  // =========================
-  const editMatch = path.match(/^\/admin\/productos\/editar\/(\d+)/);
-
-  if (editMatch) {
-    const id = editMatch[1];
-
-    document.querySelector('[data-view="productos"]')?.classList.add("active");
-    openProductAdmin(Number(id), false);
-    return;
-  }
-
   // =========================
   // PRODUCTOS
   // =========================
