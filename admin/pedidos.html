@@ -1,47 +1,95 @@
-<section id="pedidos-view">
-  <h1>Pedidos</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Pedidos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <div class="card" style="margin-bottom:20px">
-    <!-- Filtros -->
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px">
-      <input type="date" id="reportFrom">
-      <input type="date" id="reportTo">
-      <button id="btnLoadReport">Ver reporte</button>
-    </div>
+  <!-- CSS UNIFICADO -->
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
 
-    <div style="display:flex;gap:20px;flex-wrap:wrap">
-      <div><strong id="rTotal">Total:</strong></div>
-      <div><strong id="rPicadas">Picadas:</strong></div>
-      <div><strong id="rEnvios">Envíos:</strong></div>
-    </div>
-  </div>
+<div class="mobile-header">
+  <button class="menu-toggle" id="menu-toggle">☰</button>
+  <span class="mobile-title">DANGO Admin</span>
+</div>
 
-  <div class="card">
-    <!-- Tabla de Pedidos -->
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr class="desktop-only">
-            <th>Fecha</th>
-            <th>Modelo</th>
-            <th>Tamaño</th>
-            <th>Monto</th>
-            <th>Cliente</th>
-            <th>Zona</th>
-            <th>Dirección</th>
-            <th>Contacto</th>
-          </tr>
-          <tr class="mobile-only">
-            <th>Cliente</th>
-            <th>Fecha</th>
-            <th>Modelo</th>
-            <th>Monto</th>
-          </tr>
-        </thead>
-        <tbody id="orders-body">
-          <!-- JS renderiza acá -->
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<div class="admin-layout">
+
+  <!-- SIDEBAR CORREGIDO -->
+  <aside class="sidebar">
+    <h2>DANGO</h2>
+    <nav>
+      <button onclick="window.location.href='/admin/index.html'">Inicio</button>
+      <button onclick="window.location.href='/admin/productos.html'">Productos</button>
+      <button onclick="window.location.href='/admin/categorias.html'">Categorías</button>
+      <button onclick="window.location.href='/admin/pedidos.html'">Pedidos</button>
+      <button onclick="window.location.href='/admin/reporte.html'">Reporte</button>
+      <button id="logoutBtn">Cerrar sesión</button>
+    </nav>
+  </aside>
+
+  <!-- CONTENIDO -->
+  <main class="content">
+
+    <section id="pedidos-view">
+      <h1>Pedidos</h1>
+
+      <div class="card" style="margin-bottom:20px">
+
+        <!-- Filtros -->
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px">
+          <input type="date" id="reportFrom">
+          <input type="date" id="reportTo">
+          <button id="btnLoadReport">Ver reporte</button>
+        </div>
+
+        <div style="display:flex;gap:20px;flex-wrap:wrap">
+          <div><strong id="rTotal">Total:</strong></div>
+          <div><strong id="rPicadas">Picadas:</strong></div>
+          <div><strong id="rEnvios">Envíos:</strong></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr class="desktop-only">
+                <th>Fecha</th>
+                <th>Modelo</th>
+                <th>Tamaño</th>
+                <th>Monto</th>
+                <th>Cliente</th>
+                <th>Zona</th>
+                <th>Dirección</th>
+                <th>Contacto</th>
+              </tr>
+              <tr class="mobile-only">
+                <th>Cliente</th>
+                <th>Fecha</th>
+                <th>Modelo</th>
+                <th>Monto</th>
+              </tr>
+            </thead>
+            <tbody id="orders-body">
+              <!-- JS renderiza acá -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+<!-- JS UNIFICADO -->
+<script src="/assets/js/admin.js"></script>
+
+</body>
+</html>
