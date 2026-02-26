@@ -483,7 +483,18 @@ WHERE p.id = ? AND p.active = 1
           });
         }
 
-        const data = await request.json();
+        const formData = await request.formData();
+
+const data = {
+  name: formData.get("name"),
+  price: formData.get("price"),
+  description: formData.get("description"),
+  category_id: formData.get("category_id"),
+  subcategory_id: formData.get("subcategory_id"),
+  brand_id: formData.get("brand_id"),
+  stock: formData.get("stock"),
+  image_url: formData.get("image_url") // si usás una sola imagen
+};
 
         await env.DB.prepare(`
 INSERT INTO products
@@ -523,7 +534,16 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)
         }
 
         const id = url.pathname.split("/").pop();
-        const data = await request.json();
+        const formData = await request.formData();
+
+const data = {
+  name: formData.get("name"),
+  brand_id: formData.get("brand_id"),
+  price: formData.get("price"),
+  description: formData.get("description"),
+  image_url: formData.get("image_url"),
+  stock: formData.get("stock")
+};
 
         await env.DB.prepare(`
 UPDATE products
