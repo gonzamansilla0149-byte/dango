@@ -7,16 +7,6 @@ export default {
 
     const url = new URL(request.url);
 
-  // =========================
-// ADMIN SPA ROUTING
-// =========================
-if (request.method === "GET" && url.pathname.startsWith("/admin")) {
-
-  const newUrl = new URL(request.url);
-  newUrl.pathname = "/admin.html";
-
-  return fetch(new Request(newUrl.toString(), request));
-}
 // =========================
 // DEJAR PASAR ARCHIVOS ESTÁTICOS
 // =========================
