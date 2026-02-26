@@ -580,8 +580,6 @@ function openProductAdmin(id) {
   window.location.href = `/admin/producto-editar.html?id=${id}`;
 }
 
-
-const adminSaveBtn = document.getElementById("admin-save-product");
 const adminBackBtn = document.getElementById("admin-back-products");
 
 if (adminSaveBtn) {
@@ -683,10 +681,18 @@ window.location.href = "/admin/productos.html";
 // ============================
 // INIT
 // ============================
-loadCategories();
-loadBrands();
-loadProducts();
-renderOrders();
+if (document.getElementById("products-table")) {
+  loadProducts();
+}
+
+if (document.getElementById("product-category")) {
+  loadCategories();
+  loadBrands();
+}
+
+if (document.getElementById("orders-body")) {
+  renderOrders();
+}
 
 // ============================
 // GESTIÓN DE CATEGORÍAS
