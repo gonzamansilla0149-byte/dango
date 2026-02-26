@@ -11,14 +11,7 @@ export default {
 // ADMIN SPA ROUTING
 // =========================
 if (request.method === "GET" && url.pathname.startsWith("/admin")) {
-
-  // Si es exactamente /admin o cualquier subruta
-  // devolvemos el admin.html
-
-  return fetch(new Request(
-    new URL("/admin.html", request.url),
-    request
-  ));
+  return fetch("https://dangotools.com/admin.html");
 }
 
 const corsHeaders = {
