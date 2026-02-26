@@ -5,25 +5,24 @@ const ADMIN_TOKEN = "DANGO_ADMIN_TOKEN_2025_SECURE";
 export default {
   async fetch(request, env) {
 
-    const url = new URL(request.url);
+const url = new URL(request.url);
 
-        // =========================
-    // DEJAR PASAR HTML ESTÁTICO
-    // =========================
-    if (
-      request.method === "GET" &&
-      !url.pathname.startsWith("/api/")
-    ) {
-      return fetch(request);
-    }
-
-
-    // =========================
+// =========================
 // ADMIN INDEX FIX
 // =========================
 if (request.method === "GET" && (url.pathname === "/admin" || url.pathname === "/admin/")) {
   url.pathname = "/admin/index.html";
   return fetch(url.toString(), request);
+}
+
+// =========================
+// DEJAR PASAR TODO LO QUE NO SEA API
+// =========================
+if (
+  request.method === "GET" &&
+  !url.pathname.startsWith("/api/")
+) {
+  return fetch(request);
 }
 // =========================
 // DEJAR PASAR ARCHIVOS ESTÁTICOS
