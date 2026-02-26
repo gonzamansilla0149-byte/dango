@@ -171,7 +171,7 @@ buttons.forEach(btn => {
 
     if (target) {
       target.classList.remove("hidden");
-      localStorage.setItem("admin_view", view);
+      window.history.pushState({}, "", `?view=${view}`);
 
       // 🔥 SI ES CATEGORÍAS → INICIALIZAMOS TODO
       if (view === "categorias") {
@@ -602,13 +602,12 @@ if (searchInput) {
 }
 async function openProductAdmin(id) {
 
+  window.history.pushState({}, "", `?product=${id}`);
   
   sections.forEach(sec => sec.classList.add("hidden"));
   document.getElementById("product-admin-view").classList.remove("hidden");
 
-    // 🔥 Guardamos estado actual
-  localStorage.setItem("admin_view", "product-admin");
-  localStorage.setItem("admin_product_id", id);
+
 
   try {
 
@@ -803,8 +802,7 @@ if (adminBackBtn) {
 
 adminBackBtn.addEventListener("click", () => {
 
-  localStorage.removeItem("admin_product_id");
-  localStorage.setItem("admin_view", "productos");
+  window.history.pushState({}, "", "admin.html");
 
   document.getElementById("product-admin-view").classList.add("hidden");
   document.getElementById("productos-view").classList.remove("hidden");
@@ -812,38 +810,28 @@ adminBackBtn.addEventListener("click", () => {
 });
 }
 
-const savedView = localStorage.getItem("admin_view");
+function handleRouting() {
 
-if (savedView) {
+  const params = new URLSearchParams(window.location.search);
+
+  const productId = params.get("product");
+  const view = params.get("view");
 
   sections.forEach(sec => sec.classList.add("hidden"));
 
-  if (savedView === "product-admin") {
-
-    const savedProductId = localStorage.getItem("admin_product_id");
-
-    if (savedProductId && !isNaN(savedProductId)) {
-      openProductAdmin(Number(savedProductId));
-    } else {
-      localStorage.removeItem("admin_product_id");
-      localStorage.setItem("admin_view", "productos");
-      document.getElementById("productos-view").classList.remove("hidden");
-    }
-
-  } else {
-
-    const target = document.getElementById(savedView + "-view");
-    const btn = document.querySelector(`.sidebar button[data-view="${savedView}"]`);
-
-    if (target) target.classList.remove("hidden");
-
-    if (btn) {
-      buttons.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-    }
-
+  if (productId) {
+    openProductAdmin(Number(productId));
+    return;
   }
 
+  if (view) {
+    const target = document.getElementById(view + "-view");
+    if (target) target.classList.remove("hidden");
+    return;
+  }
+
+  // Default
+  document.getElementById("productos-view").classList.remove("hidden");
 }
 // ============================
 // INIT
