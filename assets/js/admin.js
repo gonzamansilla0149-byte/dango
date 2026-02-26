@@ -389,7 +389,21 @@ if (form) {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(form);
+    const formData = new FormData();
+
+// Agregamos todos los campos manualmente
+formData.append("name", form.querySelector('[name="name"]').value);
+formData.append("price", form.querySelector('[name="price"]').value);
+formData.append("description", form.querySelector('[name="description"]').value);
+formData.append("stock", form.querySelector('[name="stock"]').value);
+formData.append("brand_id", form.querySelector('[name="brand_id"]').value);
+formData.append("category_id", form.querySelector('[name="category_id"]').value);
+formData.append("subcategory_id", form.querySelector('[name="subcategory_id"]').value);
+
+// Agregamos archivos desde createSelectedFiles
+createSelectedFiles.forEach(file => {
+  formData.append("media[]", file);
+});
 
 if (createSelectedFiles.length === 0) {
   alert("Debes subir al menos una imagen");
