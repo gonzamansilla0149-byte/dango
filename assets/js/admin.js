@@ -790,8 +790,8 @@ if (adminSaveBtn) {
 
       loadProducts();
 
-      document.getElementById("product-admin-view").classList.add("hidden");
-      document.getElementById("productos-view").classList.remove("hidden");
+window.history.pushState({}, "", "admin.html");
+handleRouting();
 
     } catch (error) {
       console.error("Error actualizando producto:", error);
@@ -831,7 +831,19 @@ if (productId) {
     if (target) target.classList.remove("hidden");
     return;
   }
+buttons.forEach(b => b.classList.remove("active"));
 
+if (productId) {
+  const productosBtn = document.querySelector('.sidebar button[data-view="productos"]');
+  if (productosBtn) productosBtn.classList.add("active");
+  openProductAdmin(Number(productId), false);
+  return;
+}
+
+if (view) {
+  const btn = document.querySelector(`.sidebar button[data-view="${view}"]`);
+  if (btn) btn.classList.add("active");
+}
   // Default
   document.getElementById("productos-view").classList.remove("hidden");
 }
