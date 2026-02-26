@@ -1,41 +1,92 @@
-<section id="categorias-view">
-  <div class="section-header">
-    <h1>Categorías</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Categorías</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>Admin</h2>
+
+    <button data-view="productos">Productos</button>
+    <button data-view="categorias">Categorías</button>
+    <button data-view="pedidos">Pedidos</button>
+    <button data-view="reporte">Reporte</button>
+
+    <hr>
+
+    <button id="logoutBtn">Cerrar sesión</button>
   </div>
 
-  <div class="categories-grid">
-    <div class="category-forms">
-      <div class="card">
-        <h3>Nueva Categoría</h3>
-        <input type="text" id="new-category-name" placeholder="Nombre categoría">
-        <button id="create-category-btn">Crear categoría</button>
+  <!-- CONTENIDO PRINCIPAL -->
+  <main style="margin-left:220px;padding:20px;">
+
+    <section id="categorias-view">
+
+      <div class="section-header" style="margin-bottom:20px;">
+        <h1>Categorías</h1>
       </div>
 
-      <div class="card">
-        <h3>Nueva Subcategoría</h3>
-        <select id="subcategory-category-select">
-          <option value="">Seleccionar categoría</option>
-        </select>
-        <input type="text" id="new-subcategory-name" placeholder="Nombre subcategoría">
-        <button id="create-subcategory-btn">Crear subcategoría</button>
+      <div class="categories-grid" style="display:flex;gap:30px;flex-wrap:wrap;">
+
+        <!-- FORMULARIOS -->
+        <div class="category-forms" style="flex:1;min-width:300px;display:flex;flex-direction:column;gap:20px;">
+
+          <div class="card" style="padding:15px;border:1px solid #ddd;border-radius:6px;">
+            <h3>Nueva Categoría</h3>
+            <input type="text" id="new-category-name" placeholder="Nombre categoría" style="width:100%;margin-bottom:10px;">
+            <button id="create-category-btn">Crear categoría</button>
+          </div>
+
+          <div class="card" style="padding:15px;border:1px solid #ddd;border-radius:6px;">
+            <h3>Nueva Subcategoría</h3>
+
+            <select id="subcategory-category-select" style="width:100%;margin-bottom:10px;">
+              <option value="">Seleccionar categoría</option>
+            </select>
+
+            <input type="text" id="new-subcategory-name" placeholder="Nombre subcategoría" style="width:100%;margin-bottom:10px;">
+
+            <button id="create-subcategory-btn">Crear subcategoría</button>
+          </div>
+
+          <div class="card" style="padding:15px;border:1px solid #ddd;border-radius:6px;">
+            <h3>Nueva Marca</h3>
+            <input type="text" id="new-brand-name" placeholder="Nombre marca" style="width:100%;margin-bottom:10px;">
+            <button id="create-brand-btn">Crear marca</button>
+          </div>
+
+        </div>
+
+        <!-- LISTADOS -->
+        <div class="category-lists" style="flex:1;min-width:300px;display:flex;flex-direction:column;gap:20px;">
+
+          <div class="card" style="padding:15px;border:1px solid #ddd;border-radius:6px;">
+            <h3>Listado de Categorías</h3>
+            <div id="categories-list"></div>
+          </div>
+
+          <div class="card" style="padding:15px;border:1px solid #ddd;border-radius:6px;">
+            <h3>Listado de Marcas</h3>
+            <div id="brands-list"></div>
+          </div>
+
+        </div>
+
       </div>
 
-      <div class="card">
-        <h3>Nueva Marca</h3>
-        <input type="text" id="new-brand-name" placeholder="Nombre marca">
-        <button id="create-brand-btn">Crear marca</button>
-      </div>
-    </div>
+    </section>
 
-    <div class="category-lists">
-      <div class="card">
-        <h3>Listado de Categorías</h3>
-        <div id="categories-list"></div>
-      </div>
-      <div class="card">
-        <h3>Listado de Marcas</h3>
-        <div id="brands-list"></div>
-      </div>
-    </div>
-  </div>
-</section>
+  </main>
+
+  <!-- JS -->
+  <script src="admin.js"></script>
+
+</body>
+</html>
