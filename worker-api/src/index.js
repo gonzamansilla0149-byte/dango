@@ -8,17 +8,32 @@ export default {
     const url = new URL(request.url);
 
 // =========================
-// ADMIN SPA ROUTING
+// DEJAR PASAR ARCHIVOS ESTÁTICOS
 // =========================
 if (
-  request.method === "GET" &&
-  url.pathname.startsWith("/admin") &&
-  !url.pathname.startsWith("/admin/assets") &&
-  !url.pathname.startsWith("/assets")
+  url.pathname.startsWith("/assets") ||
+  url.pathname.endsWith(".css") ||
+  url.pathname.endsWith(".js") ||
+  url.pathname.endsWith(".png") ||
+  url.pathname.endsWith(".jpg") ||
+  url.pathname.endsWith(".webp") ||
+  url.pathname.endsWith(".svg") ||
+  url.pathname.endsWith(".ico")
 ) {
-  return fetch("https://dangotools.com/admin.html");
+  return fetch(request);
 }
-    
+
+// =========================
+// ADMIN SPA ROUTING
+// =========================
+if (request.method === "GET" && url.pathname.startsWith("/admin")) {
+
+  // Clonamos la request y la forzamos a /admin.html
+  const newUrl = new URL(request.url);
+  newUrl.pathname = "/admin.html";
+
+  return fetch(new Request(newUrl.toString(), request));
+}
 const corsHeaders = {
   "Access-Control-Allow-Origin": request.headers.get("Origin") || "*",
   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
