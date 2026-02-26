@@ -23,17 +23,6 @@ if (
   return fetch(request);
 }
 
-// =========================
-// ADMIN SPA ROUTING
-// =========================
-if (request.method === "GET" && url.pathname.startsWith("/admin")) {
-
-  // Clonamos la request y la forzamos a /admin.html
-  const newUrl = new URL(request.url);
-  newUrl.pathname = "/admin.html";
-
-  return fetch(new Request(newUrl.toString(), request));
-}
 const corsHeaders = {
   "Access-Control-Allow-Origin": request.headers.get("Origin") || "*",
   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
