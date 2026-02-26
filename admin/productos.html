@@ -1,0 +1,36 @@
+<section id="productos-view">
+  <div style="margin:15px 0;">
+    <input type="text" id="product-search" placeholder="Buscar por nombre, marca o categoría..." style="width:100%;padding:8px;">
+  </div>
+
+  <div class="section-header">
+    <h1>Productos</h1>
+    <button id="toggle-form">+ Nuevo producto</button>
+  </div>
+
+  <div id="products-table"></div>
+
+  <div id="product-form-container" class="hidden">
+    <h2>Nuevo producto</h2>
+    <form id="product-form">
+      <input name="name" placeholder="Nombre" required>
+      <select name="brand_id" id="product-brand" required>
+        <option value="">Seleccionar marca</option>
+      </select>
+      <select name="category_id" id="product-category" required>
+        <option value="">Seleccionar categoría</option>
+      </select>
+      <select name="subcategory_id" id="product-subcategory" required>
+        <option value="">Seleccionar subcategoría</option>
+      </select>
+      <input name="price" type="number" placeholder="Precio" required>
+      <input name="stock" type="number" placeholder="Stock" required>
+      <textarea name="description" placeholder="Descripción"></textarea>
+      <label>Imágenes o Video (máx 5 archivos)</label>
+      <input type="file" id="create-media-input" accept="image/*,video/*" multiple>
+      <div id="create-media-preview" style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;"></div>
+      <small>Máximo 5 archivos. Imágenes o 1 video.</small>
+      <button type="submit">Guardar</button>
+    </form>
+  </div>
+</section>
