@@ -801,12 +801,15 @@ if (adminSaveBtn) {
 }
 if (adminBackBtn) {
 
-  adminBackBtn.addEventListener("click", () => {
+adminBackBtn.addEventListener("click", () => {
 
-    document.getElementById("product-admin-view").classList.add("hidden");
-    document.getElementById("productos-view").classList.remove("hidden");
+  localStorage.removeItem("admin_product_id");
+  localStorage.setItem("admin_view", "productos");
 
-  });
+  document.getElementById("product-admin-view").classList.add("hidden");
+  document.getElementById("productos-view").classList.remove("hidden");
+
+});
 }
 
 const savedView = localStorage.getItem("admin_view");
@@ -815,13 +818,16 @@ if (savedView) {
 
   sections.forEach(sec => sec.classList.add("hidden"));
 
-  // 🔥 Si estábamos editando un producto
   if (savedView === "product-admin") {
 
     const savedProductId = localStorage.getItem("admin_product_id");
 
-    if (savedProductId) {
-      openProductAdmin(savedProductId);
+    if (savedProductId && !isNaN(savedProductId)) {
+      openProductAdmin(Number(savedProductId));
+    } else {
+      localStorage.removeItem("admin_product_id");
+      localStorage.setItem("admin_view", "productos");
+      document.getElementById("productos-view").classList.remove("hidden");
     }
 
   } else {
@@ -837,8 +843,8 @@ if (savedView) {
     }
 
   }
-}
 
+}
 // ============================
 // INIT
 // ============================
