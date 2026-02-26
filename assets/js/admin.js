@@ -11,7 +11,7 @@ const token = localStorage.getItem("token");
 const role = localStorage.getItem("role");
 
 if (!token || role !== "admin") {
-  window.location.href = "admin-login.html";
+  window.location.href = "/admin/admin-login.html";
 }
 
 // ============================
@@ -35,7 +35,7 @@ async function authFetch(url, options = {}) {
   if (response.status === 401 || response.status === 403) {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
-    window.location.href = "admin-login.html";
+    window.location.href = "/admin/admin-login.html";
   }
 
   return response;
@@ -155,17 +155,15 @@ if (logoutBtn) {
 // CAMBIO DE VISTA (SIDEBAR)
 // ============================
 
-    btn.classList.add("active");
-
-    sections.forEach(sec => sec.classList.add("hidden"));
-
+document.querySelectorAll("[data-view]").forEach(btn => {
+  btn.addEventListener("click", () => {
     const view = btn.dataset.view;
-    const target = document.getElementById(view + "-view");
-
+    window.location.href = `/admin/${view}.html`;
+  });
+});
     if (target) {
       target.classList.remove("hidden");
-      window.history.pushState({}, "", `/admin/${view}`);
-      handleRouting();
+
 
       // 🔥 SI ES CATEGORÍAS → INICIALIZAMOS TODO
       if (view === "categorias") {
@@ -784,8 +782,7 @@ if (adminSaveBtn) {
 
       loadProducts();
 
-window.history.pushState({}, "", "/admin/productos");
-handleRouting();
+window.location.href = "/admin/productos.html";
       
     } catch (error) {
       console.error("Error actualizando producto:", error);
@@ -798,64 +795,11 @@ if (adminBackBtn) {
 
 adminBackBtn.addEventListener("click", () => {
 
-  window.history.pushState({}, "", "/admin/productos");
-  handleRouting();
-
-  document.getElementById("product-admin-view").classList.add("hidden");
-  document.getElementById("productos-view").classList.remove("hidden");
+window.location.href = "/admin/productos.html";
 
 });
 }
-  // =========================
-  // PRODUCTOS
-  // =========================
-  if (path === "/admin/productos") {
-    document.getElementById("productos-view").classList.remove("hidden");
-    document.querySelector('[data-view="productos"]')?.classList.add("active");
-    return;
-  }
-
-  // =========================
-  // PEDIDOS
-  // =========================
-  if (path === "/admin/pedidos") {
-    document.getElementById("pedidos-view").classList.remove("hidden");
-    document.querySelector('[data-view="pedidos"]')?.classList.add("active");
-    return;
-  }
-
-  // =========================
-  // REPORTE
-  // =========================
-  if (path === "/admin/reporte") {
-    document.getElementById("reporte-view").classList.remove("hidden");
-    document.querySelector('[data-view="reporte"]')?.classList.add("active");
-    return;
-  }
-
-  // =========================
-  // CATEGORIAS
-  // =========================
-  if (path === "/admin/categorias") {
-    document.getElementById("categorias-view").classList.remove("hidden");
-    document.querySelector('[data-view="categorias"]')?.classList.add("active");
-    return;
-  }
-
-    // =========================
-  // /admin exacto
-  // =========================
-  if (path === "/admin") {
-    document.getElementById("inicio-view").classList.remove("hidden");
-    document.querySelector('[data-view="inicio"]')?.classList.add("active");
-    return;
-  }
-  // =========================
-  // INICIO (default)
-  // =========================
-  document.getElementById("inicio-view").classList.remove("hidden");
-  document.querySelector('[data-view="inicio"]')?.classList.add("active");
-}
+ 
 // ============================
 // INIT
 // ============================
@@ -863,9 +807,7 @@ loadCategories();
 loadBrands();
 loadProducts();
 renderOrders();
-handleRouting();
 
-window.addEventListener("popstate", handleRouting);
 // ============================
 // GESTIÓN DE CATEGORÍAS
 // ============================
