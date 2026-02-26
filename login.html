@@ -3,21 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <title>Iniciar sesión | Dango</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
 
-<div class="auth-container">
+<body class="auth-page">
+
+<div class="auth-modal" id="auth-modal">
+
+  <span class="auth-close" id="close-auth">✕</span>
+
   <h2>Iniciar sesión</h2>
+
+  <div id="error-message" class="auth-error"></div>
 
   <input type="email" id="email" placeholder="Email">
   <input type="password" id="password" placeholder="Contraseña">
 
   <button id="login-btn">Ingresar</button>
 
-  <p>¿No tienes cuenta? <a href="register.html">Crear cuenta</a></p>
+  <p>
+    ¿No tienes cuenta?
+    <a href="register.html">Crear cuenta</a>
+  </p>
+
 </div>
 
 <script src="assets/js/auth.js"></script>
+
+<script>
+// Cerrar con X
+document.getElementById("close-auth").addEventListener("click", () => {
+  window.history.back();
+});
+
+// Cerrar con click fuera
+document.addEventListener("click", (e) => {
+  const modal = document.getElementById("auth-modal");
+  if (!modal.contains(e.target)) {
+    window.history.back();
+  }
+});
+
+// Cerrar con ESC
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    window.history.back();
+  }
+});
+</script>
+
 </body>
 </html>
