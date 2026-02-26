@@ -142,7 +142,15 @@
           <input name="price" type="number" placeholder="Precio" required>
           <input name="stock" type="number" placeholder="Stock" required>
           <textarea name="description" placeholder="Descripción"></textarea>
-          <input name="image" placeholder="URL imagen">
+          <label>Imágenes o Video (máx 5 archivos)</label>
+<input 
+  type="file" 
+  id="product-media" 
+  name="media[]" 
+  accept="image/*,video/*" 
+  multiple
+>
+<small>Máximo 5 archivos. Imágenes o 1 video.</small>
           <button type="submit">Guardar</button>
         </form>
       </div>
