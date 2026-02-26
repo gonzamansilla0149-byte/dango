@@ -27,7 +27,6 @@ body {
   border-radius: 12px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.4);
   padding: 35px;
-  transition: 0.3s;
 }
 
 h2 {
@@ -120,7 +119,7 @@ button:hover {
     <div class="tab" onclick="showRegister()">Crear Cuenta</div>
   </div>
 
-  <!-- LOGIN -->
+  <!-- LOGIN ADMIN -->
   <div id="loginForm" class="form active">
     <div id="loginError" class="error"></div>
 
@@ -130,7 +129,7 @@ button:hover {
     <button onclick="login()">Ingresar</button>
   </div>
 
-  <!-- REGISTER -->
+  <!-- REGISTER ADMIN -->
   <div id="registerForm" class="form">
     <div id="registerMessage"></div>
 
@@ -163,7 +162,7 @@ function showRegister() {
   document.getElementById("loginForm").classList.remove("active");
 }
 
-/* ---------- LOGIN ---------- */
+/* ---------- LOGIN ADMIN ---------- */
 
 async function login() {
 
@@ -202,7 +201,7 @@ async function login() {
   }
 }
 
-/* ---------- REGISTER ---------- */
+/* ---------- REGISTER ADMIN ---------- */
 
 async function register() {
 
@@ -210,8 +209,8 @@ async function register() {
   const email = document.getElementById("registerEmail").value.trim();
   const password = document.getElementById("registerPassword").value.trim();
   const confirm = document.getElementById("registerConfirm").value.trim();
-
   const messageBox = document.getElementById("registerMessage");
+
   messageBox.innerHTML = "";
 
   if (!username || !email || !password || !confirm) {
