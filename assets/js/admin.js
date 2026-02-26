@@ -171,7 +171,8 @@ buttons.forEach(btn => {
 
     if (target) {
       target.classList.remove("hidden");
-      window.history.pushState({}, "", `?view=${view}`);
+      window.history.pushState({}, "", `/admin/${view}`);
+      handleRouting();
 
       // 🔥 SI ES CATEGORÍAS → INICIALIZAMOS TODO
       if (view === "categorias") {
@@ -603,7 +604,7 @@ if (searchInput) {
 async function openProductAdmin(id, push = true) {
 
   if (push) {
-    window.history.pushState({}, "", `?product=${id}`);
+    window.history.pushState({}, "", `/admin/productos/editar/${id}`);
   }
 
   sections.forEach(sec => sec.classList.add("hidden"));
@@ -790,9 +791,9 @@ if (adminSaveBtn) {
 
       loadProducts();
 
-window.history.pushState({}, "", "admin.html");
+window.history.pushState({}, "", "/admin/productos");
 handleRouting();
-
+      
     } catch (error) {
       console.error("Error actualizando producto:", error);
       alert("Error actualizando producto");
@@ -804,7 +805,8 @@ if (adminBackBtn) {
 
 adminBackBtn.addEventListener("click", () => {
 
-  window.history.pushState({}, "", "admin.html");
+  window.history.pushState({}, "", "/admin/productos");
+  handleRouting();
 
   document.getElementById("product-admin-view").classList.add("hidden");
   document.getElementById("productos-view").classList.remove("hidden");
@@ -814,43 +816,74 @@ adminBackBtn.addEventListener("click", () => {
 
 function handleRouting() {
 
-  const params = new URLSearchParams(window.location.search);
-  const productId = params.get("product");
-  const view = params.get("view");
+  const path = window.location.pathname;
 
-  // Ocultar todas las secciones
+  // Ocultar todo
   sections.forEach(sec => sec.classList.add("hidden"));
-
-  // Limpiar botones activos
   buttons.forEach(b => b.classList.remove("active"));
 
-  // ===== PRODUCTO =====
-  if (productId) {
+  // =========================
+  // EDITAR PRODUCTO
+  // =========================
+  const editMatch = path.match(/^\/admin\/productos\/editar\/(\d+)/);
 
-    const productosBtn = document.querySelector('.sidebar button[data-view="productos"]');
-    if (productosBtn) productosBtn.classList.add("active");
+  if (editMatch) {
+    const id = editMatch[1];
 
-    openProductAdmin(Number(productId), false);
+    document.querySelector('[data-view="productos"]')?.classList.add("active");
+    openProductAdmin(Number(id), false);
     return;
   }
 
-  // ===== VISTA NORMAL =====
-  if (view) {
-
-    const target = document.getElementById(view + "-view");
-    if (target) target.classList.remove("hidden");
-
-    const btn = document.querySelector(`.sidebar button[data-view="${view}"]`);
-    if (btn) btn.classList.add("active");
-
+  // =========================
+  // PRODUCTOS
+  // =========================
+  if (path === "/admin/productos") {
+    document.getElementById("productos-view").classList.remove("hidden");
+    document.querySelector('[data-view="productos"]')?.classList.add("active");
     return;
   }
 
-  // ===== DEFAULT =====
-  document.getElementById("productos-view").classList.remove("hidden");
+  // =========================
+  // PEDIDOS
+  // =========================
+  if (path === "/admin/pedidos") {
+    document.getElementById("pedidos-view").classList.remove("hidden");
+    document.querySelector('[data-view="pedidos"]')?.classList.add("active");
+    return;
+  }
 
-  const productosBtn = document.querySelector('.sidebar button[data-view="productos"]');
-  if (productosBtn) productosBtn.classList.add("active");
+  // =========================
+  // REPORTE
+  // =========================
+  if (path === "/admin/reporte") {
+    document.getElementById("reporte-view").classList.remove("hidden");
+    document.querySelector('[data-view="reporte"]')?.classList.add("active");
+    return;
+  }
+
+  // =========================
+  // CATEGORIAS
+  // =========================
+  if (path === "/admin/categorias") {
+    document.getElementById("categorias-view").classList.remove("hidden");
+    document.querySelector('[data-view="categorias"]')?.classList.add("active");
+    return;
+  }
+
+    // =========================
+  // /admin exacto
+  // =========================
+  if (path === "/admin") {
+    document.getElementById("inicio-view").classList.remove("hidden");
+    document.querySelector('[data-view="inicio"]')?.classList.add("active");
+    return;
+  }
+  // =========================
+  // INICIO (default)
+  // =========================
+  document.getElementById("inicio-view").classList.remove("hidden");
+  document.querySelector('[data-view="inicio"]')?.classList.add("active");
 }
 // ============================
 // INIT
