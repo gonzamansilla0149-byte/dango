@@ -600,7 +600,7 @@ if (searchInput) {
     }
   });
 }
-async function openProductAdmin(id) {
+async function openProductAdmin(id, push = true) {
 
   if (push) {
     window.history.pushState({}, "", `?product=${id}`);
