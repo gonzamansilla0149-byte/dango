@@ -16,6 +16,15 @@ export default {
     ) {
       return fetch(request);
     }
+
+
+    // =========================
+// ADMIN INDEX FIX
+// =========================
+if (request.method === "GET" && (url.pathname === "/admin" || url.pathname === "/admin/")) {
+  url.pathname = "/admin/index.html";
+  return fetch(url.toString(), request);
+}
 // =========================
 // DEJAR PASAR ARCHIVOS ESTÁTICOS
 // =========================
