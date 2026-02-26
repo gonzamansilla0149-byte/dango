@@ -59,27 +59,33 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (description) description.textContent = product.description || "";
     if (breadcrumb) breadcrumb.textContent = product.name;
 
-    // ===============================
-    // STOCK
-    // ===============================
+// ===============================
+// STOCK
+// ===============================
 
-    if (stockUnits) {
-      stockUnits.textContent = product.stock ?? 0;
-    }
+const stockValue = Number(product.stock);
 
-    if (Number(product.stock) > 0 && Number(product.stock) <= 5) {
+if (stockUnits) {
+
+  if (!product.stock && product.stock !== 0) {
+    stockUnits.textContent = "No informado";
+  } 
+  else if (stockValue <= 0) {
+    stockUnits.textContent = "Sin stock";
+    stockUnits.style.color = "red";
+
+    if (buyBtn) buyBtn.disabled = true;
+    if (addBtn) addBtn.disabled = true;
+  } 
+  else {
+    stockUnits.textContent = stockValue;
+
+    if (stockValue <= 5) {
       stockUnits.style.color = "orange";
     }
+  }
 
-    if (Number(product.stock) <= 0) {
-      if (buyBtn) buyBtn.disabled = true;
-      if (addBtn) addBtn.disabled = true;
-
-      if (stockUnits) {
-        stockUnits.textContent = "Sin stock";
-        stockUnits.style.color = "red";
-      }
-    }
+}
 
     // ===============================
     // IMAGEN
