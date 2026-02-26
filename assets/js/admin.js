@@ -21,10 +21,12 @@ async function authFetch(url, options = {}) {
 
   const token = localStorage.getItem("token");
 
+  const isFormData = options.body instanceof FormData;
+
   const response = await fetch(url, {
     ...options,
     headers: {
-      "Content-Type": "application/json",
+      ...(isFormData ? {} : { "Content-Type": "application/json" }),
       "Authorization": "Bearer " + token,
       ...(options.headers || {})
     }
@@ -325,36 +327,60 @@ if (form) {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const data = new FormData(form);
+    const formData = new FormData(form);
 
-const product = {
-  name: data.get("name"),
-  brand_id: Number(data.get("brand_id")),
-  category_id: Number(data.get("category_id")),
-  subcategory_id: Number(data.get("subcategory_id")),
-  price: Number(data.get("price")),
-  stock: Number(data.get("stock")),
-  description: data.get("description"),
-  image_url: data.get("image")
-};
+    // Validación archivos
+    const files = formData.getAll("media[]");
+
+    if (files.length > 5) {
+      alert("Máximo 5 archivos permitidos");
+      return;
+    }
+
+    let videoCount = 0;
+
+    for (let file of files) {
+      if (file.type.startsWith("video/")) {
+        videoCount++;
+      }
+
+      // Limite 30MB por archivo
+      if (file.size > 30 * 1024 * 1024) {
+        alert("Un archivo supera los 30MB");
+        return;
+      }
+    }
+
+    if (videoCount > 1) {
+      alert("Solo se permite 1 video por producto");
+      return;
+    }
 
     try {
-      await authFetch(`${API_URL}/api/products`, {
+
+      const res = await authFetch(`${API_URL}/api/products`, {
         method: "POST",
-        body: JSON.stringify(product)
+        body: formData
       });
+
+      if (!res.ok) {
+        const error = await res.text();
+        alert("Error: " + error);
+        return;
+      }
 
       form.reset();
       formContainer.classList.add("hidden");
-
       loadProducts();
+
+      alert("Producto creado correctamente");
 
     } catch (error) {
       console.error("Error creando producto:", error);
+      alert("Error creando producto");
     }
   });
 }
-
 
 // ============================
 // ELIMINAR PRODUCTO (requiere endpoint DELETE)
@@ -566,16 +592,41 @@ document.querySelector(".price").innerText =
   "$" + Number(product.price || 0).toLocaleString();
 document.querySelector(".product-description").innerText =
   product.description || "";
-    document.getElementById("admin-edit-image").value = product.image_url || "";
-    document.getElementById("admin-edit-stock").value = product.stock || 0;
+document.getElementById("admin-edit-stock").value = product.stock || 0;
 
-    if (product.image_url) {
-      const mainImage = document.getElementById("admin-main-image");
-      mainImage.style.backgroundImage = `url(${product.image_url})`;
-      mainImage.style.backgroundSize = "cover";
-      mainImage.style.backgroundPosition = "center";
+const mainImage = document.getElementById("admin-main-image");
+const gallery = document.getElementById("admin-media-gallery");
+
+mainImage.innerHTML = "";
+if (gallery) gallery.innerHTML = "";
+
+if (product.media && product.media.length > 0) {
+
+  product.media.forEach((url, index) => {
+
+    const isVideo = url.endsWith(".mp4");
+
+    if (index === 0) {
+      mainImage.innerHTML = isVideo
+        ? `<video controls width="100%"><source src="${url}" type="video/mp4"></video>`
+        : `<img src="${url}" style="width:100%;object-fit:cover;">`;
     }
 
+    if (gallery) {
+      gallery.innerHTML += `
+        <div class="admin-media-item" data-url="${url}">
+          ${
+            isVideo
+              ? `<video src="${url}" width="120"></video>`
+              : `<img src="${url}" width="120">`
+          }
+          <button onclick="removeMedia(this)">Eliminar</button>
+        </div>
+      `;
+    }
+
+  });
+}
     document.getElementById("admin-save-product").dataset.id = id;
 
   } catch (error) {
@@ -591,27 +642,68 @@ if (adminSaveBtn) {
 
     const id = adminSaveBtn.dataset.id;
 
-const updated = {
-  name: document.querySelector(".product-title").innerText,
-  brand_id: Number(document.getElementById("admin-edit-brand").value),
-  category_id: Number(document.getElementById("admin-edit-category").value),
-  subcategory_id: Number(document.getElementById("admin-edit-subcategory").value),
-  price: Number(
-    document.querySelector(".price").innerText.replace(/[^0-9]/g, "")
-  ),
-  description: document.querySelector(".product-description").innerText,
-  image_url: document.getElementById("admin-edit-image").value,
-  stock: Number(document.getElementById("admin-edit-stock").value)
-};
+    const formData = new FormData();
+
+    // Datos básicos
+    formData.append("name", document.querySelector(".product-title").innerText);
+    formData.append("brand_id", document.getElementById("admin-edit-brand").value);
+    formData.append("category_id", document.getElementById("admin-edit-category").value);
+    formData.append("subcategory_id", document.getElementById("admin-edit-subcategory").value);
+    formData.append(
+      "price",
+      document.querySelector(".price").innerText.replace(/[^0-9]/g, "")
+    );
+    formData.append("description", document.querySelector(".product-description").innerText);
+    formData.append("stock", document.getElementById("admin-edit-stock").value);
+
+    // 🔥 Media existentes (los que no fueron eliminados)
+    const existingItems = document.querySelectorAll(".admin-media-item");
+
+    existingItems.forEach(item => {
+      formData.append("existing_media[]", item.dataset.url);
+    });
+
+    // 🔥 Nuevos archivos
+    const newFilesInput = document.getElementById("admin-new-media");
+
+    if (newFilesInput && newFilesInput.files.length > 0) {
+
+      let videoCount = 0;
+
+      for (let file of newFilesInput.files) {
+
+        if (file.type.startsWith("video/")) {
+          videoCount++;
+        }
+
+        if (file.size > 30 * 1024 * 1024) {
+          alert("Un archivo supera 30MB");
+          return;
+        }
+
+        formData.append("media[]", file);
+      }
+
+      if (videoCount > 1) {
+        alert("Solo se permite 1 video");
+        return;
+      }
+    }
 
     try {
 
-await authFetch(`${API_URL}/api/products/${id}`, {
-  method: "PUT",
-  body: JSON.stringify(updated)
-});
+      const res = await authFetch(`${API_URL}/api/products/${id}`, {
+        method: "PUT",
+        body: formData
+      });
 
-      alert("Producto actualizado");
+      if (!res.ok) {
+        const error = await res.text();
+        alert("Error: " + error);
+        return;
+      }
+
+      alert("Producto actualizado correctamente");
 
       loadProducts();
 
@@ -620,11 +712,11 @@ await authFetch(`${API_URL}/api/products/${id}`, {
 
     } catch (error) {
       console.error("Error actualizando producto:", error);
+      alert("Error actualizando producto");
     }
 
   });
 }
-
 if (adminBackBtn) {
 
   adminBackBtn.addEventListener("click", () => {
@@ -723,6 +815,10 @@ function renderCategoriesList() {
   categoriesList.innerHTML = html;
 }
 
+function removeMedia(btn) {
+  const item = btn.closest(".admin-media-item");
+  if (item) item.remove();
+}
 // Render listado marcas
 function renderBrandsList() {
   if (!brandsList) return;
