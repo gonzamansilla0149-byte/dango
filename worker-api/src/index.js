@@ -7,6 +7,15 @@ export default {
 
     const url = new URL(request.url);
 
+        // =========================
+    // DEJAR PASAR HTML ESTÁTICO
+    // =========================
+    if (
+      request.method === "GET" &&
+      !url.pathname.startsWith("/api/")
+    ) {
+      return fetch(request);
+    }
 // =========================
 // DEJAR PASAR ARCHIVOS ESTÁTICOS
 // =========================
