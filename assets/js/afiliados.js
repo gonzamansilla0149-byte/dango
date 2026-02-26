@@ -17,8 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Simulación de registro (luego lo conectamos a backend)
-    message.textContent = "¡Registro enviado! Te contactaremos pronto.";
+    message.textContent = "¡Registro enviado correctamente!";
     message.style.color = "#0077ff";
 
     form.reset();
