@@ -815,37 +815,42 @@ adminBackBtn.addEventListener("click", () => {
 function handleRouting() {
 
   const params = new URLSearchParams(window.location.search);
-
   const productId = params.get("product");
   const view = params.get("view");
 
+  // Ocultar todas las secciones
   sections.forEach(sec => sec.classList.add("hidden"));
 
-if (productId) {
-  openProductAdmin(Number(productId), false);
-  return;
-}
+  // Limpiar botones activos
+  buttons.forEach(b => b.classList.remove("active"));
 
-  if (view) {
-    const target = document.getElementById(view + "-view");
-    if (target) target.classList.remove("hidden");
+  // ===== PRODUCTO =====
+  if (productId) {
+
+    const productosBtn = document.querySelector('.sidebar button[data-view="productos"]');
+    if (productosBtn) productosBtn.classList.add("active");
+
+    openProductAdmin(Number(productId), false);
     return;
   }
-buttons.forEach(b => b.classList.remove("active"));
 
-if (productId) {
+  // ===== VISTA NORMAL =====
+  if (view) {
+
+    const target = document.getElementById(view + "-view");
+    if (target) target.classList.remove("hidden");
+
+    const btn = document.querySelector(`.sidebar button[data-view="${view}"]`);
+    if (btn) btn.classList.add("active");
+
+    return;
+  }
+
+  // ===== DEFAULT =====
+  document.getElementById("productos-view").classList.remove("hidden");
+
   const productosBtn = document.querySelector('.sidebar button[data-view="productos"]');
   if (productosBtn) productosBtn.classList.add("active");
-  openProductAdmin(Number(productId), false);
-  return;
-}
-
-if (view) {
-  const btn = document.querySelector(`.sidebar button[data-view="${view}"]`);
-  if (btn) btn.classList.add("active");
-}
-  // Default
-  document.getElementById("productos-view").classList.remove("hidden");
 }
 // ============================
 // INIT
