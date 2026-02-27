@@ -89,35 +89,40 @@ if (stockUnits) {
 }
 
 // ===============================
-// IMAGEN
+// IMÁGENES MULTIPLES
 // ===============================
+
+const thumbnailContainer = document.querySelector(".thumbnail-container");
+
 if (mainImage && product.media && product.media.length > 0) {
 
-  const firstMedia = product.media[0];
+  // Mostrar primera imagen
+  const firstUrl = optimizeImage(product.media[0].url, 800);
+  mainImage.style.backgroundImage = `url("${firstUrl}")`;
 
-  if (firstMedia.url) {
-
-   const imageUrl = optimizeImage(firstMedia.url, 800);
-
-    const testImg = new Image();
-    testImg.src = imageUrl;
-
-    testImg.onload = () => {
-      mainImage.style.backgroundImage = `url("${imageUrl}")`;
-      mainImage.style.backgroundSize = "cover";
-      mainImage.style.backgroundPosition = "center";
-      mainImage.style.backgroundRepeat = "no-repeat";
-    };
-
-    testImg.onerror = () => {
-      console.error("Imagen no encontrada:", imageUrl);
-
-      mainImage.style.backgroundImage = "url('/images/placeholder.jpg')";
-      mainImage.style.backgroundSize = "contain";
-      mainImage.style.backgroundRepeat = "no-repeat";
-      mainImage.style.backgroundPosition = "center";
-    };
+  // Limpiar miniaturas
+  if (thumbnailContainer) {
+    thumbnailContainer.innerHTML = "";
   }
+
+  // Crear miniaturas
+  product.media.forEach((mediaItem, index) => {
+
+    const thumbUrl = optimizeImage(mediaItem.url, 150);
+
+    const thumb = document.createElement("div");
+    thumb.classList.add("thumbnail");
+    thumb.style.backgroundImage = `url("${thumbUrl}")`;
+    thumb.style.backgroundSize = "cover";
+    thumb.style.backgroundPosition = "center";
+
+    thumb.addEventListener("click", () => {
+      const newMainUrl = optimizeImage(mediaItem.url, 800);
+      mainImage.style.backgroundImage = `url("${newMainUrl}")`;
+    });
+
+    thumbnailContainer?.appendChild(thumb);
+  });
 }
     // ===============================
     // AGREGAR AL CARRITO
