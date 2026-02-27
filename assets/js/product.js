@@ -96,17 +96,14 @@ const thumbnailContainer = document.querySelector(".thumbnail-list");
 
 if (mainImage && product.media && product.media.length > 0) {
 
-  // Imagen principal
-  const firstUrl = optimizeImage(product.media[0].url, 800);
+  const firstUrl = optimizeImage(product.media[0].url);
   mainImage.style.backgroundImage = `url("${firstUrl}")`;
 
-  // Limpiar miniaturas
   thumbnailContainer.innerHTML = "";
 
-  // Crear miniaturas reales
   product.media.forEach((mediaItem) => {
 
-    const thumbUrl = optimizeImage(mediaItem.url, 150);
+    const thumbUrl = optimizeImage(mediaItem.url);
 
     const thumb = document.createElement("div");
     thumb.classList.add("thumb");
@@ -117,8 +114,7 @@ if (mainImage && product.media && product.media.length > 0) {
     thumb.style.backgroundRepeat = "no-repeat";
 
     thumb.addEventListener("click", () => {
-      const newMainUrl = optimizeImage(mediaItem.url, 800);
-      mainImage.style.backgroundImage = `url("${newMainUrl}")`;
+      mainImage.style.backgroundImage = `url("${thumbUrl}")`;
     });
 
     thumbnailContainer.appendChild(thumb);
@@ -190,20 +186,12 @@ if (mainImage && product.media && product.media.length > 0) {
 
 });
 
-function optimizeImage(url, width = 1000) {
-
+function optimizeImage(url) {
   if (!url) return "";
 
-  if (url.startsWith("http")) {
-    const parsed = new URL(url);
-    url = parsed.pathname;
-  }
+  // Si ya viene con /media lo dejamos igual
+  if (url.startsWith("/media/")) return url;
 
-  url = url.replace(/^\/+/, "");
-
-  if (!url.startsWith("media/")) {
-    url = "media/" + url;
-  }
-
-  return `/cdn-cgi/image/format=auto,quality=85,width=${width}/${url}`;
+  // Si no, aseguramos que tenga el prefijo correcto
+  return `/media/${url.replace(/^\/+/, "")}`;
 }
