@@ -94,12 +94,19 @@ if (stockUnits) {
 
 const thumbnailContainer = document.querySelector(".thumbnail-list");
 
+// 🔥 Limpiar siempre
+if (mainImage) {
+  mainImage.style.backgroundImage = "";
+}
+
+if (thumbnailContainer) {
+  thumbnailContainer.innerHTML = "";
+}
+
 if (mainImage && product.media && product.media.length > 0) {
 
   const firstUrl = optimizeImage(product.media[0].url);
   mainImage.style.backgroundImage = `url("${firstUrl}")`;
-
-  thumbnailContainer.innerHTML = "";
 
   product.media.forEach((mediaItem) => {
 
@@ -119,6 +126,12 @@ if (mainImage && product.media && product.media.length > 0) {
 
     thumbnailContainer.appendChild(thumb);
   });
+
+} else {
+
+  // 🔥 Fallback si no hay imágenes
+  mainImage.style.backgroundImage = `url("/assets/img/no-image.png")`;
+
 }
     // ===============================
     // AGREGAR AL CARRITO
