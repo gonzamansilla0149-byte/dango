@@ -146,8 +146,13 @@ function getInterestRanking(history) {
   const counter = {};
 
   history.forEach(item => {
+
+    // SOLO categorías y subcategorías
+    if (item.type !== "category" && item.type !== "subcategory") return;
+
     const key = item.value?.toLowerCase();
     if (!key) return;
+
     counter[key] = (counter[key] || 0) + 1;
   });
 
