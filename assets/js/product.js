@@ -32,6 +32,40 @@ const response = await fetch(
       return;
     }
 
+    // ===============================
+// TRACKING INTELIGENTE DE VISTAS
+// ===============================
+
+function trackView(type, value) {
+  if (!value) return;
+
+  const history = JSON.parse(localStorage.getItem("userHistory")) || [];
+
+  history.push({
+    type,
+    value,
+    timestamp: Date.now()
+  });
+
+  // Mantener historial liviano (últimos 100 eventos)
+  const trimmed = history.slice(-100);
+
+  localStorage.setItem("userHistory", JSON.stringify(trimmed));
+}
+
+// Registrar producto visto
+trackView("product", product.name);
+
+// Registrar categoría
+if (product.category_name) {
+  trackView("category", product.category_name);
+}
+
+// Registrar subcategoría si existe
+if (product.subcategory_name) {
+  trackView("subcategory", product.subcategory_name);
+}
+
     console.log("Producto cargado:", product);
 
     // ===============================
