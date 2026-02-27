@@ -307,12 +307,14 @@ function optimizeImage(url, width = 800) {
     url = parsed.pathname;
   }
 
-  // 🔥 Forzar siempre /media/
-  if (!url.startsWith("/media/")) {
-    url = "/media/" + url.replace(/^\/+/, "");
+  // Normalizar para evitar // o media duplicado
+  url = url.replace(/^\/+/, "");
+
+  if (!url.startsWith("media/")) {
+    url = "media/" + url;
   }
 
-  return `/cdn-cgi/image/format=auto,quality=85,width=${width}${url}`;
+  return `/cdn-cgi/image/format=auto,quality=85,width=${width}/${url}`;
 }
 // ===============================
 // CREAR CARD
