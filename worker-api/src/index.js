@@ -471,56 +471,73 @@ WHERE p.id = ? AND p.active = 1
   });
 }
 
-      // =========================
-      // CREATE PRODUCT
-      // =========================
-      if (request.method === "POST" && url.pathname === "/api/products") {
+// =========================
+// CREATE PRODUCT
+// =========================
+if (request.method === "POST" && url.pathname === "/api/products") {
 
-        if (!verifyAdmin(request)) {
-          return new Response("No autorizado", {
-            status: 401,
-            headers: corsHeaders
-          });
-        }
+  if (!verifyAdmin(request)) {
+    return new Response("No autorizado", {
+      status: 401,
+      headers: corsHeaders
+    });
+  }
 
-        const formData = await request.formData();
+  const formData = await request.formData();
 
-const data = {
-  name: formData.get("name"),
-  price: formData.get("price"),
-  description: formData.get("description"),
-  category_id: formData.get("category_id"),
-  subcategory_id: formData.get("subcategory_id"),
-  brand_id: formData.get("brand_id"),
-  stock: formData.get("stock"),
-  image_url: formData.get("image_url") // si usás una sola imagen
-};
+  const name = formData.get("name");
+  const price = formData.get("price");
+  const description = formData.get("description");
+  const category_id = formData.get("category_id");
+  const subcategory_id = formData.get("subcategory_id");
+  const brand_id = formData.get("brand_id");
+  const stock = formData.get("stock");
 
-        await env.DB.prepare(`
-INSERT INTO products
-(name, price, description, category_id, subcategory_id, brand_id, stock, image_url, active)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)
-        `)
- .bind(
-  data.name,
-  data.price,
-  data.description,
-  data.category_id,
-  data.subcategory_id,
-  data.brand_id,
-  data.stock,
-  data.image_url
-)
-        .run();
+  // 1️⃣ Crear producto primero
+  const result = await env.DB.prepare(`
+    INSERT INTO products
+    (name, price, description, category_id, subcategory_id, brand_id, stock, active)
+    VALUES (?, ?, ?, ?, ?, ?, ?, 1)
+  `)
+  .bind(name, price, description, category_id, subcategory_id, brand_id, stock)
+  .run();
 
-        return new Response(JSON.stringify({ success: true }), {
-          headers: {
-            "Content-Type": "application/json",
-            ...corsHeaders
-          }
-        });
+  const productId = result.meta.last_row_id;
+
+  // 2️⃣ Procesar archivos
+  const files = formData.getAll("media[]");
+
+  for (let i = 0; i < files.length; i++) {
+
+    const file = files[i];
+    const extension = file.name.split(".").pop();
+    const key = `products/${productId}/${crypto.randomUUID()}.${extension}`;
+
+    // Guardar en R2
+    await env.PRODUCTS_BUCKET.put(key, await file.arrayBuffer(), {
+      httpMetadata: {
+        contentType: file.type
       }
+    });
 
+    const url = `https://YOUR_DOMAIN_R2_PUBLIC/${key}`;
+
+    // Guardar en DB
+    await env.DB.prepare(`
+      INSERT INTO product_media (product_id, url, type, position)
+      VALUES (?, ?, ?, ?)
+    `)
+    .bind(productId, url, file.type.startsWith("video/") ? "video" : "image", i)
+    .run();
+  }
+
+  return new Response(JSON.stringify({ success: true }), {
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders
+    }
+  });
+}
       // =========================
       // UPDATE PRODUCT
       // =========================
