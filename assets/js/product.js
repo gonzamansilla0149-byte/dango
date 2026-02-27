@@ -88,15 +88,21 @@ if (stockUnits) {
 
 }
 
-    // ===============================
-    // IMAGEN
-    // ===============================
+// ===============================
+// IMAGEN (NUEVO SISTEMA CON MEDIA)
+// ===============================
 
-    if (mainImage && product.image_url) {
-      mainImage.style.backgroundImage = `url(${product.image_url})`;
-      mainImage.style.backgroundSize = "cover";
-      mainImage.style.backgroundPosition = "center";
-    }
+if (mainImage && product.media && product.media.length > 0) {
+
+  const firstMedia = product.media[0];
+
+  if (firstMedia.type === "image") {
+    mainImage.style.backgroundImage = `url(${firstMedia.url})`;
+    mainImage.style.backgroundSize = "cover";
+    mainImage.style.backgroundPosition = "center";
+  }
+
+}
 
     // ===============================
     // AGREGAR AL CARRITO
