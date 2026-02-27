@@ -197,7 +197,8 @@ async function loadCategories() {
     const res = await authFetch(`${API_URL}/api/categories`);
     categories = await res.json();
     fillCategorySelect();
-    renderCategoriesList();   // 🔥 AGREGAR ESTA LÍNEA
+    renderCategoriesList();
+    loadCategoriesForSubcategory(); // 👈 agregar esto
   } catch (error) {
     console.error("Error cargando categorías:", error);
   }
@@ -1002,3 +1003,6 @@ async function initCategoryView() {
   renderBrandsList();
 }
 
+if (document.getElementById("categories-list")) {
+  initCategoryView();
+}
