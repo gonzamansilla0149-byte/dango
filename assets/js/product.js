@@ -94,6 +94,19 @@ if (stockUnits) {
 
 if (mainImage && product.media && product.media.length > 0) {
 
+  const firstMedia = product.media[0];
+
+  if (firstMedia.type === "image") {
+
+    const optimizedUrl = optimizeImage(firstMedia.url, 1000);
+
+    mainImage.style.backgroundImage = `url('${optimizedUrl}')`;
+    mainImage.style.backgroundSize = "cover";
+    mainImage.style.backgroundPosition = "center";
+    mainImage.style.backgroundRepeat = "no-repeat";
+  }
+}
+
     // ===============================
     // AGREGAR AL CARRITO
     // ===============================
