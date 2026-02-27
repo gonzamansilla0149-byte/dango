@@ -34,12 +34,22 @@ const response = await fetch("/api/products");
 
     const normalize = str => (str || "").toLowerCase().trim();
     
-    function renderProducts(container, list) {
-      container.innerHTML = "";
-      list.forEach(product => {
-        container.innerHTML += createProductCard(product);
-      });
-    }
+function renderProducts(container, list) {
+
+  container.innerHTML = "";
+
+  const fragment = document.createDocumentFragment();
+
+  list.forEach(product => {
+
+    const wrapper = document.createElement("div");
+    wrapper.innerHTML = createProductCard(product);
+
+    fragment.appendChild(wrapper.firstElementChild);
+  });
+
+  container.appendChild(fragment);
+}
 
     // ===============================
     // TOP GLOBAL (DESTACADOS)
@@ -86,46 +96,40 @@ const response = await fetch("/api/products");
         p => normalize(p.category_name) === "herramientas"
       );
 
-      function getRandomImage() {
-        if (herramientas.length === 0) return null;
-
-        const randomProduct =
-          herramientas[Math.floor(Math.random() * herramientas.length)];
-
-        if (randomProduct.media && randomProduct.media.length > 0) {
-  const first = randomProduct.media[0];
-  if (first.type === "image") {
-    return optimizeImage(first.url, 1600);
-  }
-}
-
-return null;
-      }
-
-      function changeHeroBackground() {
-
-        const image = getRandomImage();
-        if (!image) return;
-
-        heroSection.style.backgroundImage = `
-          linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-          url('${image}')
-        `;
-
-        heroSection.style.backgroundSize = "cover";
-        heroSection.style.backgroundPosition = "center";
-        heroSection.style.backgroundRepeat = "no-repeat";
-      }
-
-      changeHeroBackground();
-      setInterval(changeHeroBackground, 5000);
+      // 🔥 Construir lista de imágenes del hero
+const heroImages = herramientas
+  .map(p => {
+    if (p.media && p.media[0] && p.media[0].type === "image") {
+      return optimizeImage(p.media[0].url, 1600);
     }
+    return null;
+  })
+  .filter(Boolean);
 
-  } catch (err) {
-    console.error("Error cargando home:", err);
-  }
-
+// 🔥 Precargar imágenes
+heroImages.forEach(src => {
+  const img = new Image();
+  img.src = src;
 });
+
+
+
+let currentHeroIndex = 0;
+
+function changeHeroBackground() {
+
+  if (heroImages.length === 0) return;
+
+  const image = heroImages[currentHeroIndex];
+
+  heroSection.style.backgroundImage = `
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    url('${image}')
+  `;
+
+  currentHeroIndex =
+    (currentHeroIndex + 1) % heroImages.length;
+}
 
 
 // ===============================
