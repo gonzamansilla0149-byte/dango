@@ -169,28 +169,10 @@ if (firstMedia.url) {
   `;
 }
 
-function optimizeImage(url, width = 800) {
-
+function optimizeImage(url) {
   if (!url) return "";
 
-  if (url.startsWith("http")) {
-    const parsed = new URL(url);
-    url = parsed.pathname;
-  }
+  if (url.startsWith("/media/")) return url;
 
-  // Normalizar para evitar // o media duplicado
-  url = url.replace(/^\/+/, "");
-
-  if (!url.startsWith("media/")) {
-    url = "media/" + url;
-  }
-
-  return `/cdn-cgi/image/format=auto,quality=85,width=${width}/${url}`;
+  return `/media/${url.replace(/^\/+/, "")}`;
 }
-
-
-  } catch (err) {
-    console.error("Error cargando home:", err);
-  }
-
-});
