@@ -311,42 +311,23 @@ function renderPagination() {
 
 });
 
-// ===============================
-// OPTIMIZADOR PRO DE IMÁGENES
-// ===============================
-function optimizeImage(url, width = 800) {
-
-  if (!url) return "";
-
-  if (url.startsWith("http")) {
-    const parsed = new URL(url);
-    url = parsed.pathname;
-  }
-
-  // Normalizar para evitar // o media duplicado
-  url = url.replace(/^\/+/, "");
-
-  if (!url.startsWith("media/")) {
-    url = "media/" + url;
-  }
-
-  return `/cdn-cgi/image/format=auto,quality=85,width=${width}/${url}`;
+function optimizeImage(url) {
+  if (!url) return "/assets/img/no-image.png";
+  return url;
 }
+
 // ===============================
 // CREAR CARD
 // ===============================
 
 function createProductCard(product) {
 
-  let image = "";
+let image = "/assets/img/no-image.png";
 
-  if (product.media && product.media.length > 0) {
-    const firstMedia = product.media[0];
-
-if (firstMedia.url) {
-  image = optimizeImage(firstMedia.url, 400);
+const firstMedia = product.media?.find(m => m.url);
+if (firstMedia) {
+  image = optimizeImage(firstMedia.url);
 }
-  }
 
   return `
     <article class="product-card">
