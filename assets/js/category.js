@@ -227,38 +227,54 @@ if (selectedBrand) {
     const PRODUCTS_PER_PAGE = 30;
     let currentPage = 1;
 
-    function renderProducts(page) {
+function renderProducts(page) {
 
-      container.innerHTML = "";
+  container.innerHTML = "";
 
-      const start = (page - 1) * PRODUCTS_PER_PAGE;
-      const end = start + PRODUCTS_PER_PAGE;
+  const start = (page - 1) * PRODUCTS_PER_PAGE;
+  const end = start + PRODUCTS_PER_PAGE;
 
-      const productsToShow = activeProducts.slice(start, end);
+  const productsToShow = activeProducts.slice(start, end);
 
-      productsToShow.forEach(product => {
-        container.innerHTML += createProductCard(product);
-      });
+  const fragment = document.createDocumentFragment();
+
+  productsToShow.forEach(product => {
+
+    const wrapper = document.createElement("div");
+    wrapper.innerHTML = createProductCard(product);
+
+    fragment.appendChild(wrapper.firstElementChild);
+  });
+
+  container.appendChild(fragment);
+}
+
+function renderPagination() {
+
+  if (!paginationContainer) return;
+
+  paginationContainer.innerHTML = "";
+
+  const totalPages = Math.ceil(activeProducts.length / PRODUCTS_PER_PAGE);
+  if (totalPages <= 1) return;
+
+  const fragment = document.createDocumentFragment();
+
+  for (let i = 1; i <= totalPages; i++) {
+
+    const btn = document.createElement("button");
+    btn.dataset.page = i;
+    btn.textContent = i;
+
+    if (i === currentPage) {
+      btn.classList.add("active");
     }
 
-    function renderPagination() {
+    fragment.appendChild(btn);
+  }
 
-      if (!paginationContainer) return;
-
-      paginationContainer.innerHTML = "";
-
-      const totalPages = Math.ceil(activeProducts.length / PRODUCTS_PER_PAGE);
-      if (totalPages <= 1) return;
-
-      for (let i = 1; i <= totalPages; i++) {
-        paginationContainer.innerHTML += `
-          <button data-page="${i}" 
-                  class="${i === currentPage ? "active" : ""}">
-            ${i}
-          </button>
-        `;
-      }
-    }
+  paginationContainer.appendChild(fragment);
+}
 
     if (paginationContainer) {
       paginationContainer.addEventListener("click", (e) => {
