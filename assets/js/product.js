@@ -96,11 +96,7 @@ if (mainImage && product.media && product.media.length > 0) {
 
   const firstMedia = product.media[0];
 
-  if (firstMedia.type === "image") {
-    mainImage.style.backgroundImage = `url(${firstMedia.url})`;
-    mainImage.style.backgroundSize = "cover";
-    mainImage.style.backgroundPosition = "center";
-  }
+if (firstMedia.type === "image") {
 
 }
 
@@ -169,3 +165,7 @@ if (mainImage && product.media && product.media.length > 0) {
   }
 
 });
+
+function optimizeImage(url, width = 1000) {
+  return `/cdn-cgi/image/format=auto,quality=85,width=${width}/${url}`;
+}
