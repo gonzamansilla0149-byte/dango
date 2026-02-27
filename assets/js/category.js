@@ -178,6 +178,7 @@ if (selectedSubcategory) {
     selectedSubcategory.toLowerCase();
 }
 
+
 if (selectedBrand) {
   match = match &&
     (p.brand_name || "").toLowerCase() ===
@@ -213,6 +214,10 @@ if (selectedBrand) {
           selectedSubcategory === e.target.dataset.sub
             ? null
             : e.target.dataset.sub;
+
+        if (selectedSubcategory) {
+  trackView("subcategory", selectedSubcategory);
+}
 
         applyFilters();
       });
