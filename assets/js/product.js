@@ -98,9 +98,7 @@ if (mainImage && product.media && product.media.length > 0) {
 
   if (firstMedia.url) {
 
-    const optimizedUrl = optimizeImage(firstMedia.url, 1000);
-
-    mainImage.style.backgroundImage = `url('${optimizedUrl}')`;
+    mainImage.style.backgroundImage = `url('${firstMedia.url}')`;
     mainImage.style.backgroundSize = "cover";
     mainImage.style.backgroundPosition = "center";
     mainImage.style.backgroundRepeat = "no-repeat";
@@ -172,22 +170,3 @@ if (mainImage && product.media && product.media.length > 0) {
   }
 
 });
-
-function optimizeImage(url, width = 800) {
-
-  if (!url) return "";
-
-  if (url.startsWith("http")) {
-    const parsed = new URL(url);
-    url = parsed.pathname;
-  }
-
-  // Normalizar para evitar // o media duplicado
-  url = url.replace(/^\/+/, "");
-
-  if (!url.startsWith("media/")) {
-    url = "media/" + url;
-  }
-
-  return `/cdn-cgi/image/format=auto,quality=85,width=${width}/${url}`;
-}
