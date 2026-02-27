@@ -89,7 +89,7 @@ if (stockUnits) {
 }
 
 // ===============================
-// IMAGEN (NUEVO SISTEMA CON MEDIA)
+// IMAGEN
 // ===============================
 
 if (mainImage && product.media && product.media.length > 0) {
@@ -98,13 +98,21 @@ if (mainImage && product.media && product.media.length > 0) {
 
   if (firstMedia.url) {
 
-    mainImage.style.backgroundImage = `url('${firstMedia.url}')`;
+    let imageUrl = firstMedia.url;
+
+    // Forzar que la URL sea absoluta
+    if (!imageUrl.startsWith("/")) {
+      imageUrl = "/" + imageUrl;
+    }
+
+    console.log("Imagen final:", imageUrl);
+
+    mainImage.style.backgroundImage = `url("${imageUrl}")`;
     mainImage.style.backgroundSize = "cover";
     mainImage.style.backgroundPosition = "center";
     mainImage.style.backgroundRepeat = "no-repeat";
   }
 }
-
     // ===============================
     // AGREGAR AL CARRITO
     // ===============================
