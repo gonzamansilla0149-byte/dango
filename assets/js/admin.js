@@ -20,16 +20,20 @@ if (!token || role !== "admin") {
 async function authFetch(url, options = {}) {
 
   const token = localStorage.getItem("token");
-
   const isFormData = options.body instanceof FormData;
+
+  const headers = {
+    ...(isFormData ? {} : { "Content-Type": "application/json" }),
+    ...(options.headers || {})
+  };
+
+  if (token) {
+    headers["Authorization"] = "Bearer " + token;
+  }
 
   const response = await fetch(url, {
     ...options,
-    headers: {
-      ...(isFormData ? {} : { "Content-Type": "application/json" }),
-      "Authorization": "Bearer " + token,
-      ...(options.headers || {})
-    }
+    headers
   });
 
   if (response.status === 401 || response.status === 403) {
