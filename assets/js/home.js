@@ -95,7 +95,7 @@ const response = await fetch("/api/products");
         if (randomProduct.media && randomProduct.media.length > 0) {
   const first = randomProduct.media[0];
   if (first.type === "image") {
-    return first.url;
+    return optimizeImage(first.url, 1600);
   }
 }
 
