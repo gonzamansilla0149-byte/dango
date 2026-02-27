@@ -421,8 +421,11 @@ if (!existingContainer) {
 
 existingContainer.innerHTML = "";
 
-if (product.media && product.media.length > 0) {
-
+    if (!product.media) {
+  product.media = [];
+}
+    
+if (Array.isArray(product.media) && product.media.length > 0) {
   product.media.forEach(media => {
 
     const isVideo = media.type === "video";
