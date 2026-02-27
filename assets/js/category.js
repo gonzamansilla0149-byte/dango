@@ -295,7 +295,13 @@ if (selectedBrand) {
 
 });
 
+// ===============================
+// OPTIMIZADOR PRO DE IMÁGENES
+// ===============================
 
+function optimizeImage(url, width = 800) {
+  return `/cdn-cgi/image/format=auto,quality=85,width=${width}/${url}`;
+}
 // ===============================
 // CREAR CARD
 // ===============================
