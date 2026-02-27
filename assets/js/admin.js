@@ -396,6 +396,61 @@ async function startEditProduct(id) {
   }
 
 }
+
+
+async function convertToWebP(file, maxWidth = 1600, quality = 0.8) {
+  return new Promise((resolve, reject) => {
+
+    if (!file.type.startsWith("image/")) {
+      resolve(file); // si no es imagen, no tocamos nada
+      return;
+    }
+
+    const img = new Image();
+    const reader = new FileReader();
+
+    reader.onload = e => img.src = e.target.result;
+
+    img.onload = () => {
+
+      let width = img.width;
+      let height = img.height;
+
+      if (width > maxWidth) {
+        height = (maxWidth / width) * height;
+        width = maxWidth;
+      }
+
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, width, height);
+
+      canvas.toBlob(blob => {
+
+        if (!blob) {
+          reject("Error convirtiendo imagen");
+          return;
+        }
+
+        const newFile = new File(
+          [blob],
+          file.name.replace(/\.\w+$/, ".webp"),
+          { type: "image/webp" }
+        );
+
+        resolve(newFile);
+
+      }, "image/webp", quality);
+    };
+
+    img.onerror = reject;
+
+    reader.readAsDataURL(file);
+  });
+}
 // ============================
 // CREAR PRODUCTO (POST)
 // ============================
@@ -416,9 +471,6 @@ formData.append("category_id", form.querySelector('[name="category_id"]').value)
 formData.append("subcategory_id", form.querySelector('[name="subcategory_id"]').value);
 
 // Agregamos archivos desde createSelectedFiles
-createSelectedFiles.forEach(file => {
-  formData.append("media[]", file);
-});
 
 if (createSelectedFiles.length === 0) {
   alert("Debes subir al menos una imagen");
@@ -442,6 +494,14 @@ for (let file of createSelectedFiles) {
 if (videoCount > 1) {
   alert("Solo se permite 1 video por producto");
   return;
+}
+
+// Agregamos archivos desde createSelectedFiles
+for (let file of createSelectedFiles) {
+
+  const optimizedFile = await convertToWebP(file);
+
+  formData.append("media[]", optimizedFile);
 }
 
     try {
