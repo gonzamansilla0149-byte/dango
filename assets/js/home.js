@@ -139,7 +139,7 @@ let image = "";
 if (product.media && product.media.length > 0) {
   const firstMedia = product.media[0];
 
-if (firstMedia.type === "image") {
+if (firstMedia.url) {
   image = optimizeImage(firstMedia.url, 400);
 }
 }
