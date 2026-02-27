@@ -313,9 +313,9 @@ function createProductCard(product) {
   if (product.media && product.media.length > 0) {
     const firstMedia = product.media[0];
 
-    if (firstMedia.type === "image") {
-      image = firstMedia.url;
-    }
+if (firstMedia.type === "image") {
+  image = optimizeImage(firstMedia.url, 400);
+}
   }
 
   return `
