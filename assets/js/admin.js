@@ -390,6 +390,50 @@ async function startEditProduct(id) {
     // Guardar ID en modo edición
     form.dataset.editingId = id;
 
+    // ============================
+// MOSTRAR MEDIA EXISTENTE
+// ============================
+
+let existingContainer = document.getElementById("existing-media-container");
+
+if (!existingContainer) {
+  existingContainer = document.createElement("div");
+  existingContainer.id = "existing-media-container";
+  existingContainer.style.display = "flex";
+  existingContainer.style.gap = "10px";
+  existingContainer.style.flexWrap = "wrap";
+  existingContainer.style.marginTop = "10px";
+
+  form.appendChild(existingContainer);
+}
+
+existingContainer.innerHTML = "";
+
+if (product.media && product.media.length > 0) {
+
+  product.media.forEach(media => {
+
+    const isVideo = media.type === "video";
+
+    existingContainer.innerHTML += `
+      <div class="existing-media-item" data-id="${media.id}" style="position:relative;">
+        ${
+          isVideo
+            ? `<video src="${media.url}" width="120"></video>`
+            : `<img src="${media.url}" width="120">`
+        }
+        <button 
+          type="button"
+          onclick="deleteExistingMedia(${media.id}, this)"
+          style="position:absolute;top:0;right:0;">
+          ✖
+        </button>
+      </div>
+    `;
+  });
+
+}
+    
   } catch (error) {
     console.error("Error cargando producto:", error);
     alert("Error cargando producto");
@@ -397,7 +441,31 @@ async function startEditProduct(id) {
 
 }
 
+async function deleteExistingMedia(mediaId, btn) {
 
+  if (!confirm("¿Eliminar esta imagen?")) return;
+
+  try {
+
+    const res = await authFetch(`${API_URL}/api/product-media/${mediaId}`, {
+      method: "DELETE"
+    });
+
+    if (!res.ok) {
+      const error = await res.text();
+      alert("Error: " + error);
+      return;
+    }
+
+    // Eliminar del DOM
+    const item = btn.closest(".existing-media-item");
+    if (item) item.remove();
+
+  } catch (error) {
+    console.error("Error eliminando media:", error);
+    alert("Error eliminando imagen");
+  }
+}
 async function convertToWebP(file, maxWidth = 1600, quality = 0.8) {
   return new Promise((resolve, reject) => {
 
@@ -527,6 +595,8 @@ const res = await authFetch(
       form.reset();
       createSelectedFiles = [];
       if (createPreviewContainer) createPreviewContainer.innerHTML = "";
+      const existingContainer = document.getElementById("existing-media-container");
+      if (existingContainer) existingContainer.innerHTML = "";
       formContainer.classList.add("hidden");
 
       delete form.dataset.editingId;
