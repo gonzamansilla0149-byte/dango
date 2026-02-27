@@ -177,10 +177,14 @@ function optimizeImage(url, width = 1000) {
 
   if (!url) return "";
 
-  // si viene con https lo convertimos a path
   if (url.startsWith("http")) {
     const parsed = new URL(url);
     url = parsed.pathname;
+  }
+
+  // 🔥 Asegurar que siempre pase por /media/
+  if (!url.startsWith("/media/")) {
+    url = "/media/" + url.replace(/^\/+/, "");
   }
 
   return `/cdn-cgi/image/format=auto,quality=85,width=${width}${url}`;
