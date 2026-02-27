@@ -346,16 +346,56 @@ function renderProducts() {
   tableContainer.innerHTML = html;
 }
 
-document.addEventListener("click", function (e) {
+// ============================
+// EDITAR PRODUCTO (MISMA VISTA)
+// ============================
 
-  if (e.target.classList.contains("edit-product-btn")) {
+if (tableContainer) {
+  tableContainer.addEventListener("click", function (e) {
 
-    const id = e.target.dataset.id;
+    if (e.target.classList.contains("edit-product-btn")) {
 
-    window.location.href = `/admin/producto-editar.html?id=${id}`;
+      const id = e.target.dataset.id;
+      startEditProduct(id);
+    }
+
+  });
+}
+
+async function startEditProduct(id) {
+
+  try {
+
+    const res = await authFetch(`${API_URL}/api/products/${id}`);
+    const product = await res.json();
+
+    // Mostrar formulario
+    formContainer.classList.remove("hidden");
+
+    // Cambiar título
+    document.querySelector("#product-form-container h2").innerText = "Editar producto";
+
+    // Cargar datos en el form
+    form.querySelector('[name="name"]').value = product.name;
+    form.querySelector('[name="price"]').value = product.price;
+    form.querySelector('[name="stock"]').value = product.stock;
+    form.querySelector('[name="description"]').value = product.description;
+    form.querySelector('[name="brand_id"]').value = product.brand_id;
+    form.querySelector('[name="category_id"]').value = product.category_id;
+
+    await loadSubcategories(product.category_id);
+
+    form.querySelector('[name="subcategory_id"]').value = product.subcategory_id;
+
+    // Guardar ID en modo edición
+    form.dataset.editingId = id;
+
+  } catch (error) {
+    console.error("Error cargando producto:", error);
+    alert("Error cargando producto");
   }
 
-});
+}
 // ============================
 // CREAR PRODUCTO (POST)
 // ============================
@@ -406,10 +446,17 @@ if (videoCount > 1) {
 
     try {
 
-      const res = await authFetch(`${API_URL}/api/products`, {
-        method: "POST",
-        body: formData
-      });
+ const editingId = form.dataset.editingId;
+
+const res = await authFetch(
+  editingId
+    ? `${API_URL}/api/products/${editingId}`
+    : `${API_URL}/api/products`,
+  {
+    method: editingId ? "PUT" : "POST",
+    body: formData
+  }
+);
 
       if (!res.ok) {
         const error = await res.text();
@@ -421,6 +468,10 @@ if (videoCount > 1) {
       createSelectedFiles = [];
       if (createPreviewContainer) createPreviewContainer.innerHTML = "";
       formContainer.classList.add("hidden");
+
+      delete form.dataset.editingId;
+      document.querySelector("#product-form-container h2").innerText = "Nuevo producto";
+      
       loadProducts();
 
       alert("Producto creado correctamente");
@@ -575,9 +626,7 @@ if (searchInput) {
     }
   });
 }
-function openProductAdmin(id) {
-  window.location.href = `/admin/producto-editar.html?id=${id}`;
-}
+
 
 const adminSaveBtn = document.getElementById("admin-save-product");
 const adminBackBtn = document.getElementById("admin-back-products");
