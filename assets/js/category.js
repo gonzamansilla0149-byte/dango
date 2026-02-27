@@ -32,7 +32,7 @@ function slugify(text) {
 
 if (categoryContainer) {
 
-  const res = await fetch("https://dango.gonzamansilla0149.workers.dev/api/categories");
+  const res = await fetch("/api/categories");
   const categories = await res.json();
 
   categoryContainer.innerHTML = "";
@@ -65,7 +65,7 @@ if (!category) {
 // TÍTULO Y BREADCRUMB (DINÁMICO)
 // ===============================
 
-const resCategories = await fetch("https://dango.gonzamansilla0149.workers.dev/api/categories");
+const resCategories = await fetch("/api/categories");
 const allCategories = await resCategories.json();
 
 const currentCategoryObj = allCategories.find(
