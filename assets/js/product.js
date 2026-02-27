@@ -96,7 +96,7 @@ if (mainImage && product.media && product.media.length > 0) {
 
   const firstMedia = product.media[0];
 
-  if (firstMedia.type === "image") {
+  if (firstMedia.url) {
 
     const optimizedUrl = optimizeImage(firstMedia.url, 1000);
 
