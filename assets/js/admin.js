@@ -609,7 +609,9 @@ const res = await authFetch(
       if (createPreviewContainer) createPreviewContainer.innerHTML = "";
       const existingContainer = document.getElementById("existing-media-container");
       if (existingContainer) existingContainer.innerHTML = "";
-      formContainer.classList.add("hidden");
+      if (formContainer) {
+  formContainer.classList.add("hidden");
+}
 
       delete form.dataset.editingId;
       const resetTitle = document.querySelector("#product-form-container h2");
