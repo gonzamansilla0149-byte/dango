@@ -94,7 +94,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         const randomProduct =
           herramientas[Math.floor(Math.random() * herramientas.length)];
 
-        return randomProduct.image_url;
+        if (randomProduct.media && randomProduct.media.length > 0) {
+  const first = randomProduct.media[0];
+  if (first.type === "image") {
+    return first.url;
+  }
+}
+
+return null;
       }
 
       function changeHeroBackground() {
@@ -129,7 +136,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 function createProductCard(product) {
 
-  const image = product.image_url || "";
+let image = "";
+
+if (product.media && product.media.length > 0) {
+  const firstMedia = product.media[0];
+
+  if (firstMedia.type === "image") {
+    image = firstMedia.url;
+  }
+}
 
   return `
     <article class="product-card">
