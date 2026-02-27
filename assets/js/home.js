@@ -5,9 +5,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
 
-    const response = await fetch(
-      "https://dango.gonzamansilla0149.workers.dev/api/products"
-    );
+const response = await fetch("/api/products");
 
     const products = await response.json();
 
@@ -141,9 +139,9 @@ let image = "";
 if (product.media && product.media.length > 0) {
   const firstMedia = product.media[0];
 
-  if (firstMedia.type === "image") {
-    image = firstMedia.url;
-  }
+if (firstMedia.type === "image") {
+  image = optimizeImage(firstMedia.url, 400);
+}
 }
 
   return `
@@ -162,4 +160,16 @@ if (product.media && product.media.length > 0) {
       </a>
     </article>
   `;
+}
+
+function optimizeImage(url, width = 800) {
+
+  if (!url) return "";
+
+  if (url.startsWith("http")) {
+    const parsed = new URL(url);
+    url = parsed.pathname;
+  }
+
+  return `/cdn-cgi/image/format=auto,quality=85,width=${width}${url}`;
 }
