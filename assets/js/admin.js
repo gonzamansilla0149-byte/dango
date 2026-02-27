@@ -763,23 +763,6 @@ if (searchInput) {
 }
 
 
-
-// ============================
-// INIT
-// ============================
-if (document.getElementById("products-table")) {
-  loadProducts();
-}
-
-if (document.getElementById("product-category")) {
-  loadCategories();
-  loadBrands();
-}
-
-if (document.getElementById("orders-body")) {
-  renderOrders();
-}
-
 // ============================
 // GESTIÓN DE CATEGORÍAS
 // ============================
@@ -1007,6 +990,27 @@ async function initCategoryView() {
   renderBrandsList();
 }
 
-if (document.getElementById("categories-list")) {
-  initCategoryView();
-}
+// ============================
+// INIT GLOBAL SEGURO
+// ============================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  if (document.getElementById("products-table")) {
+    loadProducts();
+  }
+
+  if (document.getElementById("product-category")) {
+    loadCategories();
+    loadBrands();
+  }
+
+  if (document.getElementById("orders-body")) {
+    renderOrders();
+  }
+
+  if (document.getElementById("categories-list")) {
+    initCategoryView();
+  }
+
+});
