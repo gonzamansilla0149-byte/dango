@@ -415,21 +415,21 @@ if (product.media && product.media.length > 0) {
 
     const isVideo = media.type === "video";
 
-    existingContainer.innerHTML += `
-      <div class="existing-media-item" data-id="${media.id}" style="position:relative;">
-        ${
-          isVideo
-            ? `<video src="${media.url}" width="120"></video>`
-            : `<img src="${media.url}" width="120">`
-        }
-        <button 
-          type="button"
-          onclick="deleteExistingMedia(${media.id}, this)"
-          style="position:absolute;top:0;right:0;">
-          ✖
-        </button>
-      </div>
-    `;
+existingContainer.innerHTML += `
+  <div class="existing-media-item" data-id="${media.id}" style="position:relative;">
+    ${
+      isVideo
+        ? `<video src="${API_URL}${media.url}" width="120"></video>`
+        : `<img src="${API_URL}${media.url}" width="120">`
+    }
+    <button 
+      type="button"
+      onclick="deleteExistingMedia(${media.id}, this)"
+      style="position:absolute;top:0;right:0;">
+      ✖
+    </button>
+  </div>
+`;
   });
 
 }
