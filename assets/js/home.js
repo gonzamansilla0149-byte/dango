@@ -171,5 +171,10 @@ function optimizeImage(url, width = 800) {
     url = parsed.pathname;
   }
 
+  // 🔥 Forzar que siempre tenga /media/
+  if (!url.startsWith("/media/")) {
+    url = "/media/" + url.replace(/^\/+/, "");
+  }
+
   return `/cdn-cgi/image/format=auto,quality=85,width=${width}${url}`;
 }
