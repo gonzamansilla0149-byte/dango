@@ -538,53 +538,72 @@ if (request.method === "POST" && url.pathname === "/api/products") {
     }
   });
 }
-      // =========================
-      // UPDATE PRODUCT
-      // =========================
-      if (request.method === "PUT" && url.pathname.startsWith("/api/products/")) {
+  // =========================
+// UPDATE PRODUCT
+// =========================
+if (request.method === "PUT" && url.pathname.startsWith("/api/products/")) {
 
-        if (!verifyAdmin(request)) {
-          return new Response("No autorizado", {
-            status: 401,
-            headers: corsHeaders
-          });
-        }
+  if (!verifyAdmin(request)) {
+    return new Response("No autorizado", {
+      status: 401,
+      headers: corsHeaders
+    });
+  }
 
-        const id = url.pathname.split("/").pop();
-        const formData = await request.formData();
+  const id = url.pathname.split("/").pop();
+  const formData = await request.formData();
 
-const data = {
-  name: formData.get("name"),
-  brand_id: formData.get("brand_id"),
-  price: formData.get("price"),
-  description: formData.get("description"),
-  image_url: formData.get("image_url"),
-  stock: formData.get("stock")
-};
+  const name = formData.get("name");
+  const price = formData.get("price");
+  const description = formData.get("description");
+  const category_id = formData.get("category_id");
+  const subcategory_id = formData.get("subcategory_id");
+  const brand_id = formData.get("brand_id");
+  const stock = formData.get("stock");
 
-        await env.DB.prepare(`
-UPDATE products
-SET name = ?, brand_id = ?, price = ?, description = ?, image_url = ?, stock = ?
-          WHERE id = ?
-        `)
-.bind(
-  data.name,
-  data.brand_id,
-  data.price,
-  data.description,
-  data.image_url,
-  data.stock,
-  id
-)
-        .run();
+  // 1️⃣ Actualizar producto
+  await env.DB.prepare(`
+    UPDATE products
+    SET name = ?, price = ?, description = ?, 
+        category_id = ?, subcategory_id = ?, 
+        brand_id = ?, stock = ?
+    WHERE id = ?
+  `)
+  .bind(name, price, description, category_id, subcategory_id, brand_id, stock, id)
+  .run();
 
-        return new Response(JSON.stringify({ success: true }), {
-          headers: {
-            "Content-Type": "application/json",
-            ...corsHeaders
-          }
-        });
+  // 2️⃣ Procesar nuevos archivos si existen
+  const files = formData.getAll("media[]");
+
+  for (let i = 0; i < files.length; i++) {
+
+    const file = files[i];
+    const extension = file.name.split(".").pop();
+    const key = `products/${id}/${crypto.randomUUID()}.${extension}`;
+
+    await env.PRODUCTS_BUCKET.put(key, await file.arrayBuffer(), {
+      httpMetadata: {
+        contentType: file.type
       }
+    });
+
+    const url = `https://YOUR_DOMAIN_R2_PUBLIC/${key}`;
+
+    await env.DB.prepare(`
+      INSERT INTO product_media (product_id, url, type, position)
+      VALUES (?, ?, ?, ?)
+    `)
+    .bind(id, url, file.type.startsWith("video/") ? "video" : "image", i)
+    .run();
+  }
+
+  return new Response(JSON.stringify({ success: true }), {
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders
+    }
+  });
+}
 
       // =========================
       // DELETE PRODUCT
