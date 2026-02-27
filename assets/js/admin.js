@@ -594,9 +594,9 @@ for (let file of createSelectedFiles) {
  const editingId = form.dataset.editingId;
 
 const res = await authFetch(
-editingId
-  ? `${API_URL}/api/products/${editingId}`
-  : `${API_URL}/api/products`
+  editingId
+    ? `${API_URL}/api/products/${editingId}`
+    : `${API_URL}/api/products`,
   {
     method: editingId ? "PUT" : "POST",
     body: formData
