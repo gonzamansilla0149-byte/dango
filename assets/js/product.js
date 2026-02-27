@@ -26,7 +26,6 @@ const response = await fetch(
     }
 
     const product = await response.json();
-    document.querySelector(".stock-units").innerText = "999";
 
     if (!product || !product.id) {
       container.innerHTML = "<h2>Producto no encontrado</h2>";
