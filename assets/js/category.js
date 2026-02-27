@@ -85,6 +85,30 @@ if (breadcrumbElement)
 
 document.title = `Dango | ${categoryName}`;
 
+  // ===============================
+// TRACKING DE CATEGORÍA
+// ===============================
+
+function trackView(type, value) {
+  if (!value) return;
+
+  const history = JSON.parse(localStorage.getItem("userHistory")) || [];
+
+  history.push({
+    type,
+    value,
+    timestamp: Date.now()
+  });
+
+  // Mantener historial liviano
+  const trimmed = history.slice(-100);
+
+  localStorage.setItem("userHistory", JSON.stringify(trimmed));
+}
+
+// Registrar categoría visitada
+trackView("category", categoryName);
+
   try {
 
     const response = await fetch("/api/products");
