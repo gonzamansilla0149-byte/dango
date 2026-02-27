@@ -302,7 +302,15 @@ if (selectedBrand) {
 
 function createProductCard(product) {
 
-  const image = product.image_url || "";
+  let image = "";
+
+  if (product.media && product.media.length > 0) {
+    const firstMedia = product.media[0];
+
+    if (firstMedia.type === "image") {
+      image = firstMedia.url;
+    }
+  }
 
   return `
     <article class="product-card">
