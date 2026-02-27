@@ -3,16 +3,7 @@
 // ============================
 
 const API_URL = "";
-// ============================
-// PROTECCIÓN ADMIN
-// ============================
 
-const token = localStorage.getItem("token");
-const role = localStorage.getItem("role");
-
-if (!token || role !== "admin") {
-  window.location.href = "/admin/admin-login.html";
-}
 
 // ============================
 // FETCH AUTENTICADO
@@ -1012,6 +1003,13 @@ async function initCategoryView() {
 // ============================
 
 document.addEventListener("DOMContentLoaded", () => {
+
+  const token = localStorage.getItem("token");
+const role = localStorage.getItem("role");
+
+if (!token || role !== "admin") {
+  window.location.href = "/admin/admin-login.html";
+}
 
   if (document.getElementById("products-table")) {
     loadProducts();
