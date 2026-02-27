@@ -97,7 +97,7 @@ if (mainImage && product.media && product.media.length > 0) {
 
   if (firstMedia.url) {
 
-    const imageUrl = optimizeImage(firstMedia.url, 1000);
+   const imageUrl = optimizeImage(firstMedia.url, 800);
 
     const testImg = new Image();
     testImg.src = imageUrl;
