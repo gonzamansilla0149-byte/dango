@@ -1473,4 +1473,50 @@ a:hover {
   text-decoration: underline;
 }
 
+/* ===============================
+   HOME DYNAMIC BLOCKS
+================================ */
+
+.home-dynamic-blocks {
+  padding: 60px 80px;
+}
+
+.dynamic-block {
+  margin-bottom: 60px;
+}
+
+.dynamic-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.dynamic-header h2 {
+  font-size: 22px;
+}
+
+.dynamic-products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+  .home-dynamic-blocks {
+    padding: 40px 20px;
+  }
+
+  .dynamic-products {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+  }
+
+  .dynamic-products .product-card {
+    min-width: 160px;
+  }
+}
 
