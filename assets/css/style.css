@@ -476,16 +476,18 @@ body {
     font-size: 15px;
   }
 
-  .home-highlights {
-  padding: 30px 20px;
+.home-highlights {
+  padding: 40px 20px;
 }
 
-.highlights-container {
+.home-highlights .highlights-container {
+  display: flex;
   gap: 14px;
+  overflow-x: auto;
 }
 
-.highlight-card {
-  min-width: 180px;
+.home-highlights .highlight-card {
+  min-width: 200px;
 }
 }
 /* ===============================
