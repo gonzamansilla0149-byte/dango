@@ -160,7 +160,7 @@ if (logoutBtn) {
 // MOSTRAR / OCULTAR FORM PRODUCTO
 // ============================
 
-if (toggleBtn) {
+if (toggleBtn && formContainer) {
   toggleBtn.addEventListener("click", () => {
     formContainer.classList.toggle("hidden");
   });
@@ -374,11 +374,18 @@ async function startEditProduct(id) {
     const res = await authFetch(`${API_URL}/api/products/${id}`);
     const product = await res.json();
 
+    if (!form || !formContainer) {
+  console.error("Formulario no existe en esta vista");
+  return;
+}
     // Mostrar formulario
     formContainer.classList.remove("hidden");
 
     // Cambiar título
-    document.querySelector("#product-form-container h2").innerText = "Editar producto";
+   const title = document.querySelector("#product-form-container h2");
+if (title) {
+  title.innerText = "Editar producto";
+}
 
     // Cargar datos en el form
     form.querySelector('[name="name"]').value = product.name;
@@ -605,7 +612,10 @@ const res = await authFetch(
       formContainer.classList.add("hidden");
 
       delete form.dataset.editingId;
-      document.querySelector("#product-form-container h2").innerText = "Nuevo producto";
+      const resetTitle = document.querySelector("#product-form-container h2");
+if (resetTitle) {
+  resetTitle.innerText = "Nuevo producto";
+}
       
       loadProducts();
 
