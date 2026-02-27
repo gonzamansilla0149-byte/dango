@@ -236,7 +236,7 @@ body {
 
 /* ================= HOME ================= */
 
-.home section {
+.home > section:not(.hero):not(.home-highlights) {
   padding: 70px 80px;
 }
 
