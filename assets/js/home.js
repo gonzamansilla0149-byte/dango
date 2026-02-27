@@ -130,7 +130,10 @@ function changeHeroBackground() {
   currentHeroIndex =
     (currentHeroIndex + 1) % heroImages.length;
 }
+changeHeroBackground();
+setInterval(changeHeroBackground, 5000);
 
+} // 👈 ESTE CIERRA el if (heroSection)
 
 // ===============================
 // CREAR CARD
