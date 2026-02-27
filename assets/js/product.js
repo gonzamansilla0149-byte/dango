@@ -17,9 +17,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     // TRAER PRODUCTO POR ID
     // ===============================
 
-    const response = await fetch(
-      `https://dango.gonzamansilla0149.workers.dev/api/products/${id}`
-    );
+const response = await fetch(
+  `/api/products/${id}`
+);
 
     if (!response.ok) {
       throw new Error("Error al obtener producto");
