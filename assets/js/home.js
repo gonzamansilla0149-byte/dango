@@ -99,13 +99,10 @@ function renderProducts(container, list) {
       // 🔥 Construir lista de imágenes del hero
 const heroImages = herramientas
   .map(p => {
-    if (p.media && p.media[0] && p.media[0].type === "image") {
-      return optimizeImage(p.media[0].url, 1600);
-    }
-    return null;
+    const mediaItem = (p.media || []).find(m => m.url);
+    return mediaItem ? optimizeImage(mediaItem.url) : null;
   })
   .filter(Boolean);
-
 // 🔥 Precargar imágenes
 heroImages.forEach(src => {
   const img = new Image();
@@ -141,14 +138,14 @@ setInterval(changeHeroBackground, 5000);
 
 function createProductCard(product) {
 
-let image = "";
+let image = "/assets/img/no-image.png";
 
 if (product.media && product.media.length > 0) {
-  const firstMedia = product.media[0];
+  const firstMedia = product.media.find(m => m.url);
 
-if (firstMedia.url) {
-  image = optimizeImage(firstMedia.url, 400);
-}
+  if (firstMedia) {
+    image = optimizeImage(firstMedia.url);
+  }
 }
 
   return `
@@ -170,9 +167,12 @@ if (firstMedia.url) {
 }
 
 function optimizeImage(url) {
-  if (!url) return "";
-
-  if (url.startsWith("/media/")) return url;
-
-  return `/media/${url.replace(/^\/+/, "")}`;
+  if (!url) return "/assets/img/no-image.png";
+  return url;
 }
+
+  } catch (error) {
+    console.error("Error cargando home:", error);
+  }
+
+});
