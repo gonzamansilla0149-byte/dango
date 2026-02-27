@@ -326,10 +326,10 @@ function renderProducts() {
   products.forEach((p) => {
     html += `
       <tr>
-        <td>
-<a href="#" onclick="openProductAdmin(${p.id})">
+<td>
+  <button type="button" class="edit-product-btn" data-id="${p.id}">
     ${p.name}
-  </a>
+  </button>
 </td>
         <td>$${Number(p.price).toLocaleString()}</td>
         <td>${p.stock}</td>
@@ -346,7 +346,16 @@ function renderProducts() {
   tableContainer.innerHTML = html;
 }
 
+document.addEventListener("click", function (e) {
 
+  if (e.target.classList.contains("edit-product-btn")) {
+
+    const id = e.target.dataset.id;
+
+    window.location.href = `/admin/producto-editar.html?id=${id}`;
+  }
+
+});
 // ============================
 // CREAR PRODUCTO (POST)
 // ============================
