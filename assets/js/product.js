@@ -94,9 +94,9 @@ if (stockUnits) {
 
 const thumbnailContainer = document.querySelector(".thumbnail-list");
 
-// 🔥 Limpiar siempre
+// limpiar
 if (mainImage) {
-  mainImage.style.backgroundImage = "";
+  mainImage.innerHTML = "";
 }
 
 if (thumbnailContainer) {
@@ -105,11 +105,16 @@ if (thumbnailContainer) {
 
 if (mainImage && product.media && product.media.length > 0) {
 
-  const firstUrl = optimizeImage(product.media[0].url);
-  mainImage.innerHTML = `<img src="${firstUrl}" style="width:100%;height:100%;object-fit:contain;">`;
+  const firstUrl = product.media[0].url;
+
+  mainImage.innerHTML = `
+    <img src="${firstUrl}" 
+         style="width:100%;height:100%;object-fit:contain;">
+  `;
+
   product.media.forEach((mediaItem) => {
 
-    const thumbUrl = optimizeImage(mediaItem.url);
+    const thumbUrl = mediaItem.url;
 
     const thumb = document.createElement("div");
     thumb.classList.add("thumb");
@@ -119,19 +124,22 @@ if (mainImage && product.media && product.media.length > 0) {
     thumb.style.backgroundPosition = "center";
     thumb.style.backgroundRepeat = "no-repeat";
 
-  thumb.addEventListener("click", () => {
-  mainImage.innerHTML = `<img src="${thumbUrl}" style="width:100%;height:100%;object-fit:contain;">`;
-});
+    thumb.addEventListener("click", () => {
+      mainImage.innerHTML = `
+        <img src="${thumbUrl}" 
+             style="width:100%;height:100%;object-fit:contain;">
+      `;
     });
 
-    thumbnailContainer.appendChild(thumb);
+    thumbnailContainer.appendChild(thumb); // 👈 ahora está bien ubicado
   });
 
 } else {
 
-  // 🔥 Fallback si no hay imágenes
-  mainImage.style.backgroundImage = `url("/assets/img/no-image.png")`;
-
+  mainImage.innerHTML = `
+    <img src="/assets/img/no-image.png"
+         style="width:100%;height:100%;object-fit:contain;">
+  `;
 }
     // ===============================
     // AGREGAR AL CARRITO
@@ -199,12 +207,3 @@ if (mainImage && product.media && product.media.length > 0) {
 
 });
 
-function optimizeImage(url) {
-  if (!url) return "";
-
-  // Si ya viene con /media lo dejamos igual
-  if (url.startsWith("/media/")) return url;
-
-  // Si no, aseguramos que tenga el prefijo correcto
-  return `/media/${url.replace(/^\/+/, "")}`;
-}
