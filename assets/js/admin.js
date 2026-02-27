@@ -2,7 +2,7 @@
 // CONFIG API
 // ============================
 
-const API_URL = "https://dango.gonzamansilla0149.workers.dev";
+const API_URL = "";
 // ============================
 // PROTECCIÓN ADMIN
 // ============================
