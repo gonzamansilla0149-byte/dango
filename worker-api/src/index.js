@@ -520,7 +520,7 @@ if (request.method === "POST" && url.pathname === "/api/products") {
       }
     });
 
-    const url = `https://YOUR_DOMAIN_R2_PUBLIC/${key}`;
+   const url = `https://pub-f6ef9e57ec2541ad909a886f1407ea8a.r2.dev/${key}`;
 
     // Guardar en DB
     await env.DB.prepare(`
