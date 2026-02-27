@@ -187,3 +187,10 @@ function optimizeImage(url, width = 800) {
 
   return `/cdn-cgi/image/format=auto,quality=85,width=${width}/${url}`;
 }
+
+
+  } catch (err) {
+    console.error("Error cargando home:", err);
+  }
+
+});
