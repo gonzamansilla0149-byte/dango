@@ -87,7 +87,7 @@ document.title = `Dango | ${categoryName}`;
 
   try {
 
-    const response = await fetch("https://dango.gonzamansilla0149.workers.dev/api/products");
+    const response = await fetch("/api/products");
     const allProducts = await response.json();
     
 const filteredProducts = allProducts.filter(p =>
