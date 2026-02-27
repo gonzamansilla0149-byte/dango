@@ -94,12 +94,6 @@ if (stockUnits) {
 
 if (mainImage && product.media && product.media.length > 0) {
 
-  const firstMedia = product.media[0];
-
-if (firstMedia.type === "image") {
-
-}
-
     // ===============================
     // AGREGAR AL CARRITO
     // ===============================
@@ -167,5 +161,14 @@ if (firstMedia.type === "image") {
 });
 
 function optimizeImage(url, width = 1000) {
-  return `/cdn-cgi/image/format=auto,quality=85,width=${width}/${url}`;
+
+  if (!url) return "";
+
+  // si viene con https lo convertimos a path
+  if (url.startsWith("http")) {
+    const parsed = new URL(url);
+    url = parsed.pathname;
+  }
+
+  return `/cdn-cgi/image/format=auto,quality=85,width=${width}${url}`;
 }
