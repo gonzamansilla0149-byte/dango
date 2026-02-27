@@ -108,11 +108,13 @@ if (mainImage && validMedia.length > 0) {
 
   const firstUrl = validMedia[0].url;
 
-  mainImage.innerHTML = `
-    <img src="${firstUrl}" 
-         style="width:100%;height:100%;object-fit:contain;">
-  `;
+const img = document.createElement("img");
+img.style.width = "100%";
+img.style.height = "100%";
+img.style.objectFit = "contain";
+img.src = firstUrl;
 
+mainImage.appendChild(img);
   validMedia.forEach((mediaItem) => {
 
     const thumbUrl = mediaItem.url;
@@ -125,12 +127,9 @@ if (mainImage && validMedia.length > 0) {
     thumb.style.backgroundPosition = "center";
     thumb.style.backgroundRepeat = "no-repeat";
 
-    thumb.addEventListener("click", () => {
-      mainImage.innerHTML = `
-        <img src="${thumbUrl}" 
-             style="width:100%;height:100%;object-fit:contain;">
-      `;
-    });
+thumb.addEventListener("click", () => {
+  img.src = thumbUrl;
+});
 
     thumbnailContainer.appendChild(thumb);
   });
