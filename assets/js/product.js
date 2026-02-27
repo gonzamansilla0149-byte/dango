@@ -173,7 +173,7 @@ if (mainImage && product.media && product.media.length > 0) {
 
 });
 
-function optimizeImage(url, width = 1000) {
+function optimizeImage(url, width = 800) {
 
   if (!url) return "";
 
@@ -182,10 +182,12 @@ function optimizeImage(url, width = 1000) {
     url = parsed.pathname;
   }
 
-  // 🔥 Asegurar que siempre pase por /media/
-  if (!url.startsWith("/media/")) {
-    url = "/media/" + url.replace(/^\/+/, "");
+  // Normalizar para evitar // o media duplicado
+  url = url.replace(/^\/+/, "");
+
+  if (!url.startsWith("media/")) {
+    url = "media/" + url;
   }
 
-  return `/cdn-cgi/image/format=auto,quality=85,width=${width}${url}`;
+  return `/cdn-cgi/image/format=auto,quality=85,width=${width}/${url}`;
 }
