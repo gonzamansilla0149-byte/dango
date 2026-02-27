@@ -97,12 +97,26 @@ if (mainImage && product.media && product.media.length > 0) {
 
   if (firstMedia.url) {
 
-    const image = optimizeImage(firstMedia.url, 1000);
+    const imageUrl = optimizeImage(firstMedia.url, 1000);
 
-    mainImage.style.backgroundImage = `url("${image}")`;
-    mainImage.style.backgroundSize = "cover";
-    mainImage.style.backgroundPosition = "center";
-    mainImage.style.backgroundRepeat = "no-repeat";
+    const testImg = new Image();
+    testImg.src = imageUrl;
+
+    testImg.onload = () => {
+      mainImage.style.backgroundImage = `url("${imageUrl}")`;
+      mainImage.style.backgroundSize = "cover";
+      mainImage.style.backgroundPosition = "center";
+      mainImage.style.backgroundRepeat = "no-repeat";
+    };
+
+    testImg.onerror = () => {
+      console.error("Imagen no encontrada:", imageUrl);
+
+      mainImage.style.backgroundImage = "url('/images/placeholder.jpg')";
+      mainImage.style.backgroundSize = "contain";
+      mainImage.style.backgroundRepeat = "no-repeat";
+      mainImage.style.backgroundPosition = "center";
+    };
   }
 }
     // ===============================
