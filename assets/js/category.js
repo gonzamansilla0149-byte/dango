@@ -300,7 +300,16 @@ if (selectedBrand) {
 // ===============================
 
 function optimizeImage(url, width = 800) {
-  return `/cdn-cgi/image/format=auto,quality=85,width=${width}/${url}`;
+
+  if (!url) return "";
+
+  // si viene con https:// lo convertimos a path relativo
+  if (url.startsWith("http")) {
+    const parsed = new URL(url);
+    url = parsed.pathname;
+  }
+
+  return `/cdn-cgi/image/format=auto,quality=85,width=${width}${url}`;
 }
 // ===============================
 // CREAR CARD
