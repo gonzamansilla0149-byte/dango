@@ -92,36 +92,36 @@ if (stockUnits) {
 // IMÁGENES MULTIPLES
 // ===============================
 
-const thumbnailContainer = document.querySelector(".thumbnail-container");
+const thumbnailContainer = document.querySelector(".thumbnail-list");
 
 if (mainImage && product.media && product.media.length > 0) {
 
-  // Mostrar primera imagen
+  // Imagen principal
   const firstUrl = optimizeImage(product.media[0].url, 800);
   mainImage.style.backgroundImage = `url("${firstUrl}")`;
 
   // Limpiar miniaturas
-  if (thumbnailContainer) {
-    thumbnailContainer.innerHTML = "";
-  }
+  thumbnailContainer.innerHTML = "";
 
-  // Crear miniaturas
-  product.media.forEach((mediaItem, index) => {
+  // Crear miniaturas reales
+  product.media.forEach((mediaItem) => {
 
     const thumbUrl = optimizeImage(mediaItem.url, 150);
 
     const thumb = document.createElement("div");
-    thumb.classList.add("thumbnail");
+    thumb.classList.add("thumb");
+
     thumb.style.backgroundImage = `url("${thumbUrl}")`;
     thumb.style.backgroundSize = "cover";
     thumb.style.backgroundPosition = "center";
+    thumb.style.backgroundRepeat = "no-repeat";
 
     thumb.addEventListener("click", () => {
       const newMainUrl = optimizeImage(mediaItem.url, 800);
       mainImage.style.backgroundImage = `url("${newMainUrl}")`;
     });
 
-    thumbnailContainer?.appendChild(thumb);
+    thumbnailContainer.appendChild(thumb);
   });
 }
     // ===============================
