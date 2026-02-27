@@ -91,23 +91,15 @@ if (stockUnits) {
 // ===============================
 // IMAGEN
 // ===============================
-
 if (mainImage && product.media && product.media.length > 0) {
 
   const firstMedia = product.media[0];
 
   if (firstMedia.url) {
 
-    let imageUrl = firstMedia.url;
+    const image = optimizeImage(firstMedia.url, 1000);
 
-    // Forzar que la URL sea absoluta
-    if (!imageUrl.startsWith("/")) {
-      imageUrl = "/" + imageUrl;
-    }
-
-    console.log("Imagen final:", imageUrl);
-
-    mainImage.style.backgroundImage = `url("${imageUrl}")`;
+    mainImage.style.backgroundImage = `url("${image}")`;
     mainImage.style.backgroundSize = "cover";
     mainImage.style.backgroundPosition = "center";
     mainImage.style.backgroundRepeat = "no-repeat";
@@ -178,3 +170,21 @@ if (mainImage && product.media && product.media.length > 0) {
   }
 
 });
+
+function optimizeImage(url, width = 1000) {
+
+  if (!url) return "";
+
+  if (url.startsWith("http")) {
+    const parsed = new URL(url);
+    url = parsed.pathname;
+  }
+
+  url = url.replace(/^\/+/, "");
+
+  if (!url.startsWith("media/")) {
+    url = "media/" + url;
+  }
+
+  return `/cdn-cgi/image/format=auto,quality=85,width=${width}/${url}`;
+}
