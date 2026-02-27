@@ -267,39 +267,39 @@ body {
 }
 
 .home-highlights {
-  background: #111;
-  padding: 40px 80px;
+  background: linear-gradient(to bottom, #0f0f0f, #151515);
+  padding: 60px 80px;
 }
 
-.highlights-container {
-  display: flex;
+.home-highlights .highlights-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  overflow-x: auto;
 }
 
-.highlight-card {
-  min-width: 220px;
-  background: #1a1a1a;
-  padding: 20px;
-  border-radius: 14px;
+.home-highlights .highlight-card {
+  background: #1c1c1c;
+  padding: 28px;
+  border-radius: 16px;
   color: white;
-  transition: 0.25s;
-  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #222;
 }
 
-.highlight-card h4 {
-  margin-bottom: 6px;
-  font-size: 16px;
+.home-highlights .highlight-card h4 {
+  font-size: 18px;
+  margin-bottom: 8px;
 }
 
-.highlight-card p {
-  font-size: 13px;
+.home-highlights .highlight-card p {
+  font-size: 14px;
   opacity: 0.7;
 }
 
-.highlight-card:hover {
-  background: #222;
-  transform: translateY(-4px);
+.home-highlights .highlight-card:hover {
+  transform: translateY(-6px);
+  background: #252525;
+  border-color: #333;
 }
 /* CATEGORÍAS HOME */
 .home-categories h2 {
