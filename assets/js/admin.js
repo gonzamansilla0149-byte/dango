@@ -1007,8 +1007,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem("token");
 const role = localStorage.getItem("role");
 
-if (!token || role !== "admin") {
-  window.location.href = "/admin/admin-login.html";
+const isLoginPage = window.location.pathname.includes("admin-login");
+
+if (!isLoginPage) {
+  const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
+
+  if (!token || role !== "admin") {
+    window.location.href = "/admin/admin-login.html";
+    return;
+  }
 }
 
   if (document.getElementById("products-table")) {
