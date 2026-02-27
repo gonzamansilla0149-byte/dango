@@ -102,16 +102,18 @@ if (thumbnailContainer) {
   thumbnailContainer.innerHTML = "";
 }
 
-if (mainImage && product.media && product.media.length > 0) {
+const validMedia = (product.media || []).filter(m => m.url);
 
-  const firstUrl = product.media[0].url;
+if (mainImage && validMedia.length > 0) {
+
+  const firstUrl = validMedia[0].url;
 
   mainImage.innerHTML = `
     <img src="${firstUrl}" 
          style="width:100%;height:100%;object-fit:contain;">
   `;
 
-  product.media.forEach((mediaItem) => {
+  validMedia.forEach((mediaItem) => {
 
     const thumbUrl = mediaItem.url;
 
@@ -130,7 +132,7 @@ if (mainImage && product.media && product.media.length > 0) {
       `;
     });
 
-    thumbnailContainer.appendChild(thumb); // 👈 ahora está bien ubicado
+    thumbnailContainer.appendChild(thumb);
   });
 
 } else {
