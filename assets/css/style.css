@@ -467,6 +467,10 @@ body {
   height: 520px;
   border-radius: 12px;
   border: 1px solid #eee;
+
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .thumbnail-list {
