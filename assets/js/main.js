@@ -12,12 +12,9 @@ function initCategoryFromURL() {
   const title = document.querySelector(".category-header h1");
   const breadcrumb = document.querySelector(".breadcrumb");
 
-  const name = categoryNames[category] || "Productos";
-
-  if (title) title.textContent = name;
-  if (breadcrumb) breadcrumb.textContent = `Inicio / ${name}`;
+  if (title) title.textContent = category;
+  if (breadcrumb) breadcrumb.textContent = `Inicio / ${category}`;
 }
-
 /* -------- DROPDOWN CUENTA -------- */
 function initAccountDropdown() {
 
