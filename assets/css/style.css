@@ -1,4 +1,7 @@
-
+html {
+  height: 100%;
+  overscroll-behavior: none;
+}
 
 :root {
   --header-height: 110px;
@@ -14,6 +17,10 @@ body {
   font-family: Arial, sans-serif;
   background: #fff;
   color: #111;
+  min-height: 100%;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+  -webkit-overflow-scrolling: auto;
 }
 
 /* HEADER */
