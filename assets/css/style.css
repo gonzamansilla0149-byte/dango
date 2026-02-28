@@ -1,41 +1,25 @@
-html {
-  height: 100%;
-  overscroll-behavior-y: contain;
-}
-
-html, body {
-  height: 100%;
-}
 
 
 :root {
   --header-height: 110px;
 }
 
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  padding-top: var(--header-height);
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
+  padding: 0;
 }
 
-main {
-  flex: 1;
+body {
+  font-family: Arial, sans-serif;
+  background: #fff;
+  color: #111;
 }
 
+/* HEADER */
 .site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 3000;
-  will-change: transform;
-  transform: translateZ(0);
-  background: #0f0f0f;      /* 👈 agregado */
-  border-bottom: 1px solid #1c1c1c;  /* 👈 agregado */
+  background: #0f0f0f;
+  border-bottom: 1px solid #1c1c1c;
 }
 .header-top {
   display: flex;
@@ -242,6 +226,7 @@ main {
   background: #111;
   color: white;
   padding: 40px 24px;
+  margin-top: 40px;
 }
 
 .footer-columns {
@@ -446,21 +431,13 @@ main {
 /* ===============================
    MOBILE (hasta 768px)
 ================================ */
-/* ===============================
-   MOBILE (hasta 768px)
-================================ */
 @media (max-width: 768px) {
-
-  /* Ajustamos altura real del header en mobile */
-  :root {
-    --header-height: 150px; /* AJUSTA al alto real exacto */
-  }
 
   body {
     overflow-x: hidden;
   }
-
-  .header-top {
+  
+ .header-top {
     flex-direction: column;
     align-items: stretch;
   }
@@ -495,7 +472,7 @@ main {
     gap: 20px;
   }
 
-  .hero {
+    .hero {
     padding: 0 20px;
     min-height: 380px;
   }
@@ -523,6 +500,7 @@ main {
     min-width: 130px;
   }
 
+}
 }
 /* ===============================
    PRODUCT PAGE PRO LAYOUT
@@ -1256,15 +1234,10 @@ main {
 }
 
 .site-header {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  width: 100%;
   z-index: 3000;
-  will-change: transform;
-  transform: translateZ(0);
-  background: #0f0f0f;      /* 👈 agregado */
-  border-bottom: 1px solid #1c1c1c;  /* 👈 agregado */
+  width: 100%;
 }
 
 .account-wrapper {
