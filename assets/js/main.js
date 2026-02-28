@@ -127,7 +127,7 @@ function initGlobalSearch() {
         const res = await fetch(`/api/products?search=${encodeURIComponent(query)}`);
         const products = await res.json();
 
-        renderSearchResults(query, products);
+        renderResults(query, products);
 
       } catch (err) {
         console.error(err);
@@ -151,50 +151,46 @@ function initGlobalSearch() {
 
   });
 
-  function renderSearchResults(query, products) {
+  function renderResults(query, products) {
 
     resultsBox.innerHTML = "";
 
     if (!products.length) {
       resultsBox.innerHTML =
-        `<div class="search-item">No se encontraron resultados</div>`;
+        `<div class="search-empty">No se encontraron resultados</div>`;
       resultsBox.classList.add("active");
       return;
     }
 
-    // Mostrar solo 5 productos
-    products.slice(0, 5).forEach(p => {
+    resultsBox.innerHTML +=
+      `<div class="search-section-title">Productos</div>`;
+
+    products.slice(0, 6).forEach(p => {
 
       resultsBox.innerHTML += `
         <div class="search-item"
              data-type="product"
              data-id="${p.id}">
-          ${p.name}
+          <span>${p.name}</span>
+          <small>$${Number(p.price).toLocaleString()}</small>
         </div>
       `;
 
     });
 
     resultsBox.classList.add("active");
-
   }
 
-  // Click en resultado
   resultsBox.addEventListener("click", (e) => {
 
     const item = e.target.closest(".search-item");
     if (!item) return;
 
-    const type = item.dataset.type;
-
-    if (type === "product") {
-      window.location.href =
-        `producto.html?id=${item.dataset.id}`;
-    }
+    window.location.href =
+      `producto.html?id=${item.dataset.id}`;
 
   });
 
-  // Cerrar si hace click afuera
   document.addEventListener("click", (e) => {
     if (!e.target.closest(".search-bar")) {
       resultsBox.classList.remove("active");
