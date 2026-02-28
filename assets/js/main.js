@@ -103,7 +103,39 @@ function initAutoSliders() {
 function initGlobalSearch() {
 
   const input = document.getElementById("global-search");
-  if (!input) return;
+  const resultsBox = document.getElementById("search-results");
+
+  if (!input || !resultsBox) return;
+
+  let debounceTimer;
+
+  input.addEventListener("input", () => {
+
+    clearTimeout(debounceTimer);
+
+    const query = input.value.trim();
+
+    if (query.length < 2) {
+      resultsBox.classList.remove("active");
+      return;
+    }
+
+    debounceTimer = setTimeout(async () => {
+
+      try {
+
+        const res = await fetch(`/api/products?search=${encodeURIComponent(query)}`);
+        const products = await res.json();
+
+        renderSearchResults(query, products);
+
+      } catch (err) {
+        console.error(err);
+      }
+
+    }, 300);
+
+  });
 
   input.addEventListener("keydown", (e) => {
 
@@ -114,8 +146,59 @@ function initGlobalSearch() {
 
       window.location.href =
         `categoria.html?search=${encodeURIComponent(value)}`;
+
     }
 
+  });
+
+  function renderSearchResults(query, products) {
+
+    resultsBox.innerHTML = "";
+
+    if (!products.length) {
+      resultsBox.innerHTML =
+        `<div class="search-item">No se encontraron resultados</div>`;
+      resultsBox.classList.add("active");
+      return;
+    }
+
+    // Mostrar solo 5 productos
+    products.slice(0, 5).forEach(p => {
+
+      resultsBox.innerHTML += `
+        <div class="search-item"
+             data-type="product"
+             data-id="${p.id}">
+          ${p.name}
+        </div>
+      `;
+
+    });
+
+    resultsBox.classList.add("active");
+
+  }
+
+  // Click en resultado
+  resultsBox.addEventListener("click", (e) => {
+
+    const item = e.target.closest(".search-item");
+    if (!item) return;
+
+    const type = item.dataset.type;
+
+    if (type === "product") {
+      window.location.href =
+        `producto.html?id=${item.dataset.id}`;
+    }
+
+  });
+
+  // Cerrar si hace click afuera
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".search-bar")) {
+      resultsBox.classList.remove("active");
+    }
   });
 
 }
