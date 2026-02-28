@@ -32,6 +32,10 @@ main {
   left: 0;
   width: 100%;
   z-index: 3000;
+  will-change: transform;
+  transform: translateZ(0);
+  background: #0f0f0f;      /* 👈 agregado */
+  border-bottom: 1px solid #1c1c1c;  /* 👈 agregado */
 }
 .header-top {
   display: flex;
@@ -1259,6 +1263,8 @@ main {
   z-index: 3000;
   will-change: transform;
   transform: translateZ(0);
+  background: #0f0f0f;      /* 👈 agregado */
+  border-bottom: 1px solid #1c1c1c;  /* 👈 agregado */
 }
 
 .account-wrapper {
