@@ -7,14 +7,6 @@ function initCategoryFromURL() {
   const params = new URLSearchParams(window.location.search);
   const category = params.get("cat");
 
-  const categoryNames = {
-    celulares: "Celulares",
-    computacion: "Computación",
-    herramientas: "Herramientas",
-    accesorios: "Accesorios",
-    ofertas: "Ofertas"
-  };
-
   if (!category) return;
 
   const title = document.querySelector(".category-header h1");
@@ -121,4 +113,51 @@ document.addEventListener("DOMContentLoaded", () => {
   initAccountDropdown();
   initMobileMenu();
   initAutoSliders();
+  initDynamicCategories(); // 🔥 AGREGAR ESTA LÍNEA
 });
+
+/* -------- MENÚ DINÁMICO DESDE API -------- */
+async function initDynamicCategories() {
+
+  const navContainer = document.getElementById("nav-links");
+  const mobileContainer = document.getElementById("categories-dropdown");
+
+  if (!navContainer || !mobileContainer) return;
+
+  try {
+    const res = await fetch("/api/categories");
+    const categories = await res.json();
+
+    function slugify(text) {
+      return (text || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, "-");
+    }
+
+    // Limpiar
+    navContainer.innerHTML = "";
+    mobileContainer.innerHTML = "";
+
+    // Inicio fijo
+    navContainer.innerHTML += `<a href="index.html">Inicio</a>`;
+    mobileContainer.innerHTML += `<a href="index.html">Inicio</a>`;
+
+    categories.forEach(cat => {
+      const slug = slugify(cat.name);
+
+      const link = `
+        <a href="categoria.html?cat=${slug}">
+          ${cat.name}
+        </a>
+      `;
+
+      navContainer.innerHTML += link;
+      mobileContainer.innerHTML += link;
+    });
+
+  } catch (err) {
+    console.error("Error cargando categorías dinámicas:", err);
+  }
+}
