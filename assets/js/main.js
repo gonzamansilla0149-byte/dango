@@ -99,7 +99,26 @@ function initAutoSliders() {
   });
 }
 
+/* -------- BUSCADOR GLOBAL -------- */
+function initGlobalSearch() {
 
+  const input = document.getElementById("global-search");
+  if (!input) return;
+
+  input.addEventListener("keydown", (e) => {
+
+    if (e.key === "Enter") {
+
+      const value = input.value.trim();
+      if (!value) return;
+
+      window.location.href =
+        `categoria.html?search=${encodeURIComponent(value)}`;
+    }
+
+  });
+
+}
 
 /* ===============================
    INICIALIZACIÓN GENERAL
@@ -110,7 +129,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initAccountDropdown();
   initMobileMenu();
   initAutoSliders();
-  initDynamicCategories(); // 🔥 AGREGAR ESTA LÍNEA
+  initDynamicCategories();
+  initGlobalSearch(); // 🔥 ESTA LÍNEA
 });
 
 /* -------- MENÚ DINÁMICO DESDE API -------- */
