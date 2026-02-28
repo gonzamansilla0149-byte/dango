@@ -119,7 +119,7 @@ async function initDynamicCategories() {
   const navContainer = document.getElementById("nav-links");
   const mobileContainer = document.getElementById("categories-dropdown");
 
-  if (!navContainer || !mobileContainer) return;
+  if (!navContainer) return;
 
   try {
     const res = await fetch("/api/categories");
@@ -133,13 +133,13 @@ async function initDynamicCategories() {
         .replace(/\s+/g, "-");
     }
 
-    // Limpiar
     navContainer.innerHTML = "";
-    mobileContainer.innerHTML = "";
-
-    // Inicio fijo
     navContainer.innerHTML += `<a href="index.html">Inicio</a>`;
-    mobileContainer.innerHTML += `<a href="index.html">Inicio</a>`;
+
+    if (mobileContainer) {
+      mobileContainer.innerHTML = "";
+      mobileContainer.innerHTML += `<a href="index.html">Inicio</a>`;
+    }
 
     categories.forEach(cat => {
       const slug = slugify(cat.name);
@@ -151,7 +151,10 @@ async function initDynamicCategories() {
       `;
 
       navContainer.innerHTML += link;
-      mobileContainer.innerHTML += link;
+
+      if (mobileContainer) {
+        mobileContainer.innerHTML += link;
+      }
     });
 
   } catch (err) {
