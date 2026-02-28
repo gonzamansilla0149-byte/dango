@@ -1,7 +1,8 @@
 html {
   height: 100%;
-  overscroll-behavior: none;
+  overscroll-behavior-y: none;
 }
+
 
 :root {
   --header-height: 110px;
@@ -20,7 +21,7 @@ body {
   min-height: 100%;
   overflow-x: hidden;
   overscroll-behavior-y: none;
-  -webkit-overflow-scrolling: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* HEADER */
