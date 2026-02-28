@@ -1,6 +1,11 @@
+html, body {
+  background: #fff;
+}
+
 html {
   height: 100%;
-  overscroll-behavior-y: none;
+  min-height: 100dvh;
+  overscroll-behavior-y: contain;
 }
 
 
@@ -15,13 +20,20 @@ html {
 }
 
 body {
+  padding-top: var(--header-height);
+  display: flex;
+  flex-direction: column;
   font-family: Arial, sans-serif;
   background: #fff;
   color: #111;
-  min-height: 100%;
+  min-height: 100dvh;
   overflow-x: hidden;
-  overscroll-behavior-y: none;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+main {
+  flex: 1;
 }
 
 /* HEADER */
@@ -234,7 +246,6 @@ body {
   background: #111;
   color: white;
   padding: 40px 24px;
-  margin-top: 40px;
 }
 
 .footer-columns {
@@ -442,6 +453,7 @@ body {
 @media (max-width: 768px) {
 
   body {
+    overflow-y: auto;
     overflow-x: hidden;
   }
   
@@ -508,7 +520,6 @@ body {
     min-width: 130px;
   }
 
-}
 }
 /* ===============================
    PRODUCT PAGE PRO LAYOUT
@@ -1242,10 +1253,13 @@ body {
 }
 
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 3000;
+  left: 0;
   width: 100%;
+  z-index: 3000;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .account-wrapper {
