@@ -271,11 +271,16 @@ if (product.media && product.media.length > 0) {
 
 function optimizeImage(url) {
   if (!url) return "/assets/img/no-image.png";
+
+  // Si ya es absoluta, devolver tal cual
+  if (url.startsWith("http")) return url;
+
+  // Si empieza sin /, agregárselo
+  if (!url.startsWith("/")) {
+    return "/" + url;
+  }
+
   return url;
 }
-
-  } catch (error) {
-    console.error("Error cargando home:", error);
-  }
 
 });
