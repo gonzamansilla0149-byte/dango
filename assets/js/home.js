@@ -282,5 +282,7 @@ buildDynamicBlocks(products);
 // ===============================
 // CREAR CARD
 // ===============================
-
+} catch (err) {
+  console.error("Error en home.js:", err);
+}
 });
