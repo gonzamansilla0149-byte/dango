@@ -9,6 +9,50 @@ const response = await fetch("/api/products");
 
     const products = await response.json();
 
+function createProductCard(product) {
+
+let image = "/assets/img/no-image.png";
+
+if (product.media && product.media.length > 0) {
+  const firstMedia = product.media.find(m => m.url);
+
+  if (firstMedia) {
+    image = optimizeImage(firstMedia.url);
+  }
+}
+
+  return `
+    <article class="product-card">
+      <a href="producto.html?id=${product.id}" class="product-link">
+        <div class="product-image" 
+             style="
+               background-image:url('${image}');
+               background-size:cover;
+               background-position:center;
+               background-repeat:no-repeat;
+             ">
+        </div>
+        <h3>${product.name}</h3>
+        <p class="price">$${Number(product.price).toLocaleString()}</p>
+      </a>
+    </article>
+  `;
+}
+
+function optimizeImage(url) {
+  if (!url) return "/assets/img/no-image.png";
+
+  // Si ya es absoluta, devolver tal cual
+  if (url.startsWith("http")) return url;
+
+  // Si empieza sin /, agregárselo
+  if (!url.startsWith("/")) {
+    return "/" + url;
+  }
+
+  return url;
+}
+    
     if (!products || products.length === 0) return;
 
     // ===============================
@@ -238,49 +282,5 @@ buildDynamicBlocks(products);
 // ===============================
 // CREAR CARD
 // ===============================
-
-function createProductCard(product) {
-
-let image = "/assets/img/no-image.png";
-
-if (product.media && product.media.length > 0) {
-  const firstMedia = product.media.find(m => m.url);
-
-  if (firstMedia) {
-    image = optimizeImage(firstMedia.url);
-  }
-}
-
-  return `
-    <article class="product-card">
-      <a href="producto.html?id=${product.id}" class="product-link">
-        <div class="product-image" 
-             style="
-               background-image:url('${image}');
-               background-size:cover;
-               background-position:center;
-               background-repeat:no-repeat;
-             ">
-        </div>
-        <h3>${product.name}</h3>
-        <p class="price">$${Number(product.price).toLocaleString()}</p>
-      </a>
-    </article>
-  `;
-}
-
-function optimizeImage(url) {
-  if (!url) return "/assets/img/no-image.png";
-
-  // Si ya es absoluta, devolver tal cual
-  if (url.startsWith("http")) return url;
-
-  // Si empieza sin /, agregárselo
-  if (!url.startsWith("/")) {
-    return "/" + url;
-  }
-
-  return url;
-}
 
 });
