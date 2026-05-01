@@ -1,7 +1,43 @@
 /* ===============================
    FUNCIONES
 ================================ */
+(function preloadCategories() {
+  const cached = localStorage.getItem("cached_categories");
+  if (!cached) return;
 
+  try {
+    const categories = JSON.parse(cached);
+
+    const nav = document.getElementById("nav-links");
+    const mobile = document.getElementById("categories-dropdown");
+
+    if (!nav) return;
+
+    function slugify(text) {
+      return (text || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, "-");
+    }
+
+    nav.innerHTML = `<a href="index.html">Inicio</a>`;
+
+    if (mobile) {
+      mobile.innerHTML = `<a href="index.html">Inicio</a>`;
+    }
+
+    categories.forEach(cat => {
+      const slug = slugify(cat.name);
+
+      const link = `<a href="categoria.html?cat=${slug}">${cat.name}</a>`;
+
+      nav.innerHTML += link;
+      if (mobile) mobile.innerHTML += link;
+    });
+
+  } catch (e) {}
+})();
 /* -------- CATEGORÍA DESDE LA URL -------- */
 function initCategoryFromURL() {
   const params = new URLSearchParams(window.location.search);
