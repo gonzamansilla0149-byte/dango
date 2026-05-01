@@ -2,8 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Admin - Marketing</title>
+  <title>Admin - Personalizar Tienda</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="stylesheet" href="/assets/css/admin.css">
 </head>
 <body>
@@ -19,23 +20,100 @@
 
   <aside class="sidebar">
     <h2>DANGO</h2>
-    <!-- pegá acá el nav actualizado -->
+    <nav>
+      <button onclick="window.location.href='/admin/index.html'">Inicio</button>
+      <button onclick="window.location.href='/admin/productos.html'">Productos</button>
+      <button onclick="window.location.href='/admin/categorias.html'">Categorías</button>
+      <button onclick="window.location.href='/admin/pedidos.html'">Pedidos</button>
+      <button onclick="window.location.href='/admin/reporte.html'">Reporte</button>
+      <button onclick="window.location.href='/admin/marketing.html'">Marketing</button>
+      <button onclick="window.location.href='/admin/metodopago.html'">Métodos de pago</button>
+      <button onclick="window.location.href='/admin/personaliza.html'">Personalizar</button>
+      <button id="logoutBtn">Cerrar sesión</button>
+    </nav>
   </aside>
 
   <main class="content">
-    <section id="marketing-view">
-      <div class="section-header">
-        <h1>Marketing</h1>
+
+    <section id="personaliza-view">
+
+      <div class="section-header" style="margin-bottom:20px;">
+        <h1>Personalizar tienda</h1>
       </div>
 
-      <p>Configuración de banners, promociones y campañas.</p>
+      <div style="display:flex;gap:30px;flex-wrap:wrap;">
+
+        <div style="flex:1;min-width:300px;display:flex;flex-direction:column;gap:20px;">
+
+          <div class="card" style="padding:20px;border:1px solid #ddd;border-radius:6px;">
+            <h3>Identidad de la tienda</h3>
+
+            <input type="text" id="store-name" placeholder="Nombre de la tienda" style="width:100%;margin-bottom:10px;">
+
+            <textarea id="store-description" placeholder="Descripción de la tienda" style="width:100%;margin-bottom:10px;"></textarea>
+
+            <label>Logo</label>
+            <input type="file" id="store-logo" accept="image/*" style="width:100%;margin-bottom:10px;">
+
+            <label>Favicon</label>
+            <input type="file" id="store-favicon" accept="image/*" style="width:100%;margin-bottom:10px;">
+
+            <button id="save-store-identity">Guardar identidad</button>
+          </div>
+
+          <div class="card" style="padding:20px;border:1px solid #ddd;border-radius:6px;">
+            <h3>Colores</h3>
+
+            <label>Color principal</label>
+            <input type="color" id="primary-color" value="#0f0f0f" style="width:100%;margin-bottom:10px;">
+
+            <label>Color secundario</label>
+            <input type="color" id="secondary-color" value="#ffffff" style="width:100%;margin-bottom:10px;">
+
+            <label>Color de botones</label>
+            <input type="color" id="button-color" value="#000000" style="width:100%;margin-bottom:10px;">
+
+            <button id="save-store-colors">Guardar colores</button>
+          </div>
+
+        </div>
+
+        <div style="flex:1;min-width:300px;display:flex;flex-direction:column;gap:20px;">
+
+          <div class="card" style="padding:20px;border:1px solid #ddd;border-radius:6px;">
+            <h3>Textos principales</h3>
+
+            <input type="text" id="home-title" placeholder="Título principal del home" style="width:100%;margin-bottom:10px;">
+
+            <input type="text" id="home-subtitle" placeholder="Subtítulo del home" style="width:100%;margin-bottom:10px;">
+
+            <input type="text" id="footer-text" placeholder="Texto del footer" style="width:100%;margin-bottom:10px;">
+
+            <button id="save-store-texts">Guardar textos</button>
+          </div>
+
+          <div class="card" style="padding:20px;border:1px solid #ddd;border-radius:6px;">
+            <h3>Vista previa</h3>
+
+            <div id="store-preview" style="border:1px solid #ddd;border-radius:6px;padding:15px;">
+              <h2 id="preview-store-name">DANGO</h2>
+              <p id="preview-store-description">Vista previa de tu tienda.</p>
+              <button id="preview-button">Botón de ejemplo</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
     </section>
+
   </main>
 
 </div>
 
 <script src="/assets/js/admin.js"></script>
-<script src="/assets/js/marketing.js"></script>
+<script src="/assets/js/personaliza.js"></script>
 
 </body>
 </html>
