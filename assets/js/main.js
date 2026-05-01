@@ -60,31 +60,6 @@ function initAccountDropdown() {
   }
 }
 
-function renderCategoryNav(categories) {
-  navContainer.innerHTML = "";
-  navContainer.innerHTML += `<a href="index.html">Inicio</a>`;
-
-  if (mobileContainer) {
-    mobileContainer.innerHTML = "";
-    mobileContainer.innerHTML += `<a href="index.html">Inicio</a>`;
-  }
-
-  categories.forEach(cat => {
-    const slug = slugify(cat.name);
-
-    const link = `
-      <a href="categoria.html?cat=${slug}">
-        ${cat.name}
-      </a>
-    `;
-
-    navContainer.innerHTML += link;
-
-    if (mobileContainer) {
-      mobileContainer.innerHTML += link;
-    }
-  });
-}
 /* -------- MENÚ CATEGORÍAS MOBILE -------- */
 function initMobileMenu() {
   const btnCategories = document.getElementById("btn-categories");
@@ -270,32 +245,19 @@ async function initDynamicCategories() {
 
   if (!navContainer) return;
 
-  try {
-let categories = JSON.parse(localStorage.getItem("cached_categories")) || [];
+  function slugify(text) {
+    return (text || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\s+/g, "-");
+  }
 
-if (categories.length > 0) {
-  renderCategoryNav(categories);
-}
-
-const res = await fetch("/api/categories");
-categories = await res.json();
-
-localStorage.setItem("cached_categories", JSON.stringify(categories));
-renderCategoryNav(categories);
-    function slugify(text) {
-      return (text || "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/\s+/g, "-");
-    }
-
-    navContainer.innerHTML = "";
-    navContainer.innerHTML += `<a href="index.html">Inicio</a>`;
+  function renderCategoryNav(categories) {
+    navContainer.innerHTML = `<a href="index.html">Inicio</a>`;
 
     if (mobileContainer) {
-      mobileContainer.innerHTML = "";
-      mobileContainer.innerHTML += `<a href="index.html">Inicio</a>`;
+      mobileContainer.innerHTML = `<a href="index.html">Inicio</a>`;
     }
 
     categories.forEach(cat => {
@@ -313,6 +275,24 @@ renderCategoryNav(categories);
         mobileContainer.innerHTML += link;
       }
     });
+  }
+
+  try {
+    // 🔥 1. CACHE INSTANTÁNEO
+    let categories = JSON.parse(localStorage.getItem("cached_categories")) || [];
+
+    if (categories.length > 0) {
+      renderCategoryNav(categories);
+    }
+
+    // 🔥 2. FETCH EN SEGUNDO PLANO
+    const res = await fetch("/api/categories");
+    categories = await res.json();
+
+    localStorage.setItem("cached_categories", JSON.stringify(categories));
+
+    // 🔥 3. ACTUALIZA UI
+    renderCategoryNav(categories);
 
   } catch (err) {
     console.error("Error cargando categorías dinámicas:", err);
