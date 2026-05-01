@@ -229,7 +229,6 @@ async function loadStoreTheme() {
 ================================ */
 
 document.addEventListener("DOMContentLoaded", () => {
-  loadStoreTheme();
   initAccountDropdown();
   initMobileMenu();
   initAutoSliders();
