@@ -224,18 +224,20 @@ if (request.method === "PUT" && url.pathname === "/api/store-theme") {
 
   const data = await request.json();
 
+  // 🔥 INSERT OR REPLACE asegura que SIEMPRE exista
   await env.DB.prepare(`
-    UPDATE store_theme
-    SET
-      primary_color = ?,
-      secondary_color = ?,
-      accent_color = ?,
-      background_color = ?,
-      surface_color = ?,
-      text_color = ?,
-      muted_color = ?,
-      border_color = ?
-    WHERE id = 1
+    INSERT OR REPLACE INTO store_theme (
+      id,
+      primary_color,
+      secondary_color,
+      accent_color,
+      background_color,
+      surface_color,
+      text_color,
+      muted_color,
+      border_color
+    )
+    VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?)
   `)
   .bind(
     data.primary_color,
