@@ -2,8 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Admin - Marketing</title>
+  <title>Admin - Métodos de Pago</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="stylesheet" href="/assets/css/admin.css">
 </head>
 <body>
@@ -17,25 +18,91 @@
 
 <div class="admin-layout">
 
+  <!-- SIDEBAR -->
   <aside class="sidebar">
     <h2>DANGO</h2>
-    <!-- pegá acá el nav actualizado -->
+    <nav>
+      <button onclick="window.location.href='/admin/index.html'">Inicio</button>
+      <button onclick="window.location.href='/admin/productos.html'">Productos</button>
+      <button onclick="window.location.href='/admin/categorias.html'">Categorías</button>
+      <button onclick="window.location.href='/admin/pedidos.html'">Pedidos</button>
+      <button onclick="window.location.href='/admin/reporte.html'">Reporte</button>
+      <button onclick="window.location.href='/admin/marketing.html'">Marketing</button>
+      <button onclick="window.location.href='/admin/metodopago.html'">Métodos de pago</button>
+      <button onclick="window.location.href='/admin/personaliza.html'">Personalizar</button>
+      <button id="logoutBtn">Cerrar sesión</button>
+    </nav>
   </aside>
 
+  <!-- CONTENIDO -->
   <main class="content">
-    <section id="marketing-view">
-      <div class="section-header">
-        <h1>Marketing</h1>
+
+    <section id="payment-view">
+
+      <div class="section-header" style="margin-bottom:20px;">
+        <h1>Métodos de pago</h1>
       </div>
 
-      <p>Configuración de banners, promociones y campañas.</p>
+      <div style="display:flex;gap:30px;flex-wrap:wrap;">
+
+        <!-- MERCADO PAGO -->
+        <div class="card" style="flex:1;min-width:300px;padding:20px;border:1px solid #ddd;border-radius:6px;">
+
+          <h3>Mercado Pago</h3>
+
+          <p style="margin-bottom:15px;">
+            Conectá tu cuenta para recibir pagos automáticamente.
+          </p>
+
+          <div id="mp-status" style="margin-bottom:10px;">
+            Estado: <strong>No conectado</strong>
+          </div>
+
+          <button id="connect-mp-btn" style="width:100%;margin-bottom:10px;">
+            Conectar con Mercado Pago
+          </button>
+
+          <button id="disconnect-mp-btn" style="width:100%;display:none;">
+            Desconectar cuenta
+          </button>
+
+        </div>
+
+        <!-- OTROS MÉTODOS -->
+        <div class="card" style="flex:1;min-width:300px;padding:20px;border:1px solid #ddd;border-radius:6px;">
+
+          <h3>Otros métodos</h3>
+
+          <label>
+            <input type="checkbox" id="enable-transfer">
+            Transferencia bancaria
+          </label>
+
+          <br><br>
+
+          <label>
+            <input type="checkbox" id="enable-cash">
+            Pago en efectivo
+          </label>
+
+          <br><br>
+
+          <button id="save-payment-settings">
+            Guardar configuración
+          </button>
+
+        </div>
+
+      </div>
+
     </section>
+
   </main>
 
 </div>
 
 <script src="/assets/js/admin.js"></script>
-<script src="/assets/js/marketing.js"></script>
+<script src="/assets/js/metodopago.js"></script>
 
 </body>
 </html>
