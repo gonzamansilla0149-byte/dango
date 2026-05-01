@@ -12,6 +12,24 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+  <script>
+  const savedTheme = localStorage.getItem("store_theme");
+
+  if (savedTheme) {
+    const theme = JSON.parse(savedTheme);
+    const root = document.documentElement;
+
+    if (theme.primary_color) root.style.setProperty("--store-primary", theme.primary_color);
+    if (theme.secondary_color) root.style.setProperty("--store-secondary", theme.secondary_color);
+    if (theme.accent_color) root.style.setProperty("--store-accent", theme.accent_color);
+    if (theme.background_color) root.style.setProperty("--store-background", theme.background_color);
+    if (theme.surface_color) root.style.setProperty("--store-surface", theme.surface_color);
+    if (theme.text_color) root.style.setProperty("--store-text", theme.text_color);
+    if (theme.muted_color) root.style.setProperty("--store-muted", theme.muted_color);
+    if (theme.border_color) root.style.setProperty("--store-border", theme.border_color);
+  }
+</script>
+  
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
