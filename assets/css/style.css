@@ -1694,3 +1694,11 @@ a:hover {
     gap: 12px;
   }
 }
+
+.shop-content {
+  overscroll-behavior: contain;
+}
+
+#category-products {
+  padding-bottom: 20px;
+}
