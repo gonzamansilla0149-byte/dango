@@ -602,7 +602,7 @@ if (request.method === "PUT" && url.pathname.startsWith("/api/products/")) {
       }
     });
 
-    const url = `https://YOUR_DOMAIN_R2_PUBLIC/${key}`;
+    const url = `https://pub-f6ef9e57ec2541ad909a886f1407ea8a.r2.dev/${key}`;
 
     await env.DB.prepare(`
       INSERT INTO product_media (product_id, url, type, position)
