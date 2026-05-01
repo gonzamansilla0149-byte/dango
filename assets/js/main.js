@@ -59,6 +59,32 @@ function initAccountDropdown() {
     });
   }
 }
+
+function renderCategoryNav(categories) {
+  navContainer.innerHTML = "";
+  navContainer.innerHTML += `<a href="index.html">Inicio</a>`;
+
+  if (mobileContainer) {
+    mobileContainer.innerHTML = "";
+    mobileContainer.innerHTML += `<a href="index.html">Inicio</a>`;
+  }
+
+  categories.forEach(cat => {
+    const slug = slugify(cat.name);
+
+    const link = `
+      <a href="categoria.html?cat=${slug}">
+        ${cat.name}
+      </a>
+    `;
+
+    navContainer.innerHTML += link;
+
+    if (mobileContainer) {
+      mobileContainer.innerHTML += link;
+    }
+  });
+}
 /* -------- MENÚ CATEGORÍAS MOBILE -------- */
 function initMobileMenu() {
   const btnCategories = document.getElementById("btn-categories");
