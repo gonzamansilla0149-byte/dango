@@ -41,31 +41,7 @@ function slugify(text) {
     .replace(/\s+/g, "-");
 }
 
-if (categoryContainer) {
 
-  const res = await fetch("/api/categories");
-  const categories = await res.json();
-
-  categoryContainer.innerHTML = "";
-
-  categories.forEach(cat => {
-
-    const slug = slugify(cat.name);
-    const isActive = slug === category ? "active" : "";
-
-    categoryContainer.innerHTML += `
-      <button class="filter-item ${isActive}"
-              data-category="${slug}">
-        ${cat.name}
-      </button>
-    `;
-  });
-
-  categoryContainer.addEventListener("click", (e) => {
-    if (!e.target.dataset.category) return;
-    window.location.href = `categoria.html?cat=${e.target.dataset.category}`;
-  });
-}
 
 // ⚠️ RECIÉN ACÁ validamos category
 if (!category) {
@@ -95,6 +71,32 @@ if (breadcrumbElement)
   breadcrumbElement.textContent = `Inicio / Categoría / ${categoryName}`;
 
 document.title = `Dango | ${categoryName}`;
+
+  if (categoryContainer) {
+
+  const res = await fetch("/api/categories");
+  const categories = await res.json();
+
+  categoryContainer.innerHTML = "";
+
+  categories.forEach(cat => {
+
+    const slug = slugify(cat.name);
+    const isActive = slug === category ? "active" : "";
+
+    categoryContainer.innerHTML += `
+      <button class="filter-item ${isActive}"
+              data-category="${slug}">
+        ${cat.name}
+      </button>
+    `;
+  });
+
+  categoryContainer.addEventListener("click", (e) => {
+    if (!e.target.dataset.category) return;
+    window.location.href = `categoria.html?cat=${e.target.dataset.category}`;
+  });
+}
 
   // ===============================
 // TRACKING DE CATEGORÍA
