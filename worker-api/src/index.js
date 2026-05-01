@@ -198,6 +198,73 @@ if (request.method === "POST" && url.pathname === "/api/login") {
 
     try {
 
+  // =========================
+// GET STORE THEME (PÚBLICO)
+// =========================
+if (request.method === "GET" && url.pathname === "/api/store-theme") {
+
+  const theme = await env.DB.prepare(`
+    SELECT *
+    FROM store_theme
+    WHERE id = 1
+  `).first();
+
+  return new Response(JSON.stringify(theme || {}), {
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders
+    }
+  });
+}
+
+// =========================
+// UPDATE STORE THEME (ADMIN)
+// =========================
+if (request.method === "PUT" && url.pathname === "/api/store-theme") {
+
+  if (!verifyAdmin(request)) {
+    return new Response("No autorizado", {
+      status: 401,
+      headers: corsHeaders
+    });
+  }
+
+  const data = await request.json();
+
+  await env.DB.prepare(`
+    UPDATE store_theme
+    SET
+      primary_color = ?,
+      secondary_color = ?,
+      accent_color = ?,
+      background_color = ?,
+      surface_color = ?,
+      text_color = ?,
+      muted_color = ?,
+      border_color = ?
+    WHERE id = 1
+  `)
+  .bind(
+    data.primary_color,
+    data.secondary_color,
+    data.accent_color,
+    data.background_color,
+    data.surface_color,
+    data.text_color,
+    data.muted_color,
+    data.border_color
+  )
+  .run();
+
+  return new Response(JSON.stringify({ success: true }), {
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders
+    }
+  });
+}
+
+      
 // =========================
 // GET CATEGORIES
 // =========================
