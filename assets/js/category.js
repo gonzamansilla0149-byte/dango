@@ -13,8 +13,10 @@ const paginationContainer = document.getElementById("pagination");
 if (!container) return;
 
 
-  container.innerHTML = `
-  ${Array.from({ length: 4 }).map(() => `
+const skeletonCount = window.innerWidth > 768 ? 8 : 6;
+
+container.innerHTML = `
+  ${Array.from({ length: skeletonCount }).map(() => `
     <article class="product-card skeleton-card">
       <div class="product-image skeleton-box"></div>
       <div class="skeleton-line"></div>
