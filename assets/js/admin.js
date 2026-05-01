@@ -1032,8 +1032,71 @@ if (!isLoginPage) {
     renderOrders();
   }
 
-  if (document.getElementById("categories-list")) {
-    initCategoryView();
+if (document.getElementById("categories-list")) {
+  initCategoryView();
+}
+
+initStoreThemeAdmin(); // 👈 AGREGAR ESTA LÍNEA
+});
+
+
+// ============================
+// PERSONALIZAR TIENDA - COLORES
+// ============================
+
+async function initStoreThemeAdmin() {
+
+  const saveBtn = document.getElementById("save-store-colors");
+  if (!saveBtn) return; // 👈 evita romper otras vistas
+
+  const fields = {
+    primary_color: document.getElementById("primary-color"),
+    secondary_color: document.getElementById("secondary-color"),
+    accent_color: document.getElementById("accent-color"),
+    background_color: document.getElementById("background-color"),
+    surface_color: document.getElementById("surface-color"),
+    text_color: document.getElementById("text-color"),
+    muted_color: document.getElementById("muted-color"),
+    border_color: document.getElementById("border-color")
+  };
+
+  // 🔹 Cargar colores actuales
+  try {
+    const res = await authFetch(`${API_URL}/api/store-theme`);
+    const theme = await res.json();
+
+    Object.keys(fields).forEach(key => {
+      if (fields[key] && theme[key]) {
+        fields[key].value = theme[key];
+      }
+    });
+
+  } catch (err) {
+    console.error("Error cargando tema:", err);
   }
 
-});
+  // 🔹 Guardar
+  saveBtn.addEventListener("click", async () => {
+
+    const payload = {};
+
+    Object.keys(fields).forEach(key => {
+      if (fields[key]) {
+        payload[key] = fields[key].value;
+      }
+    });
+
+    const res = await authFetch(`${API_URL}/api/store-theme`, {
+      method: "PUT",
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+      const error = await res.text();
+      alert("Error guardando colores: " + error);
+      return;
+    }
+
+    alert("Colores guardados correctamente");
+  });
+}
