@@ -428,7 +428,7 @@ existingContainer.innerHTML += `
     ${
       isVideo
         ? `<video src="${API_URL}${media.url}" width="120"></video>`
-        : `<img src="${API_URL}${media.url}" width="120">`
+        : `<img src="${media.url}"`
     }
     <button 
       type="button"
