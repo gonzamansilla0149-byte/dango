@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Admin - Marketing</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="stylesheet" href="/assets/css/admin.css">
 </head>
 <body>
@@ -19,17 +20,73 @@
 
   <aside class="sidebar">
     <h2>DANGO</h2>
-    <!-- pegá acá el nav actualizado -->
+    <nav>
+      <button onclick="window.location.href='/admin/index.html'">Inicio</button>
+      <button onclick="window.location.href='/admin/productos.html'">Productos</button>
+      <button onclick="window.location.href='/admin/categorias.html'">Categorías</button>
+      <button onclick="window.location.href='/admin/pedidos.html'">Pedidos</button>
+      <button onclick="window.location.href='/admin/reporte.html'">Reporte</button>
+      <button onclick="window.location.href='/admin/marketing.html'">Marketing</button>
+      <button onclick="window.location.href='/admin/metodopago.html'">Métodos de pago</button>
+      <button onclick="window.location.href='/admin/personaliza.html'">Personalizar</button>
+      <button id="logoutBtn">Cerrar sesión</button>
+    </nav>
   </aside>
 
   <main class="content">
+
     <section id="marketing-view">
-      <div class="section-header">
+
+      <div class="section-header" style="margin-bottom:20px;">
         <h1>Marketing</h1>
       </div>
 
-      <p>Configuración de banners, promociones y campañas.</p>
+      <div class="categories-grid" style="display:flex;gap:30px;flex-wrap:wrap;">
+
+        <div class="category-forms" style="flex:1;min-width:300px;display:flex;flex-direction:column;gap:20px;">
+
+          <div class="card" style="padding:15px;border:1px solid #ddd;border-radius:6px;">
+            <h3>Banner principal</h3>
+            <input type="text" id="hero-title" placeholder="Título del banner" style="width:100%;margin-bottom:10px;">
+            <input type="text" id="hero-subtitle" placeholder="Subtítulo" style="width:100%;margin-bottom:10px;">
+            <input type="text" id="hero-button-text" placeholder="Texto del botón" style="width:100%;margin-bottom:10px;">
+            <input type="text" id="hero-button-link" placeholder="Link del botón" style="width:100%;margin-bottom:10px;">
+            <input type="file" id="hero-image" accept="image/*" style="width:100%;margin-bottom:10px;">
+            <button id="save-hero-btn">Guardar banner</button>
+          </div>
+
+          <div class="card" style="padding:15px;border:1px solid #ddd;border-radius:6px;">
+            <h3>Nueva promoción</h3>
+            <input type="text" id="promo-title" placeholder="Título promoción" style="width:100%;margin-bottom:10px;">
+            <input type="text" id="promo-description" placeholder="Descripción" style="width:100%;margin-bottom:10px;">
+            <input type="text" id="promo-link" placeholder="Link destino" style="width:100%;margin-bottom:10px;">
+            <button id="create-promo-btn">Crear promoción</button>
+          </div>
+
+        </div>
+
+        <div class="category-lists" style="flex:1;min-width:300px;display:flex;flex-direction:column;gap:20px;">
+
+          <div class="card" style="padding:15px;border:1px solid #ddd;border-radius:6px;">
+            <h3>Vista previa banner</h3>
+            <div id="hero-preview">
+              <p>No hay banner cargado.</p>
+            </div>
+          </div>
+
+          <div class="card" style="padding:15px;border:1px solid #ddd;border-radius:6px;">
+            <h3>Promociones activas</h3>
+            <div id="promotions-list">
+              <p>No hay promociones cargadas.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
     </section>
+
   </main>
 
 </div>
