@@ -1649,3 +1649,24 @@ a:hover {
     background-position: -200% 0;
   }
 }
+
+.shop-content {
+  max-height: calc(100vh - 190px);
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.shop-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.shop-content::-webkit-scrollbar-thumb {
+  background: var(--store-border);
+  border-radius: 20px;
+}
+
+.sidebar {
+  position: sticky;
+  top: 140px;
+  align-self: flex-start;
+}
