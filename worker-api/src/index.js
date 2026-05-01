@@ -433,6 +433,17 @@ if (search) {
 
   const { results } = await stmt.all();
 
+  for (const product of results) {
+  const mediaResult = await env.DB.prepare(`
+    SELECT id, url, type, position
+    FROM product_media
+    WHERE product_id = ?
+    ORDER BY position ASC
+  `).bind(product.id).all();
+
+  product.media = mediaResult.results || [];
+}
+
   return new Response(JSON.stringify(results), {
     headers: {
       "Content-Type": "application/json",
