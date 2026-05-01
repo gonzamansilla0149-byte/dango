@@ -117,9 +117,6 @@ trackView("category", categoryName);
 const filteredProducts = allProducts.filter(p =>
   slugify(p.category_name || "") === category
 );
-   if (filteredProducts.length === 0) {
-  container.innerHTML = "<p>No hay productos en esta categoría.</p>";
-}
 
     // ===============================
     // ESTADO DE FILTROS
