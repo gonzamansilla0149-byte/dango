@@ -154,7 +154,10 @@ body {
 
 /* CONTENT */
 .shop-content {
-  flex: 1;
+  width: 100%;
+  min-width: 0; /* 🔥 CLAVE para que no rompa grid */
+  max-height: calc(100vh - 190px);
+  overflow-y: auto;
 }
 
 .category-header {
