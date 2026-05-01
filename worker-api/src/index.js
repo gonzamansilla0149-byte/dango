@@ -16,6 +16,38 @@ if (request.method === "GET" && (url.pathname === "/admin" || url.pathname === "
 }
 
 // =========================
+// CSS DINÁMICO (TEMA)
+// =========================
+if (request.method === "GET" && url.pathname === "/theme.css") {
+
+  const theme = await env.DB.prepare(`
+    SELECT *
+    FROM store_theme
+    LIMIT 1
+  `).first();
+
+  const css = `
+:root {
+  --store-primary: ${theme?.primary_color || "#0f0f0f"};
+  --store-secondary: ${theme?.secondary_color || "#ffffff"};
+  --store-accent: ${theme?.accent_color || "#0077ff"};
+  --store-background: ${theme?.background_color || "#ffffff"};
+  --store-surface: ${theme?.surface_color || "#fafafa"};
+  --store-text: ${theme?.text_color || "#111111"};
+  --store-muted: ${theme?.muted_color || "#666666"};
+  --store-border: ${theme?.border_color || "#eeeeee"};
+}
+`;
+
+  return new Response(css, {
+    headers: {
+      "Content-Type": "text/css",
+      "Cache-Control": "no-store"
+    }
+  });
+}
+
+// =========================
 // DEJAR PASAR TODO LO QUE NO SEA API
 // =========================
 if (
@@ -198,38 +230,6 @@ if (request.method === "POST" && url.pathname === "/api/login") {
 
     try {
 
-
-      // =========================
-// CSS DINÁMICO (TEMA)
-// =========================
-if (request.method === "GET" && url.pathname === "/theme.css") {
-
-  const theme = await env.DB.prepare(`
-    SELECT *
-    FROM store_theme
-    LIMIT 1
-  `).first();
-
-  const css = `
-:root {
-  --store-primary: ${theme?.primary_color || "#0f0f0f"};
-  --store-secondary: ${theme?.secondary_color || "#ffffff"};
-  --store-accent: ${theme?.accent_color || "#0077ff"};
-  --store-background: ${theme?.background_color || "#ffffff"};
-  --store-surface: ${theme?.surface_color || "#fafafa"};
-  --store-text: ${theme?.text_color || "#111111"};
-  --store-muted: ${theme?.muted_color || "#666666"};
-  --store-border: ${theme?.border_color || "#eeeeee"};
-}
-`;
-
-  return new Response(css, {
-    headers: {
-      "Content-Type": "text/css",
-      ...corsHeaders
-    }
-  });
-}
   // =========================
 // GET STORE THEME (PÚBLICO)
 // =========================
