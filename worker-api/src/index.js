@@ -222,13 +222,6 @@ if (request.method === "GET" && url.pathname === "/api/store-theme") {
 // =========================
 if (request.method === "PUT" && url.pathname === "/api/store-theme") {
 
-  if (!verifyAdmin(request)) {
-    return new Response("No autorizado", {
-      status: 401,
-      headers: corsHeaders
-    });
-  }
-
   const data = await request.json();
 
   await env.DB.prepare(`
