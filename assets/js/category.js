@@ -14,7 +14,7 @@ if (!container) return;
 
 
   container.innerHTML = `
-  ${Array.from({ length: 8 }).map(() => `
+  ${Array.from({ length: 4 }).map(() => `
     <article class="product-card skeleton-card">
       <div class="product-image skeleton-box"></div>
       <div class="skeleton-line"></div>
