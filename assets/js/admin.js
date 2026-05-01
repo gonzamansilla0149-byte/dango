@@ -1097,6 +1097,8 @@ async function initStoreThemeAdmin() {
       return;
     }
 
+  localStorage.setItem("store_theme", JSON.stringify(payload));
+    
     alert("Colores guardados correctamente");
   });
 }
