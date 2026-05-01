@@ -202,7 +202,7 @@ function initGlobalSearch() {
 /* -------- TEMA DINÁMICO DE LA TIENDA -------- */
 async function loadStoreTheme() {
   try {
-    const res = await fetch("/api/store-theme");
+    const res = await fetch("https://dango.gonzamansilla0149.workers.dev/api/store-theme");
     if (!res.ok) return;
 
     const theme = await res.json();
