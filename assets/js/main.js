@@ -245,9 +245,17 @@ async function initDynamicCategories() {
   if (!navContainer) return;
 
   try {
-    const res = await fetch("/api/categories");
-    const categories = await res.json();
+let categories = JSON.parse(localStorage.getItem("cached_categories")) || [];
 
+if (categories.length > 0) {
+  renderCategoryNav(categories);
+}
+
+const res = await fetch("/api/categories");
+categories = await res.json();
+
+localStorage.setItem("cached_categories", JSON.stringify(categories));
+renderCategoryNav(categories);
     function slugify(text) {
       return (text || "")
         .toLowerCase()
