@@ -13,6 +13,17 @@ const paginationContainer = document.getElementById("pagination");
 if (!container) return;
 
 
+  container.innerHTML = `
+  ${Array.from({ length: 8 }).map(() => `
+    <article class="product-card skeleton-card">
+      <div class="product-image skeleton-box"></div>
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line short"></div>
+      <div class="skeleton-line price-line"></div>
+    </article>
+  `).join("")}
+`;
+
 // ===============================
 // GENERAR LISTA DE CATEGORÍAS
 // ===============================
