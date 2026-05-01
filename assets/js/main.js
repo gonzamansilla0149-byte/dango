@@ -199,17 +199,42 @@ function initGlobalSearch() {
 
 }
 
+/* -------- TEMA DINÁMICO DE LA TIENDA -------- */
+async function loadStoreTheme() {
+  try {
+    const res = await fetch("/api/store-theme");
+    if (!res.ok) return;
+
+    const theme = await res.json();
+    const root = document.documentElement;
+
+    if (theme.primary_color) root.style.setProperty("--store-primary", theme.primary_color);
+    if (theme.secondary_color) root.style.setProperty("--store-secondary", theme.secondary_color);
+    if (theme.accent_color) root.style.setProperty("--store-accent", theme.accent_color);
+    if (theme.background_color) root.style.setProperty("--store-background", theme.background_color);
+    if (theme.surface_color) root.style.setProperty("--store-surface", theme.surface_color);
+    if (theme.text_color) root.style.setProperty("--store-text", theme.text_color);
+    if (theme.muted_color) root.style.setProperty("--store-muted", theme.muted_color);
+    if (theme.border_color) root.style.setProperty("--store-border", theme.border_color);
+
+  } catch (err) {
+    console.error("Error cargando tema:", err);
+  }
+}
+
+
 /* ===============================
    INICIALIZACIÓN GENERAL
 ================================ */
 
 document.addEventListener("DOMContentLoaded", () => {
+  loadStoreTheme();
   initCategoryFromURL();
   initAccountDropdown();
   initMobileMenu();
   initAutoSliders();
   initDynamicCategories();
-  initGlobalSearch(); // 🔥 ESTA LÍNEA
+  initGlobalSearch();
 });
 
 /* -------- MENÚ DINÁMICO DESDE API -------- */
