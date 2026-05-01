@@ -1706,10 +1706,26 @@ a:hover {
 }
 
 @media (min-width: 1025px) {
-  body {
+  body.category-page {
     height: 100vh;
     overflow: hidden;
   }
+
+  body.category-page .shop-layout {
+    height: calc(100vh - 110px - 43px - 120px);
+    overflow: hidden;
+  }
+
+  body.category-page .shop-content {
+    height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  body.category-page .site-footer {
+    flex-shrink: 0;
+  }
+}
 
   .shop-layout {
     height: calc(100vh - 110px - 43px - 120px);
