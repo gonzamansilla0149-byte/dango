@@ -7,6 +7,25 @@ document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
   const category = params.get("cat");
 
+  function unslugify(text) {
+  return (text || "")
+    .replace(/-/g, " ")
+    .replace(/\b\w/g, l => l.toUpperCase());
+}
+
+const instantCategoryName = unslugify(category);
+
+const instantTitle = document.getElementById("category-title");
+const instantBreadcrumb = document.getElementById("breadcrumb");
+
+if (instantTitle && category) {
+  instantTitle.textContent = instantCategoryName;
+}
+
+if (instantBreadcrumb && category) {
+  instantBreadcrumb.textContent = `Inicio / Categoría / ${instantCategoryName}`;
+}
+
 const container = document.getElementById("category-products");
 const paginationContainer = document.getElementById("pagination");
 
@@ -26,12 +45,6 @@ container.innerHTML = `
   `).join("")}
 `;
 
-// ===============================
-// GENERAR LISTA DE CATEGORÍAS
-// ===============================
-// ===============================
-// GENERAR LISTA DE CATEGORÍAS (DINÁMICO)
-// ===============================
 
 const categoryContainer = document.getElementById("category-filter");
 
